@@ -1,7 +1,12 @@
-import "./App.css";
-import Router from "./shared/Router";
+import Router from './Router';
+import tw from 'tailwind-styled-components';
+
 function App() {
-  return <Router />;
+  return (
+    <>
+      <Router />
+    </>
+  );
 }
 
 export default App;
