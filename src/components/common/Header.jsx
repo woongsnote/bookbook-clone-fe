@@ -1,15 +1,15 @@
-import React from 'react';
-import tw from 'tailwind-styled-components';
-import { BiMenu } from 'react-icons/bi';
-import logo from '../../image/book_logo.svg';
-import App from './../../App';
+import React from "react";
+import tw from "tailwind-styled-components";
+import { BiMenu } from "react-icons/bi";
+import logo from "../../image/book_logo.svg";
+import App from "./../../App";
 
 const Header = () => {
   return (
     <HeaderBox>
       <BiMenu fontSize={40} />
       <Logo>
-        <img src={logo} alt='logo' />
+        <img src={logo} alt="logo" />
       </Logo>
       <UserInfo>도토리킹</UserInfo>
     </HeaderBox>
