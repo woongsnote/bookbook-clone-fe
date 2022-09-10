@@ -3,10 +3,10 @@ module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
   theme: {
     colors: {
-      'white': '#ffffff',
-      'red': '#D34242',
-      'blue': '#567F9E',
-      'black': '#3A3A3A',
+      'Bwhite': '#ffffff',
+      'Bred': '#D34242',
+      'Bblue': '#567F9E',
+      'Bblack': '#3A3A3A',
     },
     extend: {
       width: {
