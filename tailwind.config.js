@@ -6,6 +6,7 @@ module.exports = {
       'Bwhite': '#ffffff',
       'Bred': '#D34242',
       'Bblue': '#567F9E',
+      'BDeepblue': '#375160',
       'Bblack': '#3A3A3A',
     },
     extend: {

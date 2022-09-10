@@ -28,7 +28,7 @@ const DatePickWrap = styled.div`
   width: 100%;
 
   & input {
-    min-width: 45%;
+    width: 250px;
     text-align: center;
     border: 1px solid red;
     border-radius: 7px;

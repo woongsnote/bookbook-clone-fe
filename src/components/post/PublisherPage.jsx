@@ -17,18 +17,24 @@ const PublisherPage = () => {
 };
 
 const BookIntroBox = styled.div`
+  display: flex;
+  /* justify-content: space-between; */
   margin-top: 10%;
   & input {
-    border: 1px solid black;
+    width: 150px;
+    border: .5px solid rgba(58, 58, 58, 0.3);
     border-radius: 15px;
-    background-color: red;
+    background-color: #fff;
     box-shadow: 0px 15px 25px -4px rgba(150, 150, 150, 0.24);
   }
 `;
 
-const APage = tw.div``;
+const APage = tw.div`
+  ml-12
+`;
 
 const BookIntroTitle = tw.div`
+  flex
   text-black
   text-xl
   font-bold
@@ -38,5 +44,6 @@ const PageTitle = tw.div`
   text-xl
   font-bold
 `;
+
 
 export default PublisherPage;
