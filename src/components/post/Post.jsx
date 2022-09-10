@@ -3,18 +3,12 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 import Header from '../common/Header';
 import styled from 'styled-components';
+import DatePick from './DatePick';
 
-// 데이터 픽커
-import DatePicker from 'react-datepicker';
-import 'react-datepicker/dist/react-datepicker.css';
 
 const Post = () => {
   const navigate = useNavigate;
-
   const [title, setTitle] = useState('');
-
-  const [dateRange, setDateRange] = useState([null, null]);
-  const [startDate, endDate] = dateRange;
 
   return (
     <PostWrap>
@@ -28,14 +22,7 @@ const Post = () => {
           <BookImg className='w-2/5 h-2/5 bg-slate-200' />
           <BookInfo>
             <BookReading>
-              <DatePicker
-                selectsRange={true}
-                startDate={startDate}
-                endDate={endDate}
-                onChange={update => {
-                  setDateRange(update);
-                }}
-              />
+              <DatePick />
             </BookReading>
           </BookInfo>
         </InfoBox>
