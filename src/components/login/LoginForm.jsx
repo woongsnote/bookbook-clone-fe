@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 import Button from "../../elem/Button";
+import Logo from "../common/Logo";
 
 const LoginForm = () => {
   const navigate = useNavigate();
@@ -18,12 +19,15 @@ const LoginForm = () => {
 
   const onClickLogin = () => {
     console.log("click Login");
-    navigate("/");
+    navigate("/main");
   };
   return (
     <Form>
       <FormContainer>
-        <Title>북적북적</Title>
+        <LogBox>
+          <Logo />
+        </LogBox>
+
         <Input
           type="email"
           placeholder="이메일"
@@ -53,17 +57,6 @@ const LoginForm = () => {
   );
 };
 
-const Title = tw.h2`
-text-gray-800 
-text-2xl 
-lg:text-3xl
-font-bold 
-text-center
-mb-4
-md:mb-8
-my-4
-`;
-
 const Form = tw.form`
 max-w-lg
 border
@@ -78,6 +71,10 @@ flex-col
 gap-4
 p-4
 md:m-8
+`;
+
+const LogBox = tw.div`
+  flex self-center
 `;
 
 const Input = tw.input`

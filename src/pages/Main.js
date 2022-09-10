@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
+
 const Main = () => {
   return (
     <>

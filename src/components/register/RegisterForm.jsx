@@ -2,7 +2,7 @@ import tw from "tailwind-styled-components";
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../../elem/Button";
-
+import Logo from "../common/Logo";
 /** 회원가입 폼 */
 const RegisterForm = () => {
   const navigate = useNavigate();
@@ -25,15 +25,18 @@ const RegisterForm = () => {
     console.log("닉네임 중복확인");
   };
 
+  //TODO 로그인 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
   const onClickRegister = () => {
     console.log("click Register");
-    navigate("/");
+    navigate("/main");
   };
 
   return (
     <Form>
       <FormContainer>
-        <Title>북적북적</Title>
+        <LogBox>
+          <Logo />
+        </LogBox>
 
         <div className="flex">
           <Input
@@ -77,7 +80,7 @@ const RegisterForm = () => {
 
         <RegisterText>이미 가입이 되어있으신가요?</RegisterText>
 
-        <Link to="/login">
+        <Link to="/">
           <LoginLink>로그인</LoginLink>
         </Link>
 
@@ -116,6 +119,10 @@ flex-col
 gap-4
 p-4
 md:m-8
+`;
+
+const LogBox = tw.div`
+  flex self-center
 `;
 
 const Input = tw.input`
