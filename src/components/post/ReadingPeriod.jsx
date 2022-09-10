@@ -9,7 +9,8 @@ const ReadingPeriod = () => {
     </BookReadingBox>
   );
 };
-const BookReadingBox = tw.div``;
+const BookReadingBox = tw.div`
+`;
 
 const DateTitle = tw.div`
   text-black

@@ -15,6 +15,7 @@ const BookIntroBox = styled.div`
   & > textarea {
     min-width: 80%;
     min-height: 9.375rem;
+    border: .5px solid rgba(58, 58, 58, 0.3);
     box-shadow: 0px 15px 25px -4px rgba(150, 150, 150, 0.24)
   }
 `;

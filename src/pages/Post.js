@@ -1,14 +1,14 @@
 // import { useState } from 'react';
 // import { useLocation, useNavigate } from 'react-router-dom';
-import tw from "tailwind-styled-components";
-import Header from "../components/common/Header";
+import tw from 'tailwind-styled-components';
+import Header from '../components/common/Header';
 
 // 각각 요소 컴포넌트
-import Star from "../components/post/Star";
-import BookImg from "../components/post/BookImg";
-import ReadingPeriod from "../components/post/ReadingPeriod";
-import BookIntro from "../components/post/BookIntro";
-import PublisherPage from "../components/post/PublisherPage";
+import BookImg from '../components/post/BookImg';
+import ReadingPeriod from '../components/post/ReadingPeriod';
+import Star from '../components/post/Star';
+import BookIntro from '../components/post/BookIntro';
+import PublisherPage from '../components/post/PublisherPage';
 
 const Post = () => {
   // const navigate = useNavigate;
@@ -17,17 +17,21 @@ const Post = () => {
   return (
     <PostWrap>
       <Header />
+
       <PostCon>
-        <InfoBox className="flex mt-16 h-screen">
-        <PostTitle>해리포터</PostTitle>
+        <InfoBox className='flex mt-16'>
           <BookImg />
           <BookInfo>
+            <PostTitle placeholder='제목을 입력하세요' />
             <ReadingPeriod />
             <Star />
             <BookIntro />
             <PublisherPage />
           </BookInfo>
         </InfoBox>
+        <Button className='button transition delay-100 duration-300 ease-in-out' type='button' >
+          등록
+        </Button>
       </PostCon>
     </PostWrap>
   );
@@ -35,29 +39,41 @@ const Post = () => {
 
 const PostWrap = tw.div`
   w-full
-  h-screen
-  
-`;
+  h-auto
+  `;
 
 const PostCon = tw.div`
   w-c
-  h-screen
+  bg-slate-300
   mx-auto
-  mt-28
-`;
+  `;
 
-const PostTitle = tw.div`
-  text-red
+const PostTitle = tw.input`
+  text-Bblack
   text-2xl
-`;
+  font-bold
+  w-auto
+  mb-3
+  `;
 
 const InfoBox = tw.div`
   w-full
-`;
+  `;
 
 const BookInfo = tw.div`
-  w-3/5
-  
+    w-3/5
+    h-1/2
+    px-10
+`;
+
+const Button = tw.button`
+  w-full
+  h-10
+  mt-20
+  bg-Bblue
+  text-Bwhite
+  rounded-full
+  hover:bg-BDeepblue
 `;
 
 export default Post;
