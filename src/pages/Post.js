@@ -18,8 +18,8 @@ const Post = () => {
     <PostWrap>
       <Header />
       <PostCon>
-        <PostTitle>해리포터</PostTitle>
         <InfoBox className="flex mt-16 h-screen">
+        <PostTitle>해리포터</PostTitle>
           <BookImg />
           <BookInfo>
             <ReadingPeriod />
@@ -36,7 +36,7 @@ const Post = () => {
 const PostWrap = tw.div`
   w-full
   h-screen
-  bg-slate-300
+  
 `;
 
 const PostCon = tw.div`
@@ -47,17 +47,17 @@ const PostCon = tw.div`
 `;
 
 const PostTitle = tw.div`
+  text-red
  text-2xl
 `;
 
 const InfoBox = tw.div`
-  bg-slate-600
   w-full
 `;
 
 const BookInfo = tw.div`
   w-3/5
-  bg-red-300
+  
 `;
 
 export default Post;
