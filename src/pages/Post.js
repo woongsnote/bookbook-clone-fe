@@ -48,7 +48,7 @@ const PostCon = tw.div`
 
 const PostTitle = tw.div`
   text-red
- text-2xl
+  text-2xl
 `;
 
 const InfoBox = tw.div`

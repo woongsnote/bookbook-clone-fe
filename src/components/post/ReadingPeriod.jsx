@@ -12,8 +12,9 @@ const ReadingPeriod = () => {
 const BookReadingBox = tw.div``;
 
 const DateTitle = tw.div`
-  text-white
+  text-black
   text-xl
+  font-bold
 `;
 
 export default ReadingPeriod;

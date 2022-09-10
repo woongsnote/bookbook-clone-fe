@@ -40,8 +40,9 @@ const StarBox = tw.div`
 `;
 
 const StarTitle = tw.div`
-  text-white
+  text-black
   text-xl
+  font-bold
 `;
 const RatingBox = styled.div`
   display: flex;
