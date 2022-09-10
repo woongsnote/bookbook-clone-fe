@@ -1,17 +1,17 @@
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
+import tw from "tailwind-styled-components";
+import styled from "styled-components";
 
-const Publisher = () => {
+const PublisherPage = () => {
   return (
     <BookIntroBox>
-      <Publisher>
+      <div>
         <BookIntroTitle>출판사</BookIntroTitle>
-        <input type='text' name='publisher' />
-      </Publisher>
-      <Page>
+        <input type="text" name="publisher" />
+      </div>
+      <APage>
         <PageTitle>페이지</PageTitle>
-        <input type='text' name='publisher' />
-      </Page>
+        <input type="text" name="publisher" />
+      </APage>
     </BookIntroBox>
   );
 };
@@ -24,7 +24,7 @@ const BookIntroBox = styled.div`
   }
 `;
 
-const Page = tw.div``;
+const APage = tw.div``;
 
 const BookIntroTitle = tw.div`
   text-white
@@ -35,4 +35,4 @@ const PageTitle = tw.div`
   text-xl
 `;
 
-export default Publisher;
+export default PublisherPage;

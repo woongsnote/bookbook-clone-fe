@@ -1,14 +1,14 @@
 // import { useState } from 'react';
 // import { useLocation, useNavigate } from 'react-router-dom';
-import tw from 'tailwind-styled-components';
-import Header from '../components/common/Header';
+import tw from "tailwind-styled-components";
+import Header from "../components/common/Header";
 
 // 각각 요소 컴포넌트
-import Star from '../components/post/Star';
-import BookImg from '../components/post/BookImg';
-import ReadingPeriod from '../components/post/ReadingPeriod';
-import BookIntro from '../components/post/BookIntro';
-import PublisherPage from '../components/post/PublisherPage';
+import Star from "../components/post/Star";
+import BookImg from "../components/post/BookImg";
+import ReadingPeriod from "../components/post/ReadingPeriod";
+import BookIntro from "../components/post/BookIntro";
+import PublisherPage from "../components/post/PublisherPage";
 
 const Post = () => {
   // const navigate = useNavigate;
@@ -17,23 +17,15 @@ const Post = () => {
   return (
     <PostWrap>
       <Header />
-
-      {/* NOTE 컨텐츠 */}
       <PostCon>
         <PostTitle>해리포터</PostTitle>
-
-        <InfoBox className='flex mt-16 h-screen'>
-          {/* WHAT 책이미지 */}
+        <InfoBox className="flex mt-16 h-screen">
           <BookImg />
-
-          {/* ANCHOR 책정보 */}
           <BookInfo>
             <ReadingPeriod />
             <Star />
             <BookIntro />
             <PublisherPage />
-
-            <button type='button'>등록하기</button>
           </BookInfo>
         </InfoBox>
       </PostCon>

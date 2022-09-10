@@ -1,10 +1,11 @@
-// import Router from './Router';
+import Router from "./shared/Router";
 // import tw from 'tailwind-styled-components';
-import Post from './components/post/Post';
+// import Post from "./components/post/Post";
 
 function App() {
-  return(
-    <Post />
+  return (
+    // <Post />
+    <Router />
   );
 }
 
