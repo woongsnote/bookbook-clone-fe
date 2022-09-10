@@ -1,7 +1,7 @@
 import React from "react";
 import tw from "tailwind-styled-components";
 import { BiMenu } from "react-icons/bi";
-import logo from "../../image/book_logo.svg";
+import logo from "../../image/typo.png";
 import App from "./../../App";
 
 const Header = () => {
@@ -27,7 +27,10 @@ const HeaderBox = tw.div`
 `;
 
 const Logo = tw.div`
-  w-10
+  w-auto
+  & > img {
+    w-48
+  }
 `;
 
 const UserInfo = tw.div`
