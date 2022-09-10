@@ -1,5 +1,5 @@
 // import Router from './Router';
-import tw from 'tailwind-styled-components';
+// import tw from 'tailwind-styled-components';
 import Post from './components/post/Post';
 
 function App() {

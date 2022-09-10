@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import styled from 'styled-components';
 
 import DatePicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
@@ -8,16 +9,30 @@ const DatePick = () => {
   const [dateRange, setDateRange] = useState([null, null]);
   const [startDate, endDate] = dateRange;
   return (
-    <DatePicker
-      locale={ko}
-      selectsRange={true}
-      startDate={startDate}
-      endDate={endDate}
-      onChange={update => {
-        setDateRange(update);
-      }}
-    />
+    <DatePickWrap>
+      <DatePicker
+        locale={ko}
+        dateFormat='yyyy/MM/dd'
+        selectsRange={true}
+        startDate={startDate}
+        endDate={endDate}
+        onChange={update => {
+          setDateRange(update);
+        }}
+      />
+    </DatePickWrap>
   );
 };
+
+const DatePickWrap = styled.div`
+  width: 100%;
+
+  & input {
+    min-width: 45%;
+    text-align: center;
+    border: 1px solid red;
+    border-radius: 7px;
+  }
+`;
 
 export default DatePick;
