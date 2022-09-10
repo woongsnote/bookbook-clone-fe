@@ -1,7 +1,9 @@
-import Header from './../components/common/Header';
-import Layout from './../components/layout/Layout';
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
+
+import Header from './../components/common/Header';
+import Layout from './../components/layout/Layout';
+import SideBar from './../components/common/SideBar';
 
 import profile from '../image/profile.jpg';
 import { useState } from 'react';
@@ -11,7 +13,7 @@ const Subscribe = () => {
   const [Sub, setSub] = useState('구독중');
 
   return (
-    <>
+    <Wrapper>
       <Header />
       <Layout>
         <div>
@@ -24,7 +26,7 @@ const Subscribe = () => {
           </ProfileInfo>
         </div>
       </Layout>
-    </>
+    </Wrapper>
   );
 };
 
@@ -40,6 +42,10 @@ const Subscribe = () => {
 //     object-cover
 //   }
 // `;
+
+const Wrapper = styled.div`
+  height: 1080px;
+`
 
 const ProfileImg = styled.div`
   margin: auto;
