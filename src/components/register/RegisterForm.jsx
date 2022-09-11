@@ -38,45 +38,50 @@ const RegisterForm = () => {
           <Logo />
         </LogBox>
 
-        <div className="flex">
-          <Input
+        <div className="flex items-center border-b border-teal-500 py-2">
+          <input
+            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="email"
             placeholder="이메일"
-            value={userEmail}
-            onChange={onChangeEmailHandler}
           />
-
-          <Button type="button" onClick={onEmailCheck}>
+          <button
+            className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+            type="button"
+          >
             중복확인
-          </Button>
+          </button>
         </div>
 
-        <div className="flex">
-          <Input
+        <div className="flex items-center border-b border-teal-500 py-2">
+          <input
+            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
             type="text"
             placeholder="닉네임"
-            value={userEmail}
-            onChange={onChangeEmailHandler}
           />
-
-          <Button type="button" onClick={onNicknameCheck}>
+          <button
+            className="flex-shrink-0 bg-teal-500 hover:bg-teal-700 border-teal-500 hover:border-teal-700 text-sm border-4 text-white py-1 px-2 rounded"
+            type="button"
+          >
             중복확인
-          </Button>
+          </button>
         </div>
 
-        <Input
-          type="password"
-          placeholder="비밀번호"
-          value={userPassword}
-          onChange={onChangePasswordHandler}
-        />
-
-        <Input
-          type="password"
-          placeholder="비밀번호 확인"
-          value={userPassword}
-          onChange={onChangePasswordHandler}
-        />
+        <div className="flex items-center border-b border-teal-500 py-2">
+          <input
+            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="password"
+            placeholder="비밀번호"
+            autoComplete="off"
+          />
+        </div>
+        <div className="flex items-center border-b border-teal-500 py-2">
+          <input
+            className="appearance-none bg-transparent border-none w-full text-gray-700 mr-3 py-1 px-2 leading-tight focus:outline-none"
+            type="new-password"
+            placeholder="비밀번호 확인"
+            autoComplete="off"
+          />
+        </div>
 
         <RegisterText>이미 가입이 되어있으신가요?</RegisterText>
 
@@ -94,23 +99,13 @@ const RegisterForm = () => {
 
 export default RegisterForm;
 
-const Title = tw.h2`
-text-gray-800 
-text-2xl 
-lg:text-3xl
-font-bold 
-text-center
-mb-4
-md:mb-8
-my-4
-`;
-
 const Form = tw.form`
 max-w-lg
 border
 rounded-lg
 mx-auto
 bg-gray-200
+
 `;
 
 const FormContainer = tw.div`

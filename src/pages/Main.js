@@ -3,6 +3,7 @@ import Layout from "../components/layout/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
+import BookTower from "../components/main/BookTower";
 
 const Main = () => {
   return (
@@ -17,6 +18,8 @@ const Main = () => {
             </ShowToggleBox>
           </HomeHeadContainer>
           <SearchForm />
+
+          <BookTower />
 
           <BookList />
         </HomeContainer>
