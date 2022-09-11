@@ -1,17 +1,22 @@
 import tw from "tailwind-styled-components";
 import BookCard from "./BookCard";
 
-const BookList = () => {
+const BookList = ({ books }) => {
+  console.log(books);
+
   return (
     <BookListContainer>
+      {books.map((book) => {
+        return <BookCard book={book} />;
+      })}
+      {/* <BookCard />
       <BookCard />
       <BookCard />
       <BookCard />
       <BookCard />
       <BookCard />
       <BookCard />
-      <BookCard />
-      <BookCard />
+      <BookCard /> */}
     </BookListContainer>
   );
 };
