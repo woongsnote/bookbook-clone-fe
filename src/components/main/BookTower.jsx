@@ -9,6 +9,8 @@ const BookTower = () => {
       <BookItem title="4" height="48" />
       <BookItem title="5" height="56" />
       <BookItem title="6" height="100" />
+      <BookItem title="7" height="100" />
+      <BookItem title="8" height="100" />
     </div>
   );
 };

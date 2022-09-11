@@ -4,8 +4,12 @@ import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
 import BookTower from "../components/main/BookTower";
+import { useState } from "react";
+import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
 
 const Main = () => {
+  const [isTowerMode, setTowerMode] = useState(true);
+
   return (
     <>
       <Header />
@@ -13,15 +17,12 @@ const Main = () => {
         <HomeContainer>
           <HomeHeadContainer>
             <HomeTitle>나의 독후감</HomeTitle>
-            <ShowToggleBox>
-              <button> 쌓아보기</button>|<button> 리스트보기</button>
-            </ShowToggleBox>
+
+            <ModeSwitchButtons setTowerMode={setTowerMode} />
           </HomeHeadContainer>
           <SearchForm />
 
-          <BookTower />
-
-          <BookList />
+          {isTowerMode ? <BookTower /> : <BookList />}
         </HomeContainer>
       </Layout>
     </>

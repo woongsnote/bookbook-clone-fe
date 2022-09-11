@@ -82,7 +82,7 @@ w-full
 text-gray-800
 border
 focus:ring ring-indigo-300
-rounded-full
+
 outline-none
 transition
 duration-100

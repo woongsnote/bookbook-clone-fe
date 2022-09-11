@@ -1,12 +1,13 @@
+import tw from "tailwind-styled-components/";
 const BookItem = ({ title, height }) => {
   const bookHeight = `${height / 16}`;
-  console.log(bookHeight);
+  // console.log(bookHeight);
 
-  return (
-    <div className="border String.raw(h-[`${bookHeight}rem`])">
-      BookTitle{title}
-    </div>
-  );
+  return <BookContainer className="border">BookTitle{title}</BookContainer>;
 };
 
 export default BookItem;
+
+const BookContainer = tw.div`
+  border
+`;

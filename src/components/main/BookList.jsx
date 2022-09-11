@@ -12,10 +12,6 @@ const BookList = () => {
       <BookCard />
       <BookCard />
       <BookCard />
-      <BookCard />
-      <BookCard />
-      <BookCard />
-      <BookCard />
     </BookListContainer>
   );
 };
