@@ -3,7 +3,17 @@ import Layout from "../components/layout/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
+import BookTower from "../components/main/BookTower";
+import { useState } from "react";
+import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
+
 const Main = () => {
+  const [isTowerMode, setTowerMode] = useState(true);
+
+  const [books, setBooks] = useState([]);
+
+  // setBooks();
+
   return (
     <>
       <Header />
@@ -11,13 +21,16 @@ const Main = () => {
         <HomeContainer>
           <HomeHeadContainer>
             <HomeTitle>나의 독후감</HomeTitle>
-            <ShowToggleBox>
-              <button> 쌓아보기</button>|<button> 리스트보기</button>
-            </ShowToggleBox>
+
+            <ModeSwitchButtons setTowerMode={setTowerMode} />
           </HomeHeadContainer>
           <SearchForm />
 
-          <BookList />
+          {isTowerMode ? (
+            <BookTower books={books} />
+          ) : (
+            <BookList books={books} />
+          )}
         </HomeContainer>
       </Layout>
     </>
@@ -40,10 +53,4 @@ flex
 const HomeTitle = tw.h2`
 w-1/2
 lg:w-2/3
-`;
-
-const ShowToggleBox = tw.div`
-w-1/2
-lg:w-1/3
-flex justify-between
 `;
