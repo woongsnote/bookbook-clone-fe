@@ -1,11 +1,8 @@
 import { createGlobalStyle } from 'styled-components';
 import reset from 'styled-reset';
-import './font.css';
 
 const GlobalStyle = createGlobalStyle`
   ${reset}
-
-  ;
   *, *::before, *::after {
     box-sizing: border-box;
   }
@@ -29,7 +26,6 @@ const GlobalStyle = createGlobalStyle`
   body {
     padding: 0;
     margin: 0;
-    font-family: "InfinitySans-RegularA1", sans-serif;
   }
   ;
 
