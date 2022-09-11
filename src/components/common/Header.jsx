@@ -22,17 +22,23 @@ const Header = () => {
   return (
     <HeaderBox>
       <MenuWrap>
+        <MenuButton onClick={onClick}>{!spreadNav ? <BiMenu fontSize='30px' color='#3a3a3a' /> : <IoClose fontSize='30px' color='#3a3a3a' />}</MenuButton>
         <SideBar spreadNav={spreadNav} isView={isView} />
-        <MenuButton onClick={onClick}>{!spreadNav ? <BiMenu fontSize='30px' color='#3a3a3a' /> : <IoClose fontSize='30px' color='#fff' />}</MenuButton>
       </MenuWrap>
 
       <Logo>
         <img src={logo} alt='logo' />
       </Logo>
+
       <UserInfo>췤키라웃</UserInfo>
     </HeaderBox>
   );
 };
+
+const MenuWrap = styled.div`
+  width: 77px;
+  background-color: transparent;
+`;
 
 const HeaderBox = tw.div`
   flex
@@ -44,20 +50,12 @@ const HeaderBox = tw.div`
   p-5
 `;
 
-const MenuWrap = styled.div`
-  background-color: transparent;
-`;
-
 const MenuButton = styled.div`
   cursor: pointer;
   position: absolute;
   left: 15px;
   top: 20px;
-  z-index: 11;
-  & > path {
-    width: 40px;
-    color: red;
-  }
+  /* z-index: 11; */
 `;
 
 const Logo = tw.div`

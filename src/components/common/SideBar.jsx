@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 
+// 아이콘
+import { CgProfile } from 'react-icons/cg';
+import { FaRegHeart } from 'react-icons/fa';
+import { FaHeart } from 'react-icons/fa';
+import { HiPencilAlt } from 'react-icons/hi';
+import { RiBookLine } from 'react-icons/ri';
+
 const SideBar = ({ spreadNav, isView }) => {
   const navigate = useNavigate();
   return (
@@ -12,59 +19,39 @@ const SideBar = ({ spreadNav, isView }) => {
           <div className='flex'>
             <div className='flex flex-col h-screen p-3 bg-white  w-60'>
               <div className='space-y-3'>
-                <div className='flex items-center pl-2 text-Bwhite'>
+                <div className='flex items-center pl-2 text-BDeepblue'>
                   <h2 className='text-xl font-bold'>북적북적</h2>
                 </div>
+                {/* WHAT 메뉴들 */}
                 <div className='flex-1'>
                   <ul className='pt-2 pb-4 space-y-1 text-sm'>
+                    {/* NOTE 프로필 */}
                     <li className='rounded-sm'>
-                      <a href='#' className='flex items-center p-2 space-x-3 rounded-md'>
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                          <path strokeLinecap='round' strokeLinejoin='round' d='M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6' />
-                        </svg>
-                        <span className='text-Bwhite'>Home</span>
-                      </a>
+                      <Button profile className='flex items-center p-2 space-x-3 rounded-md'>
+                        <CgProfile className='w-6 h-6 text-Bblack' fill='none' viewBox='0 0 24 24'></CgProfile>
+                        <span className='text-Bblack font-bold'>프로필</span>
+                      </Button>
                     </li>
+                    {/* NOTE 좋아요 */}
                     <li className='rounded-sm'>
-                      <a href='#' className='flex items-center p-2 space-x-3 rounded-md'>
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='M20 13V6a2 2 0 00-2-2H6a2 2 0 00-2 2v7m16 0v5a2 2 0 01-2 2H6a2 2 0 01-2-2v-5m16 0h-2.586a1 1 0 00-.707.293l-2.414 2.414a1 1 0 01-.707.293h-3.172a1 1 0 01-.707-.293l-2.414-2.414A1 1 0 006.586 13H4'
-                          />
-                        </svg>
-                        <span>Inbox</span>
-                      </a>
+                      <Button className='heart flex items-center p-2 space-x-3 rounded-md'>
+                        <FaRegHeart className='w-6 h-6 text-Bblack' />
+                        <span className='text-Bblack font-bold'>좋아요</span>
+                      </Button>
                     </li>
+                    {/* NOTE 리뷰작성 */}
                     <li className='rounded-sm'>
-                      <a href='#' className='flex items-center p-2 space-x-3 rounded-md'>
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                          <path strokeLinecap='round' strokeLinejoin='round' d='M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z' />
-                        </svg>
-                        <span>Orders</span>
-                      </a>
+                      <Button className='review flex items-center p-2 space-x-3 rounded-md'>
+                        <HiPencilAlt className='w-6 h-6 text-Bblack' />
+                        <span className='text-Bblack font-bold'>리뷰작성</span>
+                      </Button>
                     </li>
+                    {/* NOTE 나의서재 */}
                     <li className='rounded-sm'>
-                      <a href='#' className='flex items-center p-2 space-x-3 rounded-md'>
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                          <path
-                            strokeLinecap='round'
-                            strokeLinejoin='round'
-                            d='M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z'
-                          />
-                          <path strokeLinecap='round' strokeLinejoin='round' d='M15 12a3 3 0 11-6 0 3 3 0 016 0z' />
-                        </svg>
-                        <span>Settings</span>
-                      </a>
-                    </li>
-                    <li className='rounded-sm'>
-                      <a href='#' className='flex items-center p-2 space-x-3 rounded-md'>
-                        <svg xmlns='http://www.w3.org/2000/svg' className='w-6 h-6' fill='none' viewBox='0 0 24 24' stroke='currentColor' strokeWidth={2}>
-                          <path strokeLinecap='round' strokeLinejoin='round' d='M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1' />
-                        </svg>
-                        <span>Logout</span>
-                      </a>
+                      <Button className='mybook flex items-center p-2 space-x-3 rounded-md'>
+                        <RiBookLine className='w-6 h-6 text-Bblack' />
+                        <span className='text-Bblack font-bold'>나의서재</span>
+                      </Button>
                     </li>
                   </ul>
                 </div>
@@ -78,7 +65,7 @@ const SideBar = ({ spreadNav, isView }) => {
 };
 
 const CustomSideBar = styled.div`
-  width: ${props => (props.spreadNav ? 25 : 0)}vw;
+  width: ${props => (props.spreadNav ? 20 : 0)}vw;
   height: 100vh;
   position: fixed;
   /* opacity: .6; */
@@ -90,37 +77,16 @@ const CustomSideBar = styled.div`
 
 const Wrapper = styled(motion.div)`
   margin-top: 25%;
-  padding: 0 5%
+  padding: 0 5%;
 `;
 
 const CreateAnimate = {
   start: { opacity: 0 },
   end: { opacity: 1 },
 };
-const Navigation = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-decoration: none;
-`;
-const MessageBox = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  margin-bottom: 100px;
-  overflow: hidden;
-`;
 
-const WelcomeMessage = styled.div`
-  font-size: 20px;
-  font-weight: 600;
-  margin-bottom: 30px;
-  overflow: hidden;
-`;
-
-const Nav = styled.div`
-  margin-bottom: 20px;
-  width: 100px;
-  cursor: pointer;
-`;
+const Button = styled.button`
+  color: ${props => props.profile ? 'black' : 'red' }
+`
 
 export default SideBar;
