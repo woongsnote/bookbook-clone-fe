@@ -5,7 +5,11 @@ export const checkEmail = (email) => {
   return emailRegex.test(email);
 };
 
-export const checkNickName = (nickname) => {};
+export const checkNickName = (nickname) => {
+  const nicknameRegEx = /^/;
+
+  return nicknameRegEx.test(nickname);
+};
 
 export const checkPassword = (password) => {
   const passwordRegEx = /^[A-Za-z0-9]{8,20}$/;
@@ -17,7 +21,7 @@ export const checkPassword = (password) => {
     message = "비밀번호 형식을 확인해주세요";
   } else {
     // 맞을 경우 출력
-    message = "비밀번호 형식이 맞아요";
+    message = "";
   }
   return message;
 };

@@ -33,4 +33,5 @@ const BookContainer = tw.div`
   items-center
   self-center
   justify-center
+  cursor-pointer
 `;

@@ -1,20 +1,30 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+
 import tw from "tailwind-styled-components";
+import { checkEmail, checkPassword } from "../../utils/validation";
+
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
 
 const LoginForm = () => {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const onChangeEmailHandler = (e) => {
     setEmail(e.target.value);
+    checkEmail(e.target.value)
+      ? setEmailError("")
+      : setEmailError("이메일 형식이 아닙니다");
   };
 
   const onChangePasswordHandler = (e) => {
     setPassword(e.target.value);
+    setPasswordError(checkPassword(e.target.value));
   };
 
   const onClickLogin = (e) => {
@@ -29,26 +39,30 @@ const LoginForm = () => {
           <Logo />
         </LogBox>
 
-        <Input
-          type="email"
-          placeholder="이메일"
-          value={email}
-          onChange={onChangeEmailHandler}
-          autoComplete="false"
-          required
-        />
+        <div>
+          <Input
+            type="email"
+            placeholder="이메일"
+            value={email}
+            onChange={onChangeEmailHandler}
+            autoComplete="false"
+            required
+          />
+          <p>{emailError}</p>
+        </div>
 
-        <Input
-          type="password"
-          placeholder="비밀번호"
-          value={password}
-          onChange={onChangePasswordHandler}
-          autoComplete="false"
-          required
-        />
-        {/* 로그인 실패 시 오류 메시지 전달 */}
-        {/* <p>test</p> */}
-
+        <div>
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={onChangePasswordHandler}
+            autoComplete="false"
+            required
+          />
+          <p>{passwordError}</p>
+        </div>
+        <p>{loginError}</p>
         <Button type="button">이메일로 로그인</Button>
       </FormContainer>
     </Form>

@@ -1,13 +1,19 @@
 import tw from "tailwind-styled-components";
 
 import Layout from "../components/common/Layout";
+import SearchBook from "../components/search/SearchBook";
 
 const Search = () => {
+  //검색한 결과 배열에 저장해서 배열을 보여주기
+
   return (
     <Layout>
       <SearchContainer>
-        <div>검색한 책 제목:</div>
-        <div>검색 결과</div>
+        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
+        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
+        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
+        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
+        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
       </SearchContainer>
     </Layout>
   );

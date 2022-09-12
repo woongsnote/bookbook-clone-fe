@@ -11,7 +11,7 @@ const Main = () => {
   const [isTowerMode, setTowerMode] = useState(true);
 
   // TODO db에서 가져온 책 목록 저장
-  const [books, setBooks] = useState([]);
+  const [reviews, setReviews] = useState([]);
 
   // TODO My character 설정(option)
   const [myCharacter, setMyCharacter] = useState({});
@@ -22,7 +22,7 @@ const Main = () => {
   //가져온 배열에 캐릭터 추가
 
   useEffect(() => {
-    setBookTower([...books, myCharacter]);
+    setBookTower([...reviews, myCharacter]);
   }, []);
 
   return (
@@ -38,7 +38,7 @@ const Main = () => {
         {isTowerMode ? (
           <BookTower books={bookTower} />
         ) : (
-          <BookList books={books} />
+          <BookList books={reviews} />
         )}
       </HomeContainer>
     </Layout>

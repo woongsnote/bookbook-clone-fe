@@ -36,7 +36,7 @@ const CardContainer = tw.div`
     rounded 
     overflow-hidden
     shadow-lg
-    cursor: pointer
+    cursor-pointer
 `;
 
 const CardImage = tw.img`

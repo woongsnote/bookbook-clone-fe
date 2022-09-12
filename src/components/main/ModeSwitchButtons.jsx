@@ -33,28 +33,26 @@ export default ModeSwitchButtons;
 
 const TowerButton = tw.button`
   py-2
-  px-4
+  px-2
   text-sm
   font-medium
   text-gray-900 
   border-r-2
-
+  border-rose-400
   focus:z-10 
-  focus:ring-2 
-  focus:ring-gray-500 
-  
-  m-r-2
+  focus:bg-rose-400
+  focus:text-white
 `;
 
 const ListButton = tw.button`
-    py-2
-  px-4
+  py-2
+  px-2
   text-sm
   font-medium
   text-gray-900 
   border-l-2
+  border-rose-400
   focus:z-10 
-  focus:ring-2 
-  focus:ring-gray-500 
-  
+  focus:bg-rose-400
+  focus:text-white
 `;
