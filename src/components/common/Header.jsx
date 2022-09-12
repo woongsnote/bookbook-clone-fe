@@ -57,9 +57,11 @@ const HeaderBox = tw.div`
   flex-row
   justify-between
   items-center
-  w-auto
+  w-full
   h-24
   p-5
+  bg-slate-200
+  fixed
 `;
 
 const MenuButton = styled.div`
