@@ -6,6 +6,7 @@ import Layout from '../components/layout/Layout';
 import SideBar from '../components/common/SideBar';
 
 import profile from '../image/profile.jpg';
+import profile2 from '../image/harry.jpg';
 import { useState } from 'react';
 
 const Subscribe = () => {
@@ -25,8 +26,8 @@ const Subscribe = () => {
             onMouseOut={() => {
               setIsHover(false);
             }}>
-            <img id='profile' src={isHover ? ChangeImg : profile} alt='profileImg' />
-            <ChangeImg className='bg-slate-500' type='image' name='선택' alt='change-img' />
+            <img id='profile' src={isHover ? ChangeImg : profile} alt='프로필이미지' />
+            <ChangeImg type='file' className='bg-slate-500' name='선택' />
 
             {/* <img src={isHover ? {profile} : 'red'} alt='profileImg' /> */}
           </ProfileImg>
