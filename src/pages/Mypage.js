@@ -1,36 +1,44 @@
+import { useRef, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
 
 import Header from '../components/common/Header';
 import Layout from '../components/layout/Layout';
 import SideBar from '../components/common/SideBar';
-
 import profile from '../image/profile.jpg';
-import profile2 from '../image/harry.jpg';
-import { useState } from 'react';
 
 const Subscribe = () => {
   const [Nickname, setNickName] = useState('췤키라웃');
   const [Sub, setSub] = useState('구독중');
   const [isHover, setIsHover] = useState(false);
+  const [profileImg, setProfileImg] = useState(profile);
+  const fileInput = useRef(null);
+
+  const handlClick = e => {
+    fileInput.current.click();
+  };
+
+  const changeHandler = e => {
+    setProfileImg(e.target.files[0])
+  }
 
   return (
     <Wrapper>
       <Header />
       <Layout>
         <div>
-          <ProfileImg
-            onMouseOver={() => {
-              setIsHover(true);
-            }}
-            onMouseOut={() => {
-              setIsHover(false);
-            }}>
-            <img id='profile' src={isHover ? ChangeImg : profile} alt='프로필이미지' />
-            <ChangeImg type='file' className='bg-slate-500' name='선택' />
-
-            {/* <img src={isHover ? {profile} : 'red'} alt='profileImg' /> */}
+          {/* NOTE 프로필 이미지  */}
+          <ProfileImg>
+            <img id='profile' src={profileImg} onChange={changeHandler} alt='프로필이미지' />
           </ProfileImg>
+
+          {/* NOTE 프로필 이미지 변경 */}
+          <ChangeImgCon>
+            <label htmlFor='change-img' onClick={handlClick}>프로필 변경</label>
+            <ChangeImg type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} id='change-img' />
+          </ChangeImgCon>
+
+          {/* NOTE 닉네임과 구독여부 뱃지 */}
           <ProfileNick>
             <ProfileId>{Nickname}</ProfileId>
             <IsSub>{Sub}</IsSub>
@@ -73,16 +81,28 @@ const ProfileImg = styled.div`
   }
 `;
 
-const ChangeImg = styled.input`
-  cursor: pointer;
-  background-color: blue;
+const ChangeImgCon = tw.div`
+  mx-auto
+  my-3
+  w-1/5
+  text-center
+  px-2.5
+  py-2  
+  rounded
+  cursor-pointer
+  text-BDeepblue
+  border
+  opacity-40
+`;
+
+const ChangeImg = tw.input`
+  hidden
 `;
 
 const ProfileNick = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  margin-top: 20px;
 `;
 const ProfileId = styled.div`
   color: #3a3a3a;
