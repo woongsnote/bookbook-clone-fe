@@ -1,4 +1,3 @@
-import Header from "../components/common/Header";
 import Layout from "../components/common/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";

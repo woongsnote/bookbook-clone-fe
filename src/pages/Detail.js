@@ -13,47 +13,42 @@ const Detail = ({ title, readPeriod, rating, intro }) => {
 
   return (
     <Layout>
-      <DetailWrap>
-        <DetailCon>
-          <InfoBox className="flex">
-            <BookImage>
-              <img src={harry} alt="BookCover" />
-            </BookImage>
+      <DetailContainer>
+        <InfoBox>
+          <BookImage>
+            <img src={harry} alt="BookCover" />
+          </BookImage>
 
-            <BookInfo>
-              <h2>{testTitle}</h2>
-              <p>독서 기간</p>
-              <p>{readingPeriod}</p>
-              <p>별점 4</p>
-              <p>책 소개.. 블라블라브라</p>
-              <p>출판사: {publisher}</p>
-              <p>총 분량: {maxPages} 페이지</p>
-            </BookInfo>
-          </InfoBox>
-        </DetailCon>
-        <DetailButtons>
-          <CancelButton>취소</CancelButton>
-          <ModifyButton>수정</ModifyButton>
-        </DetailButtons>
-      </DetailWrap>
+          <BookInfo>
+            <h2>{testTitle}</h2>
+            <p>독서 기간</p>
+            <p>{readingPeriod}</p>
+            <p>별점 4</p>
+            <p>책 소개.. 블라블라브라</p>
+            <p>출판사: {publisher}</p>
+            <p>총 분량: {maxPages} 페이지</p>
+          </BookInfo>
+        </InfoBox>
+      </DetailContainer>
+      <DetailButtons>
+        <CancelButton>취소</CancelButton>
+        <ModifyButton>수정</ModifyButton>
+      </DetailButtons>
     </Layout>
   );
 };
 
-const DetailWrap = tw.div`
-  w-full
-  h-full
-  pt-28
-  `;
-
-const DetailCon = tw.div`
-  w-c
-  
-  mx-auto
+const DetailContainer = tw.div`
+mx-auto 
+max-w-2xl 
+border 
+pt-28
+h-full
   `;
 
 const InfoBox = tw.div`
-  w-full
+flex
+w-full
   `;
 
 const BookImage = tw.div`

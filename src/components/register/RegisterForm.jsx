@@ -11,8 +11,11 @@ const RegisterForm = () => {
   const [email, setUserEmail] = useState("");
   const [emailError, setEmailError] = useState("");
   const [nickName, setNickName] = useState("");
+  const [nickNameError, setNickNameError] = useState("");
   const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirm, setNewPassword] = useState("");
+  const [passwordConfirmError, setNewpasswordError] = useState("");
 
   const passwordDoubleCheck = (password, newPassword) => {
     if (password !== newPassword) {
@@ -60,8 +63,10 @@ const RegisterForm = () => {
   };
 
   //TODO 회원가입 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
-  const onClickRegister = () => {
+  const onClickRegister = (e) => {
     console.log("click Register");
+    e.preventDefault();
+    //API 요청
     navigate("/main");
   };
 
@@ -85,37 +90,44 @@ const RegisterForm = () => {
           </InputBox>
           <p className="text-rose-500">{emailError}</p>
         </div>
-        <InputBox>
-          <Input
-            type="text"
-            placeholder="닉네임"
-            value={nickName || ""}
-            onChange={onChangeNickNameHandler}
-          />
-          <CheckButton className="" type="button" onClick={onNicknameCheck}>
-            중복확인
-          </CheckButton>
-        </InputBox>
-
-        <InputBox>
-          <Input
-            type="password"
-            placeholder="비밀번호"
-            value={password || ""}
-            onChange={onChangePasswordHandler}
-            autoComplete="off"
-          />
-        </InputBox>
-        <InputBox>
-          <Input
-            type="new-password"
-            placeholder="비밀번호 확인"
-            value={newPassword || ""}
-            onChange={onChangeNewPasswordHandler}
-            autoComplete="off"
-          />
-        </InputBox>
-
+        <div>
+          <InputBox>
+            <Input
+              type="text"
+              placeholder="닉네임"
+              value={nickName || ""}
+              onChange={onChangeNickNameHandler}
+            />
+            <CheckButton className="" type="button" onClick={onNicknameCheck}>
+              중복확인
+            </CheckButton>
+          </InputBox>
+          <p className="text-rose-500">{nickNameError}</p>
+        </div>
+        <div>
+          <InputBox>
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={password || ""}
+              onChange={onChangePasswordHandler}
+              autoComplete="off"
+            />
+          </InputBox>
+          <p className="text-rose-500">{passwordError}</p>
+        </div>
+        <div>
+          <InputBox>
+            <Input
+              type="new-password"
+              placeholder="비밀번호 확인"
+              value={passwordConfirm || ""}
+              onChange={onChangeNewPasswordHandler}
+              autoComplete="off"
+            />
+          </InputBox>
+          <p className="text-rose-500">{passwordConfirmError}</p>
+        </div>
         <Button type="button" onClick={onClickRegister}>
           책 읽으러가기
         </Button>
