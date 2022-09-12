@@ -13,17 +13,22 @@ const Subscribe = () => {
   const [Sub, setSub] = useState('구독중');
   const [isHover, setIsHover] = useState(false);
 
-  const onMouseOver=() => {{setIsHover(true);}}
-  const onMouseOut=() => {{setIsHover(false);}}
-
   return (
     <Wrapper>
       <Header />
       <Layout>
         <div>
-          <ProfileImg>
-            {/* <img id='profile' src={profile} alt='bookimg' /> */}
-            <img src={isHover ? {profile} : {backgroundColor:(0,0,0,.5)} } alt='profileImg' />
+          <ProfileImg
+            onMouseOver={() => {
+              setIsHover(true);
+            }}
+            onMouseOut={() => {
+              setIsHover(false);
+            }}>
+            <img id='profile' src={isHover ? ChangeImg : profile} alt='profileImg' />
+            <ChangeImg className='bg-slate-500' type='image' name='선택' alt='change-img' />
+
+            {/* <img src={isHover ? {profile} : 'red'} alt='profileImg' /> */}
           </ProfileImg>
           <ProfileNick>
             <ProfileId>{Nickname}</ProfileId>
@@ -60,17 +65,16 @@ const ProfileImg = styled.div`
   border-radius: 100%;
   overflow: hidden;
 
-  & img,
-  div {
+  & img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-
-    &:hover {
-      cursor: pointer;
-      background-image: (0, 0, 0, 0.5);
-    }
   }
+`;
+
+const ChangeImg = styled.input`
+  cursor: pointer;
+  background-color: blue;
 `;
 
 const ProfileNick = styled.div`
