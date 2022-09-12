@@ -12,6 +12,16 @@ import { RiBookLine } from 'react-icons/ri';
 
 const SideBar = ({ spreadNav, isView }) => {
   const navigate = useNavigate();
+  const toMypage = () => {
+    navigate('/sub');
+  };
+  const toPost = () => {
+    navigate('/post');
+  };
+  const toMain = () => {
+    navigate('/Main');
+  };
+
   return (
     <CustomSideBar spreadNav={spreadNav}>
       {spreadNav && isView ? (
@@ -27,29 +37,29 @@ const SideBar = ({ spreadNav, isView }) => {
                   <ul className='pt-2 pb-4 space-y-1 text-sm'>
                     {/* NOTE 프로필 */}
                     <li className='rounded-sm'>
-                      <Button profile className='flex items-center p-2 space-x-3 rounded-md'>
-                        <CgProfile className='w-6 h-6 text-Bblack' fill='none' viewBox='0 0 24 24'></CgProfile>
+                      <Button profile className='flex items-center p-2 space-x-3 rounded-md' onClick={toMypage}>
+                        <CgProfile className='w-6 h-6 text-Bblack hover:text-Bred' fill='none' viewBox='0 0 24 24'></CgProfile>
                         <span className='text-Bblack font-bold'>프로필</span>
                       </Button>
                     </li>
                     {/* NOTE 좋아요 */}
-                    <li className='rounded-sm'>
+                    {/* <li className='rounded-sm'>
                       <Button className='heart flex items-center p-2 space-x-3 rounded-md'>
                         <FaRegHeart className='w-6 h-6 text-Bblack' />
                         <span className='text-Bblack font-bold'>좋아요</span>
                       </Button>
-                    </li>
+                    </li> */}
                     {/* NOTE 리뷰작성 */}
                     <li className='rounded-sm'>
-                      <Button className='review flex items-center p-2 space-x-3 rounded-md'>
-                        <HiPencilAlt className='w-6 h-6 text-Bblack' />
+                      <Button className='review flex items-center p-2 space-x-3 rounded-md' onClick={toPost}>
+                        <HiPencilAlt className='w-6 h-6 text-Bblack hover:text-Bred' />
                         <span className='text-Bblack font-bold'>리뷰작성</span>
                       </Button>
                     </li>
                     {/* NOTE 나의서재 */}
                     <li className='rounded-sm'>
-                      <Button className='mybook flex items-center p-2 space-x-3 rounded-md'>
-                        <RiBookLine className='w-6 h-6 text-Bblack' />
+                      <Button className='mybook flex items-center p-2 space-x-3 rounded-md' onClick={toMain}>
+                        <RiBookLine className='w-6 h-6 text-Bblack hover:text-Bred' />
                         <span className='text-Bblack font-bold'>나의서재</span>
                       </Button>
                     </li>
@@ -86,7 +96,7 @@ const CreateAnimate = {
 };
 
 const Button = styled.button`
-  color: ${props => props.profile ? 'black' : 'red' }
-`
+  color: ${props => (props.profile ? 'black' : 'red')};
+`;
 
 export default SideBar;

@@ -29,7 +29,7 @@ const Post = () => {
             <PublisherPage />
           </BookInfo>
         </InfoBox>
-        <Button className='button transition delay-100 duration-300 ease-in-out' type='button' >
+        <Button className='button transition delay-100 duration-300 ease-in-out' type='button'>
           등록
         </Button>
       </PostCon>
@@ -39,12 +39,10 @@ const Post = () => {
 
 const PostWrap = tw.div`
   w-full
-  h-auto
-  `;
+`;
 
 const PostCon = tw.div`
   w-c
-  bg-slate-300
   mx-auto
   `;
 
