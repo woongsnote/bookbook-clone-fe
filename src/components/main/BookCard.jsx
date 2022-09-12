@@ -2,11 +2,10 @@ import tw from "tailwind-styled-components";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
-const BookCard = () => {
+const BookCard = ({ title, imageUrl, rating }) => {
   const navigate = useNavigate();
   const goDetail = () => {
-    // navigate("/detail");
-    navigate("/post");
+    navigate("/detail");
   };
   return (
     <CardContainer onClick={goDetail}>

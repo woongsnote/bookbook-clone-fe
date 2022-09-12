@@ -4,15 +4,27 @@ import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
 import BookTower from "../components/main/BookTower";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
 
 const Main = () => {
+  //bookTower bookList 구분
   const [isTowerMode, setTowerMode] = useState(true);
 
+  // TODO db에서 가져온 책 목록 저장
   const [books, setBooks] = useState([]);
 
-  // setBooks();
+  // TODO My character 설정(option)
+  const [myCharacter, setMyCharacter] = useState({});
+
+  // TODO DB에서 가져온 data + character
+  const [bookTower, setBookTower] = useState([]);
+
+  //가져온 배열에 캐릭터 추가
+
+  useEffect(() => {
+    setBookTower([...books, myCharacter]);
+  }, []);
 
   return (
     <>
@@ -27,7 +39,7 @@ const Main = () => {
           <SearchForm />
 
           {isTowerMode ? (
-            <BookTower books={books} />
+            <BookTower books={bookTower} />
           ) : (
             <BookList books={books} />
           )}

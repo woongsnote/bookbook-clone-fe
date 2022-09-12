@@ -3,8 +3,8 @@ import tw from "tailwind-styled-components";
 import styled from "styled-components";
 import { BiMenu } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-// import logo from "../../image/typo.png";
-import Logo from "./Logo";
+import logo from "../../image/typo.png";
+// import Logo from "./Logo";
 import SideBar from "./SideBar";
 
 const Header = () => {
@@ -40,7 +40,9 @@ const Header = () => {
         </MenuButton>
       </MenuWrap>
 
-      <Logo>{/* <img src={logo} alt="logo" /> */}</Logo>
+      <Logo>
+        <img src={logo} alt="logo" />
+      </Logo>
 
       <UserInfo>췤키라웃</UserInfo>
     </HeaderBox>
@@ -70,12 +72,12 @@ const MenuButton = styled.div`
   /* z-index: 11; */
 `;
 
-// const Logo = tw.div`
-//   w-auto
-//   & > img {
-//     w-48
-//   }
-// `;
+const Logo = tw.div`
+  w-auto
+  & > img {
+    w-48
+  }
+`;
 
 const UserInfo = tw.div`
   w-20

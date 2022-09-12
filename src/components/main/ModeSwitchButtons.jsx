@@ -38,14 +38,11 @@ const TowerButton = tw.button`
   font-medium
   text-gray-900 
   border-r-2
-  border-bBlue-100
-  hover:bg-Bblue
-  hover:text-white
+
   focus:z-10 
   focus:ring-2 
   focus:ring-gray-500 
-  focus:bg-Bblue
-  focus:text-white 
+  
   m-r-2
 `;
 
@@ -55,12 +52,9 @@ const ListButton = tw.button`
   text-sm
   font-medium
   text-gray-900 
-  
-  hover:bg-Bblue
-  hover:text-white
+  border-l-2
   focus:z-10 
   focus:ring-2 
   focus:ring-gray-500 
-  focus:bg-Bblue
-  focus:text-white 
+  
 `;

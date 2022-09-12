@@ -5,6 +5,7 @@ import Register from "../pages/Register";
 import Post from "../pages/Post";
 import Subscribe from "../pages/Subscribe";
 import Search from "../pages/Search";
+import Detail from "../pages/Detail";
 const Router = () => {
   return (
     <BrowserRouter>
@@ -14,9 +15,8 @@ const Router = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/post" element={<Post />} />
         <Route path="/sub" element={<Subscribe />} />
-        <Route path="/search" element={<Search />} />
-
-        {/* <Route /> */}
+        <Route path="/search/:id" element={<Search />} />
+        <Route path="/detail" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
