@@ -1,29 +1,38 @@
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
+import tw from "tailwind-styled-components";
+import styled from "styled-components";
 
-import Header from '../components/common/Header';
-import Layout from '../components/layout/Layout';
-import SideBar from '../components/common/SideBar';
+import Header from "../components/common/Header";
+import Layout from "../components/common/Layout";
+import SideBar from "../components/common/SideBar";
 
-import profile from '../image/profile.jpg';
-import { useState } from 'react';
+import profile from "../image/profile.jpg";
+import { useState } from "react";
 
-const Subscribe = () => {
-  const [Nickname, setNickName] = useState('췤키라웃');
-  const [Sub, setSub] = useState('구독중');
+const MyPage = () => {
+  const [Nickname, setNickName] = useState("췤키라웃");
+  const [Sub, setSub] = useState("구독중");
   const [isHover, setIsHover] = useState(false);
 
-  const onMouseOver=() => {{setIsHover(true);}}
-  const onMouseOut=() => {{setIsHover(false);}}
+  const onMouseOver = () => {
+    {
+      setIsHover(true);
+    }
+  };
+  const onMouseOut = () => {
+    {
+      setIsHover(false);
+    }
+  };
 
   return (
-    <Wrapper>
-      <Header />
-      <Layout>
-        <div>
+    <Layout>
+      <Wrapper>
+        {/* // <Header /> */}
+
+        <div className="pt-28">
           <ProfileImg>
-            {/* <img id='profile' src={profile} alt='bookimg' /> */}
-            <img src={isHover ? {profile} : {backgroundColor:(0,0,0,.5)} } alt='profileImg' />
+            <img id="profile" src={profile} alt="profileImg" />
+            {/* <img src={isHover ? {profile} : {backgroundColor:(0,0,0,.5)} } alt='profileImg' /> */}
           </ProfileImg>
           <ProfileNick>
             <ProfileId>{Nickname}</ProfileId>
@@ -31,8 +40,8 @@ const Subscribe = () => {
           </ProfileNick>
         </div>
         <div></div>
-      </Layout>
-    </Wrapper>
+      </Wrapper>
+    </Layout>
   );
 };
 
@@ -95,4 +104,4 @@ const IsSub = styled.div`
   color: #567f9e;
 `;
 
-export default Subscribe;
+export default MyPage;

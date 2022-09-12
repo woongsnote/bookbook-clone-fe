@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components";
 import styled from "styled-components";
 import { BiMenu } from "react-icons/bi";
 import { IoClose } from "react-icons/io5";
-// import logo from "../../image/typo.png";
+import logo from "../../image/typo.png";
 import Logo from "./Logo";
 import SideBar from "./SideBar";
 

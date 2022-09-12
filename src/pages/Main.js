@@ -1,5 +1,5 @@
 import Header from "../components/common/Header";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/common/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
@@ -27,25 +27,22 @@ const Main = () => {
   }, []);
 
   return (
-    <>
-      <Header />
-      <Layout>
-        <HomeContainer>
-          <HomeHeadContainer>
-            <HomeTitle>나의 독후감</HomeTitle>
+    <Layout>
+      <HomeContainer>
+        <HomeHeadContainer>
+          <HomeTitle>나의 독후감</HomeTitle>
 
-            <ModeSwitchButtons setTowerMode={setTowerMode} />
-          </HomeHeadContainer>
-          <SearchForm />
+          <ModeSwitchButtons setTowerMode={setTowerMode} />
+        </HomeHeadContainer>
+        <SearchForm />
 
-          {isTowerMode ? (
-            <BookTower books={bookTower} />
-          ) : (
-            <BookList books={books} />
-          )}
-        </HomeContainer>
-      </Layout>
-    </>
+        {isTowerMode ? (
+          <BookTower books={bookTower} />
+        ) : (
+          <BookList books={books} />
+        )}
+      </HomeContainer>
+    </Layout>
   );
 };
 
@@ -53,9 +50,10 @@ export default Main;
 
 const HomeContainer = tw.div`
 mx-auto 
-max-w-3xl 
+max-w-2xl 
 border 
-p-12
+pt-28
+h-full
 `;
 
 const HomeHeadContainer = tw.div`

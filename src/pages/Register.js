@@ -1,13 +1,19 @@
-import Layout from "../components/layout/Layout";
+import tw from "tailwind-styled-components";
 import LoginBox from "../components/register/LoginBox";
 import RegisterForm from "../components/register/RegisterForm";
 const Register = () => {
   return (
-    <Layout>
+    <RegisterWrapper>
       <RegisterForm />
       <LoginBox />
-    </Layout>
+    </RegisterWrapper>
   );
 };
+
+const RegisterWrapper = tw.div`
+w-full
+h-full
+mt-24
+`;
 
 export default Register;
