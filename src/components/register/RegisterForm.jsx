@@ -1,18 +1,36 @@
 import tw from "tailwind-styled-components";
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
-import { checkEmail, checkNickName } from "../../utils/validation";
+import { checkEmail, checkPassword } from "../../utils/validation";
+
 /** 회원가입 폼 */
 const RegisterForm = () => {
   const navigate = useNavigate();
   const [email, setUserEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
   const [nickName, setNickName] = useState("");
+  const [nickNameError, setNickNameError] = useState("");
   const [password, setPassword] = useState("");
-  const [newPassword, setNewPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [passwordConfirm, setNewPassword] = useState("");
+  const [passwordConfirmError, setNewpasswordError] = useState("");
+
+  const passwordDoubleCheck = (password, newPassword) => {
+    if (password !== newPassword) {
+      console.log("비밀번호가 다릅니다.");
+      return;
+    } else {
+      console.log("비밀번호가 동일합니다");
+    }
+  };
+
   const onChangeEmailHandler = (e) => {
     setUserEmail(e.target.value);
+    checkEmail(e.target.value)
+      ? setEmailError("")
+      : setEmailError("이메일 형식이 아닙니다");
   };
 
   const onChangeNickNameHandler = (e) => {
@@ -21,42 +39,34 @@ const RegisterForm = () => {
 
   const onChangePasswordHandler = (e) => {
     setPassword(e.target.value);
+    checkPassword(e.target.value);
   };
 
   const onChangeNewPasswordHandler = (e) => {
     setNewPassword(e.target.value);
+    passwordDoubleCheck(password, e.target.value);
   };
 
   const onEmailCheck = () => {
     console.log("이메일 중복확인");
     console.log(email);
-
-    let result = checkEmail(email);
-    if (!result) {
-      console.log("이메일 형식에 맞지 않습니다");
-      return;
-    }
-    // 이메일 형식이 아닌 경우 오류 메시지 띄움
-
-    //이메일 형식이 맞다면, db로 전송해서, db에 있는지 확인
+    //db로 전송해서, db에 있는지 확인
     //=> return true: db에 존재하므로 사용 불가
     //=> return false: db에 존재하므로 사용 불가
   };
 
   const onNicknameCheck = () => {
     console.log("닉네임 중복확인");
-    // 닉네임 형식이 아닌 경우 오류 메시지 띄움
-    let result = checkNickName(nickName);
-    if (!result) {
-      console.log("이메일 형식에 맞지 않습니다");
-      return;
-    }
-    // 닉네임 형식이 맞다면, db로 전송
+    //db로 전송해서, db에 있는지 확인
+    //=> return true: db에 존재하므로 사용 불가
+    //=> return false: db에 존재하므로 사용 불가
   };
 
-  //TODO 로그인 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
-  const onClickRegister = () => {
+  //TODO 회원가입 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
+  const onClickRegister = (e) => {
     console.log("click Register");
+    e.preventDefault();
+    //API 요청
     navigate("/main");
   };
 
@@ -66,56 +76,58 @@ const RegisterForm = () => {
         <LogBox>
           <Logo />
         </LogBox>
-
-        <InputBox>
-          <Input
-            type="email"
-            placeholder="이메일"
-            value={email || ""}
-            onChange={onChangeEmailHandler}
-          />
-          <CheckButton type="button" onClick={onEmailCheck}>
-            중복확인
-          </CheckButton>
-        </InputBox>
-
-        <InputBox>
-          <Input
-            type="text"
-            placeholder="닉네임"
-            value={nickName || ""}
-            onChange={onChangeNickNameHandler}
-          />
-          <CheckButton className="" type="button" onClick={onNicknameCheck}>
-            중복확인
-          </CheckButton>
-        </InputBox>
-
-        <InputBox>
-          <Input
-            type="password"
-            placeholder="비밀번호"
-            value={password || ""}
-            onChange={onChangePasswordHandler}
-            autoComplete="off"
-          />
-        </InputBox>
-        <InputBox>
-          <Input
-            type="new-password"
-            placeholder="비밀번호 확인"
-            value={newPassword || ""}
-            onChange={onChangeNewPasswordHandler}
-            autoComplete="off"
-          />
-        </InputBox>
-
-        <RegisterText>이미 가입이 되어있으신가요?</RegisterText>
-
-        <Link to="/">
-          <LoginLink>로그인</LoginLink>
-        </Link>
-
+        <div>
+          <InputBox>
+            <Input
+              type="email"
+              placeholder="이메일"
+              value={email || ""}
+              onChange={onChangeEmailHandler}
+            />
+            <CheckButton type="button" onClick={onEmailCheck}>
+              중복확인
+            </CheckButton>
+          </InputBox>
+          <p className="text-rose-500">{emailError}</p>
+        </div>
+        <div>
+          <InputBox>
+            <Input
+              type="text"
+              placeholder="닉네임"
+              value={nickName || ""}
+              onChange={onChangeNickNameHandler}
+            />
+            <CheckButton className="" type="button" onClick={onNicknameCheck}>
+              중복확인
+            </CheckButton>
+          </InputBox>
+          <p className="text-rose-500">{nickNameError}</p>
+        </div>
+        <div>
+          <InputBox>
+            <Input
+              type="password"
+              placeholder="비밀번호"
+              value={password || ""}
+              onChange={onChangePasswordHandler}
+              autoComplete="off"
+            />
+          </InputBox>
+          <p className="text-rose-500">{passwordError}</p>
+        </div>
+        <div>
+          <InputBox>
+            <Input
+              type="new-password"
+              placeholder="비밀번호 확인"
+              value={passwordConfirm || ""}
+              onChange={onChangeNewPasswordHandler}
+              autoComplete="off"
+            />
+          </InputBox>
+          <p className="text-rose-500">{passwordConfirmError}</p>
+        </div>
         <Button type="button" onClick={onClickRegister}>
           책 읽으러가기
         </Button>
@@ -162,7 +174,7 @@ transition
 duration-100
 px-3
 py-2
-my-4
+mt-4
 `;
 
 const CheckButton = tw.button`
@@ -178,16 +190,3 @@ const CheckButton = tw.button`
   px-2 
   rounded
 `;
-
-const RegisterText = tw.p`
-text-gray-500
-text-sm
-text-center
-`;
-
-const LoginLink = tw.p`
-text-center
-text-indigo-500
-hover:text-indigo-600
-active:text-indigo-700
-transition duration-100`;

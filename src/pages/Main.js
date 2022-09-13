@@ -1,39 +1,47 @@
-import Header from "../components/common/Header";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/common/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/main/SearchForm";
 import BookTower from "../components/main/BookTower";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
 
 const Main = () => {
+  //bookTower bookList 구분
   const [isTowerMode, setTowerMode] = useState(true);
 
-  const [books, setBooks] = useState([]);
+  // TODO db에서 가져온 책 목록 저장
+  const [reviews, setReviews] = useState([]);
 
-  // setBooks();
+  // TODO My character 설정(option)
+  const [myCharacter, setMyCharacter] = useState({});
+
+  // TODO DB에서 가져온 data + character
+  const [bookTower, setBookTower] = useState([]);
+
+  //가져온 배열에 캐릭터 추가
+
+  useEffect(() => {
+    setBookTower([...reviews, myCharacter]);
+  }, []);
 
   return (
-    <>
-      <Header />
-      <Layout>
-        <HomeContainer>
-          <HomeHeadContainer>
-            <HomeTitle>나의 독후감</HomeTitle>
+    <Layout>
+      <HomeContainer>
+        <HomeHeadContainer>
+          <HomeTitle>나의 독후감</HomeTitle>
 
-            <ModeSwitchButtons setTowerMode={setTowerMode} />
-          </HomeHeadContainer>
-          <SearchForm />
+          <ModeSwitchButtons setTowerMode={setTowerMode} />
+        </HomeHeadContainer>
+        <SearchForm />
 
-          {isTowerMode ? (
-            <BookTower books={books} />
-          ) : (
-            <BookList books={books} />
-          )}
-        </HomeContainer>
-      </Layout>
-    </>
+        {isTowerMode ? (
+          <BookTower books={bookTower} />
+        ) : (
+          <BookList books={reviews} />
+        )}
+      </HomeContainer>
+    </Layout>
   );
 };
 
@@ -41,9 +49,10 @@ export default Main;
 
 const HomeContainer = tw.div`
 mx-auto 
-max-w-3xl 
+max-w-2xl 
 border 
-p-12
+pt-28
+h-full
 `;
 
 const HomeHeadContainer = tw.div`

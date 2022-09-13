@@ -1,10 +1,17 @@
-import tw from "tailwind-styled-components/";
+import tw from "tailwind-styled-components";
+import { useNavigate } from "react-router-dom";
+
 const BookItem = ({ title, height }) => {
-  const bookHeight = `${height / 32}`;
+  const bookHeight = `${height / 160}`;
   // console.log(bookHeight);
+  const navigate = useNavigate();
+  const goDetail = () => {
+    navigate("/detail");
+  };
 
   return (
     <BookContainer
+      onClick={goDetail}
       style={{
         height: `${bookHeight}rem`,
         border: "1px solid gray",
@@ -26,4 +33,5 @@ const BookContainer = tw.div`
   items-center
   self-center
   justify-center
+  cursor-pointer
 `;

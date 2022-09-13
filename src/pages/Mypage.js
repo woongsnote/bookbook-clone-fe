@@ -1,41 +1,55 @@
-import { useRef, useState } from 'react';
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
+import { useRef, useState } from "react";
+import tw from "tailwind-styled-components";
+import styled from "styled-components";
 
-import Header from '../components/common/Header';
-import Layout from '../components/layout/Layout';
-import SideBar from '../components/common/SideBar';
-import profile from '../image/profile.jpg';
+import Header from "../components/common/Header";
+import Layout from "../components/layout/Layout";
+import SideBar from "../components/common/SideBar";
+import profile from "../image/profile.jpg";
 
-const Subscribe = () => {
-  const [Nickname, setNickName] = useState('췤키라웃');
-  const [Sub, setSub] = useState('구독중');
+const MyPage = () => {
+  const [Nickname, setNickName] = useState("췤키라웃");
+  const [Sub, setSub] = useState("구독중");
   const [isHover, setIsHover] = useState(false);
   const [profileImg, setProfileImg] = useState(profile);
   const fileInput = useRef(null);
 
-  const handlClick = e => {
+  const handlClick = (e) => {
     fileInput.current.click();
   };
 
-  const changeHandler = e => {
-    setProfileImg(e.target.files[0])
-  }
+  const changeHandler = (e) => {
+    setProfileImg(e.target.files[0]);
+  };
 
   return (
-    <Wrapper>
-      <Header />
-      <Layout>
-        <div>
+    <Layout>
+      <Wrapper>
+        {/* // <Header /> */}
+
+        <div className="pt-28">
           {/* NOTE 프로필 이미지  */}
           <ProfileImg>
-            <img id='profile' src={profileImg} onChange={changeHandler} alt='프로필이미지' />
+            <img
+              id="profile"
+              src={profileImg}
+              onChange={changeHandler}
+              alt="프로필이미지"
+            />
           </ProfileImg>
 
           {/* NOTE 프로필 이미지 변경 */}
           <ChangeImgCon>
-            <label htmlFor='change-img' onClick={handlClick}>프로필 변경</label>
-            <ChangeImg type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} id='change-img' />
+            <label htmlFor="change-img" onClick={handlClick}>
+              프로필 변경
+            </label>
+            <ChangeImg
+              type="file"
+              accept=".jpg,.png,.jpeg"
+              ref={fileInput}
+              onChange={changeHandler}
+              id="change-img"
+            />
           </ChangeImgCon>
 
           {/* NOTE 닉네임과 구독여부 뱃지 */}
@@ -45,8 +59,8 @@ const Subscribe = () => {
           </ProfileNick>
         </div>
         <div></div>
-      </Layout>
-    </Wrapper>
+      </Wrapper>
+    </Layout>
   );
 };
 
@@ -120,4 +134,4 @@ const IsSub = styled.div`
   color: #567f9e;
 `;
 
-export default Subscribe;
+export default MyPage;

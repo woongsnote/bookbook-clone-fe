@@ -1,61 +1,69 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 import tw from "tailwind-styled-components";
+import { checkEmail, checkPassword } from "../../utils/validation";
+
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const [userEmail, setUserEmail] = useState("");
-  const [userPassword, setUserPassword] = useState("");
+  const [email, setEmail] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [loginError, setLoginError] = useState("");
 
   const onChangeEmailHandler = (e) => {
-    setUserEmail(e.target.value);
+    setEmail(e.target.value);
+    checkEmail(e.target.value)
+      ? setEmailError("")
+      : setEmailError("이메일 형식이 아닙니다");
   };
 
   const onChangePasswordHandler = (e) => {
-    setUserPassword(e.target.value);
+    setPassword(e.target.value);
+    setPasswordError(checkPassword(e.target.value));
   };
 
-  const onClickLogin = () => {
+  const onClickLogin = (e) => {
     console.log("click Login");
+    e.preventDefault();
     navigate("/main");
   };
   return (
-    <Form>
+    <Form onSubmit={onClickLogin}>
       <FormContainer>
         <LogBox>
           <Logo />
         </LogBox>
 
-        <Input
-          type="email"
-          placeholder="이메일"
-          value={userEmail}
-          onChange={onChangeEmailHandler}
-          required
-        />
-
-        <Input
-          type="text"
-          placeholder="비밀번호"
-          value={userPassword}
-          onChange={onChangePasswordHandler}
-          required
-        />
-        {/* 로그인 실패 시 오류 메시지 전달 */}
-        {/* <p>test</p> */}
-
-        <Button type="button" onClick={onClickLogin}>
-          이메일로 로그인
-        </Button>
-        <div className="flex align-center justify-center mt-4">
-          <RegisterText>아직 회원이 아니신가요? </RegisterText>
-
-          <Link to="/register">
-            <RegisterLink> 가입하러가기</RegisterLink>
-          </Link>
+        <div>
+          <Input
+            type="email"
+            placeholder="이메일"
+            value={email}
+            onChange={onChangeEmailHandler}
+            autoComplete="false"
+            required
+          />
+          <p>{emailError}</p>
         </div>
+
+        <div>
+          <Input
+            type="password"
+            placeholder="비밀번호"
+            value={password}
+            onChange={onChangePasswordHandler}
+            autoComplete="false"
+            required
+          />
+          <p>{passwordError}</p>
+        </div>
+        <p>{loginError}</p>
+        <Button type="button">이메일로 로그인</Button>
       </FormContainer>
     </Form>
   );
@@ -94,20 +102,5 @@ px-3
 py-2
 my-4
 `;
-
-const RegisterText = tw.p`
-text-gray-500
-text-sm
-text-center
-mr-2
-`;
-
-const RegisterLink = tw.p`
-text-center
-text-sm
-text-indigo-500
-hover:text-indigo-600
-active:text-indigo-700
-transition duration-100`;
 
 export default LoginForm;
