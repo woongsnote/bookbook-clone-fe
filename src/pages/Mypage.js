@@ -3,7 +3,7 @@ import tw from "tailwind-styled-components";
 import styled from "styled-components";
 
 import Header from "../components/common/Header";
-import Layout from "../components/layout/Layout";
+import Layout from "../components/common/Layout";
 import SideBar from "../components/common/SideBar";
 import profile from "../image/profile.jpg";
 
