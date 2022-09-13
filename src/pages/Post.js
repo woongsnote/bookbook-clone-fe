@@ -1,4 +1,4 @@
-// import { useState } from 'react';
+import { useState } from 'react';
 // import { useLocation, useNavigate } from 'react-router-dom';
 import tw from 'tailwind-styled-components';
 //import Header from "../components/common/Header";
@@ -10,10 +10,25 @@ import Star from '../components/post/Star';
 import BookIntro from '../components/post/BookIntro';
 import PublisherPage from '../components/post/PublisherPage';
 import Layout from '../components/common/Layout';
+import { useDispatch } from 'react-redux';
+import { __addReview } from '../redux/modules/postSlice';
 
 const Post = () => {
-  // const navigate = useNavigate;
-  // const [title, setTitle] = useState('');
+  const dispatch = useDispatch();
+
+  // ANCHOR 이니셜 스테이트
+  const [img, setImg] = useState('');
+  const [title, setTitle] = useState('');
+  const [readStart, setReadStart] = useState('2000 - 01 - 01');
+  const [star, setStar] = useState(0);
+  const [intro, setIntro] = useState('');
+  const [readEnd, setReadEnd] = useState('2999 - 12 - 31');
+  const [publisher, setPublisher] = useState('');
+  const [page, setPage] = useState(0);
+
+  const onClick = () => {
+    dispatch(__addReview({ title: setTitle, readStart: setReadStart, readEnd: setReadEnd, star: setStar }));
+  };
 
   return (
     <Layout>
@@ -22,14 +37,14 @@ const Post = () => {
           <InfoBox className='flex'>
             <BookImg />
             <BookInfo>
-              <PostTitle placeholder='제목을 입력하세요' />
-              <ReadingPeriod />
-              <Star />
-              <BookIntro />
-              <PublisherPage />
+              <PostTitle placeholder='제목을 입력하세요' onChange={setTitle} />
+              <ReadingPeriod onChange={(setReadStart, setReadEnd)} />
+              <Star onChange={setStar} />
+              <BookIntro onChange={setIntro} />
+              <PublisherPage onChange={{ publisher, page }} />
             </BookInfo>
           </InfoBox>
-          <Button className='button transition delay-100 duration-300 ease-in-out' type='button' onClick={this.onButtonClickHandler}>
+          <Button className='button transition delay-100 duration-300 ease-in-out' type='button' onClick={onClick}>
             등록
           </Button>
         </PostCon>

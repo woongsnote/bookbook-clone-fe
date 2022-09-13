@@ -6,14 +6,21 @@ import styled from 'styled-components';
 const BookImg = () => {
   const fileInput = useRef(null);
   const [image, setImage] = useState('');
+
   const changeHandler = e => {
     setImage(e.target.files[0]);
   };
 
+  const formSubmit = e => {
+    const image = e.target.files[0]
+    const formData = new FormData();
+    formData.append('file', image)
+  }
+
   return (
     <BookImgWrap>
       <label id='bookcover' src={harry} alt='bookimg' />
-      <input id='bookcover' type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} />
+      <input id='bookcover' type='file' accept='image/*' ref={fileInput} onChange={formSubmit} />
     </BookImgWrap>
   );
 };

@@ -1,21 +1,55 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { create } from 'json-server';
 import api from '../../shared/api';
 
+// WHAT 초기값
 const initialState = {
   success: false,
-  data: { id: '', title: '', star: 0, readStart: '2000-01-01', readEnd: '2999-01-01' },
+  data: { id: '', title: '', star: 0, readStart: '2000-01-01', readEnd: '2999-12-31', intro: '', publisher: '', page: 0 },
   error: null,
 };
 
-export const __postReview = createAsyncThunk('post/postReview', async (post, thunk) => {
+export const __getReview = createAsyncThunk('post/getReviews', async (payload, thunkAPI) => {
   try {
-    const response = await api.post('http://locahost:3001/post', post);
-    const { data } = response;
-    if(!response.headers['authorization']) {
-      console.log('잘되나')
-    }
+    const { data } = await api.get('/books');
+    return thunkAPI.fulfillWithValue(data);
   } catch (error) {
-    console.log('오키');
+    return thunkAPI.rejectWithValue(error);
   }
 });
+
+export const __addReview = createAsyncThunk('post/addReview', async (payload, thunkAPI) => {
+  try {
+    const { data } = await api.post('/books', payload);
+    console.log('🚀 ~ const__addReview=createAsyncThunk ~ data', data);
+    return thunkAPI.fulfillWithValue(data);
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const postSlice = createSlice({
+  name: 'posts',
+  initialState,
+  reducers: {},
+  extraReducers: {
+    [__getReview.pending]: state => {
+      state.isLoading = true;
+    },
+    [__getReview.fulfilled]: (state, action) => {
+      state.isLoading = false;
+      state.posts = action.payload.data;
+    },
+    [__getReview.rejected]: (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload;
+    },
+    [__addReview.fulfilled]: (state, action) => {
+      state.posts = action.payload.data;
+    },
+    [__addReview.rejected]: (state, action) => {
+      return;
+    },
+  },
+});
+
+export default postSlice.reducer;
