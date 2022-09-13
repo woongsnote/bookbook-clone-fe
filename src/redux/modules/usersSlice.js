@@ -7,6 +7,14 @@ const initialState = {
   error: null,
 };
 
+export const __postUserInfo = createAsyncThunk('users/postUserInfo', async (user, thunk) => {
+  try {
+    console.log('gㅎ');
+  } catch (error) {
+    console.log('ㅎㅎㅎ');
+  }
+});
+
 export const __getUserInfo = createAsyncThunk('users/getUserInfo', async (user, thunk) => {
   try {
     const response = await api.get(`http://locahost:3001/api/mypage`);
