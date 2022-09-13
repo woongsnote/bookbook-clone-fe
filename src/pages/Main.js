@@ -1,7 +1,7 @@
 import Layout from "../components/common/Layout";
 import tw from "tailwind-styled-components";
 import BookList from "../components/main/BookList";
-import SearchForm from "../components/main/SearchForm";
+import SearchForm from "../components/search/SearchForm";
 import BookTower from "../components/main/BookTower";
 import { useEffect, useState } from "react";
 import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";

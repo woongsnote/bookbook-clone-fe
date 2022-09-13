@@ -1,7 +1,11 @@
 import { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
 
 import tw from "tailwind-styled-components";
+
+import { loginUserThunk } from "../../redux/modules/users";
 import { checkEmail, checkPassword } from "../../utils/validation";
 
 import Button from "../../elem/Button";
@@ -9,9 +13,12 @@ import Logo from "../common/Logo";
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
   const [email, setEmail] = useState("");
-  const [emailError, setEmailError] = useState("");
   const [password, setPassword] = useState("");
+
+  const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [loginError, setLoginError] = useState("");
 
@@ -27,13 +34,24 @@ const LoginForm = () => {
     setPasswordError(checkPassword(e.target.value));
   };
 
-  const onClickLogin = (e) => {
-    console.log("click Login");
+  const signIn = async (e) => {
     e.preventDefault();
-    navigate("/main");
+
+    const user = { email, password };
+    console.log(user);
+    const signInResponse = await dispatch(loginUserThunk(user));
+    console.log(signInResponse);
+    if (signInResponse.error) {
+      const errorCode = signInResponse.payload;
+      console.log(errorCode);
+      setLoginError(errorCode);
+    } else {
+      navigate("/main");
+    }
   };
+
   return (
-    <Form onSubmit={onClickLogin}>
+    <Form onSubmit={signIn}>
       <FormContainer>
         <LogBox>
           <Logo />
@@ -74,7 +92,6 @@ max-w-lg
 border
 rounded-lg
 mx-auto
-
 `;
 
 const FormContainer = tw.div`
@@ -86,7 +103,8 @@ md:m-8
 `;
 
 const LogBox = tw.div`
-  flex self-center
+flex 
+self-center
 `;
 
 const Input = tw.input`

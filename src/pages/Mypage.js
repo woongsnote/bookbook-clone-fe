@@ -78,7 +78,7 @@ const MyPage = () => {
 // `;
 
 const Wrapper = styled.div`
-  height: 1080px;
+  height: 1024px;
 `;
 
 const ProfileImg = styled.div`

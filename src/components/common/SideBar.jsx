@@ -13,7 +13,7 @@ import { RiBookLine } from "react-icons/ri";
 const SideBar = ({ spreadNav, isView }) => {
   const navigate = useNavigate();
   const toMyPage = () => {
-    navigate("/myPage");
+    navigate("/mypage");
   };
   const toPost = () => {
     navigate("/post");

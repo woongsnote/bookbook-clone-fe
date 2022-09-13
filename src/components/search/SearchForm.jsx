@@ -1,11 +1,20 @@
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 const SearchForm = () => {
   const navigate = useNavigate();
 
-  const onSubmitHandler = () => {
-    navigate("/search");
+  const [title, setTitle] = useState("");
+
+  const onSubmitHandler = (e) => {
+    e.preventDefault();
+    // navigate("/search", { state: { title: title } });
+    navigate("/searchTest", { state: { title: title } });
+  };
+
+  const onChangeHandler = (e) => {
+    setTitle(e.target.value);
   };
 
   return (
@@ -34,6 +43,8 @@ const SearchForm = () => {
           className="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-full border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
           placeholder="어떤 책을 읽으셨나요?"
           required
+          value={title}
+          onChange={onChangeHandler}
         />
       </div>
     </form>
