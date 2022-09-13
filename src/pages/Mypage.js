@@ -20,6 +20,7 @@ const Subscribe = () => {
 
   const changeHandler = e => {
     setProfileImg(e.target.files[0])
+    console.log('🚀 ~ changeHandler ~ setProfileImg', setProfileImg)
   }
 
   return (
