@@ -1,22 +1,32 @@
+import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 import Layout from "../components/common/Layout";
 
 import harry from "../image/harry.jpg";
 
-const Detail = ({ title, readPeriod, rating, intro }) => {
+const Detail = ({ title, imageUrl, readPeriod, rating, intro }) => {
   //더미 데이터
+  const navigate = useNavigate();
   let testTitle = "해리포터와 마법사의 돌";
   let readingPeriod = "2022-09-08 ~ 2022-09-12";
   let publisher = "test";
   let maxPages = 240;
+
+  const goBack = () => {
+    navigate("/main");
+  };
+
+  const goEdit = () => {
+    navigate("/post");
+  };
 
   return (
     <Layout>
       <DetailContainer>
         <InfoBox>
           <BookImage>
-            <img src={harry} alt="BookCover" />
+            <BookCover src={harry} alt="BookCover" />
           </BookImage>
 
           <BookInfo>
@@ -31,8 +41,12 @@ const Detail = ({ title, readPeriod, rating, intro }) => {
         </InfoBox>
       </DetailContainer>
       <DetailButtons>
-        <CancelButton>취소</CancelButton>
-        <ModifyButton>수정</ModifyButton>
+        <DetailButton type="button" onClick={goBack}>
+          취소
+        </DetailButton>
+        <DetailButton type="button" onClick={goEdit}>
+          수정
+        </DetailButton>
       </DetailButtons>
     </Layout>
   );
@@ -49,20 +63,27 @@ h-full
 const InfoBox = tw.div`
 flex
 w-full
+flex-col
+items-center
+sm:flex-row
   `;
 
 const BookImage = tw.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  width: 40%;
-  height: 45%;
-  background-color: rgb(226, 215, 230);`;
+w-1/2
+h-1/2
+flex
+items-center
+justify-center
+`;
+
+const BookCover = tw.img`
+max-w-xs h-auto
+self-center
+`;
 
 const BookInfo = tw.div`
-    w-3/5
+    w-1/2
     h-1/2
-    px-10
 `;
 
 const DetailButtons = tw.div`
@@ -72,12 +93,14 @@ justify-center
 m-4
 `;
 
-const CancelButton = tw.button`
+const DetailButton = tw.button`
 mx-4
-`;
-
-const ModifyButton = tw.button`
-mx-4
+hover:bg-Bblue
+hover:text-white
+px-4
+py-2
+w-24
+rounded-full
 `;
 
 export default Detail;
