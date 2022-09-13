@@ -1,15 +1,15 @@
 // import { useState } from 'react';
 // import { useLocation, useNavigate } from 'react-router-dom';
-import tw from "tailwind-styled-components";
+import tw from 'tailwind-styled-components';
 //import Header from "../components/common/Header";
 
 // 각각 요소 컴포넌트
-import BookImg from "../components/post/BookImg";
-import ReadingPeriod from "../components/post/ReadingPeriod";
-import Star from "../components/post/Star";
-import BookIntro from "../components/post/BookIntro";
-import PublisherPage from "../components/post/PublisherPage";
-import Layout from "../components/common/Layout";
+import BookImg from '../components/post/BookImg';
+import ReadingPeriod from '../components/post/ReadingPeriod';
+import Star from '../components/post/Star';
+import BookIntro from '../components/post/BookIntro';
+import PublisherPage from '../components/post/PublisherPage';
+import Layout from '../components/common/Layout';
 
 const Post = () => {
   // const navigate = useNavigate;
@@ -19,20 +19,17 @@ const Post = () => {
     <Layout>
       <PostWrap>
         <PostCon>
-          <InfoBox className="flex">
+          <InfoBox className='flex'>
             <BookImg />
             <BookInfo>
-              <PostTitle placeholder="제목을 입력하세요" />
+              <PostTitle placeholder='제목을 입력하세요' />
               <ReadingPeriod />
               <Star />
               <BookIntro />
               <PublisherPage />
             </BookInfo>
           </InfoBox>
-          <Button
-            className="button transition delay-100 duration-300 ease-in-out"
-            type="button"
-          >
+          <Button className='button transition delay-100 duration-300 ease-in-out' type='button' onClick={this.onButtonClickHandler}>
             등록
           </Button>
         </PostCon>

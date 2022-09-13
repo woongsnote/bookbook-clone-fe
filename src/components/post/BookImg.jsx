@@ -1,12 +1,19 @@
 // import tw from 'tailwind-styled-components';
+import { useRef, useState } from 'react';
 import harry from '../../image/harry.jpg';
 import styled from 'styled-components';
 
 const BookImg = () => {
+  const fileInput = useRef(null);
+  const [image, setImage] = useState('');
+  const changeHandler = e => {
+    setImage(e.target.files[0]);
+  };
+
   return (
     <BookImgWrap>
-      <img src={harry} alt='bookimg' />
-      <input type='file' id='bookcover' />
+      <label id='bookcover' src={harry} alt='bookimg' />
+      <input id='bookcover' type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} />
     </BookImgWrap>
   );
 };
