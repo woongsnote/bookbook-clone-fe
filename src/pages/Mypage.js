@@ -18,14 +18,15 @@ const MyPage = () => {
     fileInput.current.click();
   };
 
-  const changeHandler = (e) => {
-    setProfileImg(e.target.files[0]);
-  };
+  const changeHandler = e => {
+    setProfileImg(e.target.files[0])
+    console.log('🚀 ~ changeHandler ~ setProfileImg', setProfileImg)
+  }
 
   return (
     <Layout>
       <Wrapper>
-        {/* // <Header /> */}
+        <Header />
 
         <div className="pt-28">
           {/* NOTE 프로필 이미지  */}
