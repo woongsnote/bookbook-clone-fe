@@ -1,26 +1,28 @@
-import axios from "axios";
+import axios from 'axios';
+
+let api;
 
 const instance = axios.create({
-  baseURL: "http://locahost:3001",
+  baseURL: 'http://locahost:3001',
 });
 
 export const localAPI = {
-  getBooks: () => instance.get("/books"),
+  getBooks: () => instance.get('/books'),
 };
 
 export const authAPI = {
-  emailCheck: (email) => instance.get("/api/member/login", email),
+  emailCheck: email => instance.get('/api/member/login', email),
 
-  nicknameCheck: (nickname) => instance.get("/api/member/nickname", nickname),
+  nicknameCheck: nickname => instance.get('/api/member/nickname', nickname),
 
-  register: (email, nickname, password) =>
-    instance.post("/api/member/register", { email, nickname, password }),
+  register: (email, nickname, password) => instance.post('/api/member/register', { email, nickname, password }),
 
-  login: (email, password) =>
-    instance.post("/api/member/login", { email, password }),
+  login: (email, password) => instance.post('/api/member/login', { email, password }),
 };
 
 // Todo
 export const bookAPI = {
   search: () => instance.get(),
 };
+
+export default api;
