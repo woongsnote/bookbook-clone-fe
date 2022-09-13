@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
+import { axios } from 'axios';
 
 import Header from '../components/common/Header';
 import Layout from '../components/common/Layout';
@@ -21,8 +22,8 @@ const MyPage = () => {
   };
 
   const changeHandler = e => {
+    let formData = new FormData();
     setProfileImg(e.target.files[0]);
-    console.log('🚀 ~ changeHandler ~ setProfileImg', setProfileImg);
   };
 
   return (
@@ -42,6 +43,7 @@ const MyPage = () => {
               프로필 변경
             </label>
             <ChangeImg type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} id='change-img' />
+            <>{profileImg && <PreviewImage src={URL.createObjectURL(profileImg)} />}</>
           </ChangeImgCon>
 
           {/* NOTE 닉네임과 구독여부 뱃지 */}
@@ -85,6 +87,17 @@ const ProfileImg = styled.div`
     height: 100%;
     object-fit: cover;
   }
+`;
+
+const PreviewImage = styled.img`
+  position: absolute;
+  width: 10rem;
+  height: 10rem;
+  border-radius: 50%;
+  margin: auto 10px auto 10px;
+  object-fit: cover;
+  right: 150px;
+  bottom: 20px;
 `;
 
 const ChangeImgCon = tw.div`
