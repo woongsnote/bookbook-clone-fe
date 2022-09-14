@@ -4,7 +4,7 @@ import useInput from "../hooks/useInput";
 import { useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { __addReview } from "../redux/modules/postSlice";
-import { __getReview } from "../redux/modules/postSlice";
+// import { __getReview } from "../redux/modules/postSlice";
 
 // 각각 요소 컴포넌트
 import BookImg from "../components/post/BookImg";
@@ -13,26 +13,25 @@ import Star from "../components/post/Star";
 import BookIntro from "../components/post/BookIntro";
 import PublisherPage from "../components/post/PublisherPage";
 import Layout from "../components/common/Layout";
-import { useDispatch } from "react-redux";
-import { __addReview } from "../redux/modules/postSlice";
+
 import { useLocation } from "react-router-dom";
 
 const Post = () => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+    // dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
   }, []);
 
   const location = useLocation();
 
   let title = "";
-  title = location.state.title;
+  title = location.state?.title;
 
   let imageUrl = "";
-  imageUrl = location.state.imageUrl;
+  imageUrl = location.state?.imageUrl;
 
   // ANCHOR 이니셜 스테이트
-  const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
   const [readStart, setReadStart] = useState("2000 - 01 - 01");
   const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
   const [star, setStar] = useState();
@@ -47,24 +46,28 @@ const Post = () => {
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
   };
 
-  const inputTitle = (e) => {
-    return e.target.value;
-  };
+  // const inputTitle = (e) => {
+  //   return e.target.value;
+  // };
 
   return (
     <Layout>
       <PostWrap>
         <PostCon>
           <InfoBox className="flex">
-            <BookImg />
+            <BookImg imageUrl={imageUrl} />
+
             <BookInfo>
-              <PostTitle placeholder="제목을 입력하세요" />
+              <PostTitle>{title}</PostTitle>
               <ReadingPeriod />
-              <Star star={star} setStar={setStar} />
-              <BookIntro intro={intro} setIntro={setIntro} />
-              <PublisherPage page={page} setPage={setPage} />
+              <div className="flex flex-row">
+                <Star star={star} setStar={setStar} />
+
+                <PublisherPage page={page} setPage={setPage} />
+              </div>
             </BookInfo>
           </InfoBox>
+          <BookIntro intro={intro} setIntro={setIntro} />
           <Button
             className="button transition delay-100 duration-300 ease-in-out"
             type="button"
@@ -89,12 +92,13 @@ const PostCon = tw.div`
   
   `;
 
-const PostTitle = tw.input`
+const PostTitle = tw.h2`
   text-Bblack
   text-2xl
   font-bold
   w-auto
   mb-3
+ text-ellipsis
   `;
 
 const InfoBox = tw.div`

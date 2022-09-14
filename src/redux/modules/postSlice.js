@@ -19,7 +19,7 @@ export const __getReview = createAsyncThunk(
   "post/getReviews",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await api.get("/books");
+      const { data } = await api.get("/posts");
       console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
@@ -50,7 +50,7 @@ export const postSlice = createSlice({
     },
     [__getReview.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts = action.payload.data;
+      state.posts = action.payload;
     },
     [__getReview.rejected]: (state, action) => {
       state.isLoading = false;
