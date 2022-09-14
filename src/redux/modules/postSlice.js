@@ -4,7 +4,7 @@ import api from '../../shared/api';
 // WHAT 초기값
 const initialState = {
   success: false,
-  data: { id: '', title: '', star: 0, readStart: '2000-01-01', readEnd: '2999-12-31', intro: '', publisher: '', page: 0 },
+  data: { nickname: '', title: '', star: 0, readStart: '2000-01-01', readEnd: '2999-12-31', intro: '', publisher: '', page: 0 },
   error: null,
 };
 
@@ -19,8 +19,8 @@ export const __getReview = createAsyncThunk('post/getReviews', async (payload, t
 
 export const __addReview = createAsyncThunk('post/addReview', async (payload, thunkAPI) => {
   try {
-    const { data } = await api.post('/books', payload);
-    console.log('🚀 ~ const__addReview=createAsyncThunk ~ data', data);
+    const { data } = await api.post('/posts', payload);
+    console.log('🚀 ~ const__addReview=createAsyncThunk ~ data', data)
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);

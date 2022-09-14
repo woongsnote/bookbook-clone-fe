@@ -20,14 +20,13 @@ const Post = () => {
   const [img, setImg] = useState('');
   const [title, setTitle] = useState('');
   const [readStart, setReadStart] = useState('2000 - 01 - 01');
+  const [readEnd, setReadEnd] = useState('2999 - 12 - 31');
   const [star, setStar] = useState(0);
   const [intro, setIntro] = useState('');
-  const [readEnd, setReadEnd] = useState('2999 - 12 - 31');
-  const [publisher, setPublisher] = useState('');
   const [page, setPage] = useState(0);
 
   const onClick = () => {
-    dispatch(__addReview({ title: setTitle, readStart: setReadStart, readEnd: setReadEnd, star: setStar }));
+    dispatch(__addReview({ title: title, readStart: readStart, readEnd: readEnd, star: star, intro: intro, page: page }));
   };
 
   return (
@@ -41,7 +40,7 @@ const Post = () => {
               <ReadingPeriod onChange={(setReadStart, setReadEnd)} />
               <Star onChange={setStar} />
               <BookIntro onChange={setIntro} />
-              <PublisherPage onChange={{ publisher, page }} />
+              <PublisherPage onChange={setPage} />
             </BookInfo>
           </InfoBox>
           <Button className='button transition delay-100 duration-300 ease-in-out' type='button' onClick={onClick}>
