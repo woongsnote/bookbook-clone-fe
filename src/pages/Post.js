@@ -39,7 +39,7 @@ const Post = () => {
   return (
     <Layout>
       <PostWrap>
-        <PostCon>
+        <PostCon> 
           <InfoBox className='flex'>
             <BookImg />
             <BookInfo>
