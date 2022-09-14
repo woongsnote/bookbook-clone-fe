@@ -1,14 +1,12 @@
-import axios from "axios";
+import axios from 'axios';
 
-let api;
-
-const instance = axios.create({
-  baseURL: "http://locahost:3001",
+const api = axios.create({
+  baseURL: 'http://localhost:3001',
 });
 
-export const localAPI = {
-  getBooks: () => instance.get("/books"),
-};
+// export const localAPI = {
+//   getBooks: () => instance.get('/books'),
+// };
 
 // export const localAPI = {
 //   getBooks: () => instance.get("/books"),

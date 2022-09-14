@@ -1,11 +1,16 @@
 import tw from 'tailwind-styled-components';
 import styled from 'styled-components';
 
-const PublisherPage = () => {
+const PublisherPage = ({ page, setPage }) => {
+  const onChangePage = e => {
+    console.log('🚀 ~ onChangePage ~ setPage', page);
+    setPage(e.target.value);
+  };
+
   return (
     <BookIntroBox>
       <PageTitle>페이지</PageTitle>
-      <input type='text' name='publisher' />
+      <input type='text' name='publisher' onChange={onChangePage} />
     </BookIntroBox>
   );
 };

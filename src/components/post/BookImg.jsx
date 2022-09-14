@@ -2,6 +2,7 @@
 import { useRef, useState } from 'react';
 import harry from '../../image/harry.jpg';
 import styled from 'styled-components';
+import { __getReview } from '../../redux/modules/postSlice';
 
 const BookImg = ({ img }) => {
 
