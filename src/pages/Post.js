@@ -12,13 +12,22 @@ import PublisherPage from "../components/post/PublisherPage";
 import Layout from "../components/common/Layout";
 import { useDispatch } from "react-redux";
 import { __addReview } from "../redux/modules/postSlice";
+import { useLocation } from "react-router-dom";
 
 const Post = () => {
   const dispatch = useDispatch();
 
+  const location = useLocation();
+
+  let title = "";
+  title = location.state.title;
+
+  let imageUrl = "";
+  imageUrl = location.state.imageUrl;
+
   // ANCHOR 이니셜 스테이트
   const [img, setImg] = useState("");
-  const [title, setTitle] = useState("");
+  // const [title, setTitle] = useState("");
   const [readStart, setReadStart] = useState("2000 - 01 - 01");
   const [star, setStar] = useState(0);
   const [intro, setIntro] = useState("");
@@ -46,9 +55,11 @@ const Post = () => {
           <InfoBox className="flex">
             <BookImg />
             <BookInfo>
-              <PostTitle placeholder="제목을 입력하세요" onChange={setTitle} />
+              <h3>{title}</h3>
+              {/* <PostTitle placeholder="제목을 입력하세요" onChange={setTitle} /> */}
               <ReadingPeriod onChange={(setReadStart, setReadEnd)} />
               <Star onChange={setStar} />
+              <img src={imageUrl} alt="bookCover" />
               <BookIntro onChange={setIntro} />
               <PublisherPage onChange={{ publisher, page }} />
             </BookInfo>

@@ -22,7 +22,9 @@ const Main = () => {
   //가져온 배열에 캐릭터 추가
 
   useEffect(() => {
-    setBookTower([...reviews, myCharacter]);
+    if (reviews.length > 0) {
+      setBookTower([...reviews, myCharacter]);
+    }
   }, []);
 
   return (
