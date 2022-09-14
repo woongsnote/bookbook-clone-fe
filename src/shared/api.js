@@ -1,18 +1,10 @@
 import axios from "axios";
 
-let api;
+// let api;
 
-const instance = axios.create({
-  baseURL: "http://locahost:3001",
+const api = axios.create({
+  baseURL: "http://localhost:3001",
 });
-
-export const localAPI = {
-  getBooks: () => instance.get("/books"),
-};
-
-// export const localAPI = {
-//   getBooks: () => instance.get("/books"),
-// };
 
 // export const userAPI = {
 //   emailCheck: (email) => instance.get("/api/member/login", email),
@@ -27,8 +19,12 @@ export const localAPI = {
 // };
 
 // // Todo
-// export const bookAPI = {
-//   search: () => instance.get(),
-// };
+export const bookAPI = {
+  searchBooks: (title) =>
+    axios.get(
+      `https://dapi.kakao.com/v3/search/book?target=title&query=${title}`,
+      { headers: { Authorization: process.env.REACT_APP_KaKaoKEY } }
+    ),
+};
 
 export default api;

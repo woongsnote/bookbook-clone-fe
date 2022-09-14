@@ -1,41 +1,41 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import tw from "tailwind-styled-components";
 
 import Layout from "../components/common/Layout";
+import SearchForm from "../components/search/SearchForm";
 import SearchBook from "../components/search/SearchBook";
+import { useDispatch, useSelector } from "react-redux";
+import { getBooksThunk } from "../redux/modules/books";
 
 const Search = () => {
+  const dispatch = useDispatch();
   const location = useLocation();
   const title = location.state.title;
-  const [searchList, setSearchList] = useState([]);
-  console.log(title);
+
+  const { books: searchList } = useSelector((state) => state.books);
 
   useEffect(() => {
-    //검색 함수 호출해서 받아온 제목으로 검색
-    //검색된 결과 저장
-    // getBooks()
-  }, []);
-
-  // const getBooks = async () => {
-
-  //   const { data } = await bookSearch();
-
-  //   setSearchList()
-  // };
-
-  //검색한 결과 배열에 저장해서 배열을 보여주기
+    try {
+      dispatch(getBooksThunk(title));
+    } catch (error) {
+      console.log(error);
+    }
+  }, [dispatch, title]);
 
   return (
     <Layout>
       <SearchContainer>
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
-        <SearchBook title={"How Innovation Works"} author={"MATT RIDLEY"} />
+        <SearchForm />
         {searchList.map((book) => {
           return (
-            <SearchBook key={book.id} title={book.title} height={book.height} />
+            <SearchBook
+              key={book.isbn}
+              author={book.authors[0]}
+              title={book.title}
+              content={book.contents}
+              imageUrl={book.thumbnail}
+            />
           );
         })}
       </SearchContainer>
