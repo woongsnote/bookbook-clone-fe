@@ -172,13 +172,7 @@
       "title": "",
       "readStart": "2000 - 01 - 01",
       "readEnd": "2999 - 12 - 31",
-      "star": [
-        true,
-        true,
-        true,
-        true,
-        false
-      ],
+      "star": [true, true, true, true, false],
       "page": 0,
       "id": 32
     },
@@ -339,11 +333,19 @@
       "id": 53
     },
     {
+      "title": "",
       "readStart": "2000 - 01 - 01",
       "readEnd": "2999 - 12 - 31",
-      "star": 4,
+      "star": 5,
       "page": "234",
       "id": 54
+    },
+    {
+      "title": "",
+      "readStart": "2000 - 01 - 01",
+      "readEnd": "2999 - 12 - 31",
+      "page": 0,
+      "id": 55
     }
   ],
   "books": [
