@@ -43,7 +43,7 @@ const MyPage = () => {
               프로필 변경
             </label>
             <ChangeImg type='file' accept='.jpg,.png,.jpeg' ref={fileInput} onChange={changeHandler} id='change-img' />
-            <>{profileImg && <PreviewImage src={URL.createObjectURL(profileImg)} />}</>
+            {/* <>{profileImg && <PreviewImage src={URL.createObjectURL(profileImg)} />}</> */}
           </ChangeImgCon>
 
           {/* NOTE 닉네임과 구독여부 뱃지 */}
