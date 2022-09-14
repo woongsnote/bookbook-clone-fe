@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import useInput from '../hooks/useInput';
 import { useEffect } from 'react';
 import tw from 'tailwind-styled-components';
+import { useNavigate } from 'react-router-dom';
 import { __addReview } from '../redux/modules/postSlice';
 import { __getReview } from '../redux/modules/postSlice';
 
@@ -16,6 +17,7 @@ import Layout from '../components/common/Layout';
 
 const Post = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   useEffect(() => {
     dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
   }, []);
@@ -34,6 +36,7 @@ const Post = () => {
     const post = { title, readStart, readEnd, star, page };
     console.log('🚀 ~ onClick ~ post', post);
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
+    navigate('/main')
   };
 
   const inputTitle = e => {
