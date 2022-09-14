@@ -1,25 +1,40 @@
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 
-const BookItem = ({ title, height }) => {
-  const bookHeight = `${height / 160}`;
-  // console.log(bookHeight);
+const BookItem = ({ id, title, height, isLeft }) => {
+  // console.log(height);
+  const bookHeight = parseInt(height / 80);
+  console.log(bookHeight);
   const navigate = useNavigate();
   const goDetail = () => {
-    navigate("/detail");
+    navigate(`/detail/${id}`);
   };
 
-  return (
+  return isLeft ? (
     <BookContainer
       onClick={goDetail}
       style={{
         height: `${bookHeight}rem`,
         border: "1px solid gray",
-        minHeight: "2rem",
-        width: "20rem",
+        minHeight: "1rem",
+        width: "30rem",
+        marginLeft: "2rem",
       }}
     >
-      <p>높이 테스트 {title}</p>
+      <p>{title}</p>
+    </BookContainer>
+  ) : (
+    <BookContainer
+      onClick={goDetail}
+      style={{
+        height: `${bookHeight}rem`,
+        border: "1px solid gray",
+        minHeight: "1rem",
+        width: "30rem",
+        marginRight: "2rem",
+      }}
+    >
+      <h2>{title}</h2>
     </BookContainer>
   );
 };
@@ -34,4 +49,5 @@ const BookContainer = tw.div`
   self-center
   justify-center
   cursor-pointer
+  bg-rose-200
 `;

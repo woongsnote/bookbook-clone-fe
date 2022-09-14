@@ -13,30 +13,14 @@ const Main = () => {
 
   const [isTowerMode, setTowerMode] = useState(true);
 
-  // TODO db에서 가져온 책 목록 저장
-  // const [reviews, setReviews] = useState([]);
-
   // TODO My character 설정(option)
-  const [myCharacter, setMyCharacter] = useState({});
+  // const [myCharacter, setMyCharacter] = useState({});
 
-  // TODO DB에서 가져온 data + character
-  const [bookTower, setBookTower] = useState([]);
-
-  const { posts: reviews } = useSelector((state) => state.postSlice);
+  const { reviews } = useSelector((state) => state.postSlice);
 
   useEffect(() => {
     dispatch(__getReview());
   }, []);
-
-  //bookTower bookList 구분
-
-  //가져온 배열에 캐릭터 추가
-
-  // useEffect(() => {
-  //   if (reviews.length > 0) {
-  //     setBookTower([...reviews, myCharacter]);
-  //   }
-  // }, []);
 
   return (
     <Layout>
@@ -49,9 +33,9 @@ const Main = () => {
         <SearchForm />
 
         {isTowerMode ? (
-          <BookTower books={bookTower} />
+          <BookTower reviews={reviews} />
         ) : (
-          <BookList books={reviews} />
+          <BookList reviews={reviews} />
         )}
       </HomeContainer>
     </Layout>

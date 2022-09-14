@@ -21,6 +21,9 @@ outline-none
 transition
 duration-100
 px-8
-py-3`;
+py-3
+disabled:opacity-75
+disabled:cursor-none
+`;
 
 export default Button;

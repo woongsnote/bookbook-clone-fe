@@ -2,10 +2,10 @@ import tw from "tailwind-styled-components";
 import { FaStar, FaRegStar } from "react-icons/fa";
 
 import { useNavigate } from "react-router-dom";
-const BookCard = ({ title, imageUrl, rating }) => {
+const BookCard = ({ id, title, imageUrl, rating }) => {
   const navigate = useNavigate();
   const goDetail = () => {
-    navigate("/detail");
+    navigate(`/detail/${id}`);
   };
   return (
     <CardContainer onClick={goDetail}>
@@ -15,7 +15,8 @@ const BookCard = ({ title, imageUrl, rating }) => {
         alt="Sunset in the mountains"
       />
       <CardContent>
-        <CardTitle>The Coldest Sunset</CardTitle>
+        <CardTitle>{title}</CardTitle>
+        {/* rating 만큼 별 표시 */}
         <CardRating>
           <FaStar />
           <FaStar />

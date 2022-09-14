@@ -3,6 +3,8 @@ import api from "../../shared/api";
 
 // WHAT 초기값
 const initialState = {
+  isLoading: false,
+  reviews: [],
   success: false,
   data: {
     nickname: "",
@@ -20,7 +22,8 @@ export const __getReview = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.get("/posts");
-      console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
+      // console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
+      console.log(data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -50,7 +53,7 @@ export const postSlice = createSlice({
     },
     [__getReview.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.posts = action.payload;
+      state.reviews = action.payload;
     },
     [__getReview.rejected]: (state, action) => {
       state.isLoading = false;

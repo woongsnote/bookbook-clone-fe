@@ -34,17 +34,16 @@ const Post = () => {
 
   // ANCHOR 이니셜 스테이트
   // const [title, setTitle] = useState("");
-  const [readStart, setReadStart] = useState("2000 - 01 - 01");
-  const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
+  const [readStart, setReadStart] = useState("2000-01-01");
+  const [readEnd, setReadEnd] = useState("2999-12-31");
   const [star, setStar] = useState();
   const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);
-
   // const bookcover = useSelector((state)=> state.post)
 
   const onClick = () => {
     const post = { title, readStart, readEnd, star, page };
-    console.log("🚀 ~ onClick ~ post", post);
+    // console.log("🚀 ~ onClick ~ post", post);
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
     navigate("/main");
   };
@@ -62,7 +61,10 @@ const Post = () => {
 
             <BookInfo>
               <PostTitle>{title}</PostTitle>
-              <ReadingPeriod />
+              <ReadingPeriod
+                setReadStart={setReadStart}
+                setReadEnd={setReadEnd}
+              />
               <div className="flex flex-row">
                 <Star star={star} setStar={setStar} />
 

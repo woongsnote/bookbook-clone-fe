@@ -3,9 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
-import { checkEmail, checkPassword } from "../../utils/validation";
+import {
+  checkEmail,
+  checkNickName,
+  checkPassword,
+} from "../../utils/validation";
 import { useDispatch } from "react-redux";
-import { checkEmailThunk } from "../../redux/modules/users";
+import { __checkEmail, __checkNickName } from "../../redux/modules/usersSlice";
 
 /** 회원가입 폼 */
 const RegisterForm = () => {
@@ -20,9 +24,8 @@ const RegisterForm = () => {
   const [emailError, setEmailError] = useState("");
   const [nickNameError, setNickNameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [passwordConfirmError, setNewpasswordError] = useState("");
-
-  const [isError, setError] = useState(false);
+  const [passwordConfirmError, setPasswordConfirmError] = useState("");
+  const [isError, setError] = useState(true);
 
   const passwordDoubleCheck = (password, newPassword) => {
     if (password !== newPassword) {
@@ -42,32 +45,36 @@ const RegisterForm = () => {
 
   const onChangeNickNameHandler = (e) => {
     setNickName(e.target.value);
+    checkNickName(e.target.value)
+      ? setNickNameError("")
+      : setNickNameError("닉네임 형식이 아닙니다");
   };
 
   const onChangePasswordHandler = (e) => {
     setPassword(e.target.value);
-    checkPassword(e.target.value);
+    setPasswordError(checkPassword(e.target.value));
   };
 
   const onChangeNewPasswordHandler = (e) => {
     setNewPassword(e.target.value);
+    setPasswordConfirmError(checkPassword(e.target.value));
     passwordDoubleCheck(password, e.target.value);
   };
 
   const onEmailCheck = () => {
-    console.log("이메일 중복확인");
     if (email === "") {
       setEmailError("이메일을 입력해주세요!");
       return;
     } else {
       if (checkEmail(email)) {
-        const checkResponse = dispatch(checkEmailThunk(email));
+        const checkResponse = dispatch(__checkEmail(email));
+        console.log(checkResponse);
 
-        if (checkResponse) {
-          setEmailError("이미 존재하는 이메일입니다.");
-        } else {
-          setEmailError("사용 가능한 이메일입니다.");
-        }
+        // if (checkResponse) {
+        //   setEmailError("이미 존재하는 이메일입니다.");
+        // } else {
+        //   setEmailError("사용 가능한 이메일입니다.");
+        // }
       }
     }
     console.log(email);
@@ -80,11 +87,19 @@ const RegisterForm = () => {
     console.log("닉네임 중복확인");
     if (nickName === "") {
       setNickNameError("닉네임을 입력해주세요!");
-    }
+      return;
+    } else {
+      if (checkNickName(nickName)) {
+        const checkResponse = dispatch(__checkNickName(email));
+        console.log(checkResponse);
 
-    //db로 전송해서, db에 있는지 확인
-    //=> return true: db에 존재하므로 사용 불가
-    //=> return false: db에 존재하므로 사용 불가
+        // if (checkResponse) {
+        //   setNickNameError("이미 존재하는 닉네임입니다.");
+        // } else {
+        //   setNickNameError("사용 가능한 닉네임입니다.");
+        // }
+      }
+    }
   };
 
   //TODO 회원가입 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
@@ -144,7 +159,7 @@ const RegisterForm = () => {
         <div>
           <InputBox>
             <Input
-              type="new-password"
+              type="password"
               placeholder="비밀번호 확인"
               value={passwordConfirm || ""}
               onChange={onChangeNewPasswordHandler}
@@ -153,7 +168,8 @@ const RegisterForm = () => {
           </InputBox>
           <p className="text-rose-500">{passwordConfirmError}</p>
         </div>
-        <Button type="button" onClick={onClickRegister}>
+
+        <Button type="button" onClick={onClickRegister} disabled={isError}>
           책 읽으러가기
         </Button>
       </FormContainer>

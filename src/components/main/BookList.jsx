@@ -1,14 +1,11 @@
 import tw from "tailwind-styled-components";
 import BookCard from "./BookCard";
 
-const BookList = ({ books }) => {
-  console.log(books);
-
+const BookList = ({ reviews }) => {
   return (
     <BookListContainer>
-      <BookCard />
-      {books.map((book) => {
-        return <BookCard book={book} />;
+      {reviews.map((review) => {
+        return <BookCard key={review.id} title={review.title} id={review.id} />;
       })}
     </BookListContainer>
   );

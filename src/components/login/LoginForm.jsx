@@ -5,7 +5,7 @@ import { useDispatch } from "react-redux";
 
 import tw from "tailwind-styled-components";
 
-import { loginUserThunk } from "../../redux/modules/users";
+import { __loginUser } from "../../redux/modules/usersSlice";
 import { checkEmail, checkPassword } from "../../utils/validation";
 
 import Button from "../../elem/Button";
@@ -41,16 +41,16 @@ const LoginForm = () => {
 
     const user = { email, password };
     console.log(user);
-    const signInResponse = await dispatch(loginUserThunk(user));
-    console.log(signInResponse);
-    if (signInResponse.error) {
-      setError(true);
-      const errorCode = signInResponse.payload;
-      console.log(errorCode);
-      setLoginError(errorCode);
-    } else {
-      navigate("/main");
-    }
+    dispatch(__loginUser({ email, password }));
+    // console.log(signInResponse);
+    // if (signInResponse.error) {
+    //   setError(true);
+    //   const errorCode = signInResponse.payload;
+    //   console.log(errorCode);
+    //   setLoginError(errorCode);
+    // } else {
+    //   // navigate("/main");
+    // }
   };
 
   return (
@@ -81,15 +81,15 @@ const LoginForm = () => {
             autoComplete="false"
             required
           />
-          <ErrorMessage>{passwordError}</ErrorMessage>
+          {passwordError === "" ? (
+            <HelpText>
+              비밀번호는 영문 대소문자,숫자를 혼합하여 4-20자로 입력해주세요
+            </HelpText>
+          ) : (
+            <ErrorMessage> {passwordError}</ErrorMessage>
+          )}
         </div>
-        {isError ? (
-          <ErrorMessage> {loginError}</ErrorMessage>
-        ) : (
-          <HelpText>
-            비밀번호는 영문 대소문자,숫자를 혼합하여 4-20자로 입력해주세요
-          </HelpText>
-        )}
+
         <Button type="button">이메일로 로그인</Button>
       </FormContainer>
     </Form>

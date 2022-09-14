@@ -6,7 +6,7 @@ import Layout from "../components/common/Layout";
 import SearchForm from "../components/search/SearchForm";
 import SearchBook from "../components/search/SearchBook";
 import { useDispatch, useSelector } from "react-redux";
-import { __getBooksThunk } from "../redux/modules/bookSlice";
+import { __getBooks } from "../redux/modules/bookSlice";
 
 const Search = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Search = () => {
 
   useEffect(() => {
     try {
-      dispatch(__getBooksThunk(title));
+      dispatch(__getBooks(title));
     } catch (error) {
       console.log(error);
     }

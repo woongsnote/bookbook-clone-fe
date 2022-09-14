@@ -7,7 +7,7 @@ const initialState = {
   error: null,
 };
 
-export const __getBooksThunk = createAsyncThunk(
+export const __getBooks = createAsyncThunk(
   "books/getBooks",
   async (title, thunk) => {
     try {
@@ -25,14 +25,14 @@ export const bookSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__getBooksThunk.pending]: (state) => {
+    [__getBooks.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getBooksThunk.fulfilled]: (state, action) => {
+    [__getBooks.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.books = action.payload;
     },
-    [__getBooksThunk.rejected]: (state, action) => {
+    [__getBooks.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.error;
     },
