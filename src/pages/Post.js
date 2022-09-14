@@ -1,7 +1,10 @@
 import { useState } from "react";
-// import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from "react-redux";
+import useInput from "../hooks/useInput";
+import { useEffect } from "react";
 import tw from "tailwind-styled-components";
-//import Header from "../components/common/Header";
+import { __addReview } from "../redux/modules/postSlice";
+import { __getReview } from "../redux/modules/postSlice";
 
 // 각각 요소 컴포넌트
 import BookImg from "../components/post/BookImg";
@@ -16,6 +19,9 @@ import { useLocation } from "react-router-dom";
 
 const Post = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+  }, []);
 
   const location = useLocation();
 
@@ -26,26 +32,23 @@ const Post = () => {
   imageUrl = location.state.imageUrl;
 
   // ANCHOR 이니셜 스테이트
-  const [img, setImg] = useState("");
-  // const [title, setTitle] = useState("");
+  const [title, setTitle] = useState("");
   const [readStart, setReadStart] = useState("2000 - 01 - 01");
-  const [star, setStar] = useState(0);
-  const [intro, setIntro] = useState("");
   const [readEnd, setReadEnd] = useState("2999 - 12 - 31");
-  const [publisher, setPublisher] = useState("");
+  const [star, setStar] = useState();
+  const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);
 
-  const onChangePage = (e) => {
-    setPage(e.target.value);
-  };
+  // const bookcover = useSelector((state)=> state.post)
 
   const onClick = () => {
-    const post = { title, readStart, readEnd, star };
-    console.log(post);
+    const post = { title, readStart, readEnd, star, page };
+    console.log("🚀 ~ onClick ~ post", post);
+    dispatch(__addReview({ title, readStart, readEnd, star, page }));
+  };
 
-    const tempTitle = "test";
-
-    dispatch(__addReview({ tempTitle }));
+  const inputTitle = (e) => {
+    return e.target.value;
   };
 
   return (
@@ -55,13 +58,11 @@ const Post = () => {
           <InfoBox className="flex">
             <BookImg />
             <BookInfo>
-              <h3>{title}</h3>
-              {/* <PostTitle placeholder="제목을 입력하세요" onChange={setTitle} /> */}
-              <ReadingPeriod onChange={(setReadStart, setReadEnd)} />
-              <Star onChange={setStar} />
-              <img src={imageUrl} alt="bookCover" />
-              <BookIntro onChange={setIntro} />
-              <PublisherPage onChange={{ publisher, page }} />
+              <PostTitle placeholder="제목을 입력하세요" />
+              <ReadingPeriod />
+              <Star star={star} setStar={setStar} />
+              <BookIntro intro={intro} setIntro={setIntro} />
+              <PublisherPage page={page} setPage={setPage} />
             </BookInfo>
           </InfoBox>
           <Button

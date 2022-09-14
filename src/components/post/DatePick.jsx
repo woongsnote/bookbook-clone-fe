@@ -7,6 +7,7 @@ import { ko } from 'date-fns/esm/locale';
 
 const DatePick = () => {
   const [dateRange, setDateRange] = useState([null, null]);
+
   const [startDate, endDate] = dateRange;
   return (
     <DatePickWrap>

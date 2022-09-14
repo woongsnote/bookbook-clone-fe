@@ -5,13 +5,12 @@ import api from "../../shared/api";
 const initialState = {
   success: false,
   data: {
+    nickname: "",
     title: "",
-    star: 0,
     readStart: "2000-01-01",
     readEnd: "2999-12-31",
     intro: "",
     publisher: "",
-    page: 0,
   },
   error: null,
 };
@@ -21,6 +20,7 @@ export const __getReview = createAsyncThunk(
   async (payload, thunkAPI) => {
     try {
       const { data } = await api.get("/books");
+      console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -33,7 +33,6 @@ export const __addReview = createAsyncThunk(
   async (args, thunkAPI) => {
     try {
       const { data } = await api.post("/posts", args);
-      console.log("🚀 ~ const__addReview=createAsyncThunk ~ data", data);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

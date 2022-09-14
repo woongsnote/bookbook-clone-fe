@@ -1,26 +1,22 @@
 // import tw from 'tailwind-styled-components';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import harry from '../../image/harry.jpg';
 import styled from 'styled-components';
+import { __getReview } from '../../redux/modules/postSlice';
+import { useDispatch,useSelector } from 'react-redux';
 
 const BookImg = () => {
-  const fileInput = useRef(null);
-  const [image, setImage] = useState('');
-
-  const changeHandler = e => {
-    setImage(e.target.files[0]);
-  };
-
-  const formSubmit = e => {
-    const image = e.target.files[0]
-    const formData = new FormData();
-    formData.append('file', image)
-  }
+  const dispatch = useDispatch();
+  const bookCover = useSelector((state) => state.books);
+  console.log('🚀 ~ BookImg ~ bookCover', bookCover)
+  
+  useEffect(() => {
+    dispatch(__getReview());
+  }, []);
 
   return (
     <BookImgWrap>
-      <label id='bookcover' src={harry} alt='bookimg' />
-      <input id='bookcover' type='file' accept='image/*' ref={fileInput} onChange={formSubmit} />
+      <img src={bookCover} alt='bookcover' />
     </BookImgWrap>
   );
 };
