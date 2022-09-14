@@ -14,7 +14,7 @@ export const __checkEmail = createAsyncThunk(
   "users/checkEmail",
   async (email, thunk) => {
     try {
-      const { data } = await api.post("/member/email", { email });
+      const { data } = await api.post("/api/member/email", { email });
       console.log(data);
       return thunk.fulfillWithValue(data);
     } catch (error) {
@@ -54,10 +54,10 @@ export const __registerUser = createAsyncThunk(
 /** 로그인 */
 export const __loginUser = createAsyncThunk(
   "users/login",
-  async (user, thunk) => {
-    console.log(user);
+  async (args, thunk) => {
     try {
-      const { data } = await userAPI.login(user);
+      const { data } = await api.post("/api/member/login", args);
+
       console.log(data);
       return thunk.fulfillWithValue(data);
     } catch (error) {
@@ -137,16 +137,13 @@ const usersSlice = createSlice({
     [__loginUser.pending]: (state) => {
       state.isLoading = true;
       state.response = null;
-      state.error = null;
     },
     [__loginUser.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.response = action.payload;
-      state.error = null;
     },
     [__loginUser.rejected]: (state, action) => {
       state.isLoading = false;
-      state.response = null;
       state.error = action.payload;
     },
 

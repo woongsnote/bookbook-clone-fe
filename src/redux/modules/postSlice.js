@@ -21,7 +21,7 @@ export const __getReview = createAsyncThunk(
   "post/getReviews",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await api.get("/posts");
+      const { data } = await api.get("/api/auth/post");
       // console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
       console.log(data);
       return thunkAPI.fulfillWithValue(data);
@@ -35,7 +35,7 @@ export const __addReview = createAsyncThunk(
   "post/addReview",
   async (args, thunkAPI) => {
     try {
-      const { data } = await api.post("/posts", args);
+      const { data } = await api.post("/api/auth/post", args);
       return thunkAPI.fulfillWithValue(data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

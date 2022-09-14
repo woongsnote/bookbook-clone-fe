@@ -41,16 +41,17 @@ const LoginForm = () => {
 
     const user = { email, password };
     console.log(user);
-    dispatch(__loginUser({ email, password }));
-    // console.log(signInResponse);
-    // if (signInResponse.error) {
-    //   setError(true);
-    //   const errorCode = signInResponse.payload;
-    //   console.log(errorCode);
-    //   setLoginError(errorCode);
-    // } else {
-    //   // navigate("/main");
-    // }
+    const signInResponse = dispatch(__loginUser(user));
+
+    console.log(signInResponse);
+    if (signInResponse.error) {
+      setError(true);
+      const errorCode = signInResponse.payload;
+      console.log(errorCode);
+      setLoginError(errorCode);
+    } else {
+      navigate("/main");
+    }
   };
 
   return (

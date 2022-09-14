@@ -67,8 +67,8 @@ const RegisterForm = () => {
       return;
     } else {
       if (checkEmail(email)) {
-        const checkResponse = dispatch(__checkEmail(email));
-        console.log(checkResponse);
+        dispatch(__checkEmail(email));
+        // console.log(checkResponse);
 
         // if (checkResponse) {
         //   setEmailError("이미 존재하는 이메일입니다.");
@@ -77,7 +77,7 @@ const RegisterForm = () => {
         // }
       }
     }
-    console.log(email);
+    // console.log(email);
     //db로 전송해서, db에 있는지 확인
     //=> return true: db에 존재하므로 사용 불가
     //=> return false: db에 존재하므로 사용 불가
