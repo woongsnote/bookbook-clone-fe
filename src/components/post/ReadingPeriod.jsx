@@ -1,7 +1,7 @@
 import tw from 'tailwind-styled-components';
 import DatePick from './DatePick';
 
-const ReadingPeriod = () => {
+const ReadingPeriod = ({ readStart, readEnd }) => {
   return (
     <BookReadingBox>
       <DateTitle>독서 기간</DateTitle>

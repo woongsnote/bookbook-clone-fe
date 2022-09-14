@@ -1,7 +1,10 @@
 import { useState } from 'react';
-// import { useLocation, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import useInput from '../hooks/useInput';
+import { useEffect } from 'react';
 import tw from 'tailwind-styled-components';
-//import Header from "../components/common/Header";
+import { __addReview } from '../redux/modules/postSlice';
+import { __getReview } from '../redux/modules/postSlice';
 
 // 각각 요소 컴포넌트
 import BookImg from '../components/post/BookImg';
@@ -10,12 +13,12 @@ import Star from '../components/post/Star';
 import BookIntro from '../components/post/BookIntro';
 import PublisherPage from '../components/post/PublisherPage';
 import Layout from '../components/common/Layout';
-import { useDispatch } from 'react-redux';
-import { __addReview } from '../redux/modules/postSlice';
-import useInput from '../hooks/useInput';
 
 const Post = () => {
   const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+  }, []);
 
   // ANCHOR 이니셜 스테이트
   const [title, setTitle] = useState('');
@@ -25,10 +28,11 @@ const Post = () => {
   const [intro, setIntro] = useInput();
   const [page, setPage] = useState(0);
 
+  // const bookcover = useSelector((state)=> state.post)
+
   const onClick = () => {
     const post = { title, readStart, readEnd, star, page };
     console.log('🚀 ~ onClick ~ post', post);
-
     dispatch(__addReview({ title, readStart, readEnd, star, page }));
   };
 
@@ -39,12 +43,12 @@ const Post = () => {
   return (
     <Layout>
       <PostWrap>
-        <PostCon> 
+        <PostCon>
           <InfoBox className='flex'>
             <BookImg />
             <BookInfo>
               <PostTitle placeholder='제목을 입력하세요' />
-              <ReadingPeriod onChange={(setReadStart, setReadEnd)} />
+              <ReadingPeriod />
               <Star star={star} setStar={setStar} />
               <BookIntro intro={intro} setIntro={setIntro} />
               <PublisherPage page={page} setPage={setPage} />

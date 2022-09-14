@@ -10,7 +10,8 @@ const initialState = {
 
 export const __getReview = createAsyncThunk('post/getReviews', async (payload, thunkAPI) => {
   try {
-    const { data } = await api.get('/books');
+    const { data } = await api.get('/books'); 
+    console.log('🚀 ~ const__getReview=createAsyncThunk ~ data', data)
     return thunkAPI.fulfillWithValue(data);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -52,3 +53,7 @@ export const postSlice = createSlice({
 });
 
 export default postSlice.reducer;
+
+
+
+

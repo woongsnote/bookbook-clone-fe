@@ -1,14 +1,22 @@
 // import tw from 'tailwind-styled-components';
-import { useRef, useState } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import harry from '../../image/harry.jpg';
 import styled from 'styled-components';
 import { __getReview } from '../../redux/modules/postSlice';
+import { useDispatch,useSelector } from 'react-redux';
 
-const BookImg = ({ img }) => {
+const BookImg = () => {
+  const dispatch = useDispatch();
+  const bookCover = useSelector((state) => state.books);
+  console.log('🚀 ~ BookImg ~ bookCover', bookCover)
+  
+  useEffect(() => {
+    dispatch(__getReview());
+  }, []);
 
   return (
     <BookImgWrap>
-      <img src={img} alt='bookcover' />
+      <img src={bookCover} alt='bookcover' />
     </BookImgWrap>
   );
 };
