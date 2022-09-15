@@ -25,8 +25,8 @@ export const __getAllReviews = createAsyncThunk(
   "post/getReviews",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await api.get(`/posts`);
-      // const { data } = await api.get(`/api/auth/post`);
+      // const { data } = await api.get(`/posts`);
+      const { data } = await api.get(`/api/auth/post`);
       // console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
 
       console.log(data);
@@ -42,8 +42,8 @@ export const __getReview = createAsyncThunk(
   "/post/getReview",
   async (id, thunkAPI) => {
     try {
-      const { data } = await instance.get(`/posts/${id}`);
-      // const { data } = await instance.get(`/api/auth/post/${id}`);
+      // const { data } = await instance.get(`/posts/${id}`);
+      const { data } = await instance.get(`/api/auth/post/${id}`);
       console.log(data);
       // 서버용...
       // return thunkAPI.fulfillWithValue(data.data);

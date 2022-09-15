@@ -1,12 +1,10 @@
 import axios from "axios";
 
-// let api;
-
 const instance = axios.create({
   // 서버용
-  // baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.REACT_APP_API_URL,
   // 로컬용
-  baseURL: "http://localhost:3001",
+  // baseURL: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
     withCredentials: true,
