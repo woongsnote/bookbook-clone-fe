@@ -44,6 +44,7 @@ const LoginForm = () => {
 
       const res = await instance.post(`/api/member/login`, user);
       console.log(res);
+
       if (res.status === 200) {
         const accessToken = res.headers.authorization;
         const refreshToken = res.headers["refresh-token"];

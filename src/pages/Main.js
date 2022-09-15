@@ -6,7 +6,7 @@ import BookTower from "../components/main/BookTower";
 import { useEffect, useState } from "react";
 import ModeSwitchButtons from "../components/main/ModeSwitchButtons.jsx";
 import { useDispatch, useSelector } from "react-redux";
-import { __getReview } from "../redux/modules/postSlice";
+import { __getAllReviews } from "../redux/modules/postSlice";
 
 const Main = () => {
   const dispatch = useDispatch();
@@ -19,7 +19,7 @@ const Main = () => {
   const { reviews } = useSelector((state) => state.postSlice);
 
   useEffect(() => {
-    dispatch(__getReview());
+    dispatch(__getAllReviews());
   }, []);
 
   return (

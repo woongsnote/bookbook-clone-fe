@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import instance from "../../shared/api";
 import api from "../../shared/api";
 
 // WHAT 초기값
@@ -17,14 +18,27 @@ const initialState = {
   error: null,
 };
 
-export const __getReview = createAsyncThunk(
+export const __getAllReviews = createAsyncThunk(
   "post/getReviews",
   async (payload, thunkAPI) => {
     try {
-      const { data } = await api.get("/api/auth/post");
+      const { data } = await api.get(`/api/auth/post`);
       // console.log("🚀 ~ const__getReview=createAsyncThunk ~ data", data);
+      // console.log(data);
+      return thunkAPI.fulfillWithValue(data.data);
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  }
+);
+
+export const __getReview = createAsyncThunk(
+  "/post/getReview",
+  async (id, thunkAPI) => {
+    try {
+      const { data } = await instance.get(`/api/auth/post/${id}`);
       console.log(data);
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(data.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -48,22 +62,28 @@ export const postSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__getReview.pending]: (state) => {
+    [__getAllReviews.pending]: (state) => {
       state.isLoading = true;
     },
-    [__getReview.fulfilled]: (state, action) => {
+    [__getAllReviews.fulfilled]: (state, action) => {
       state.isLoading = false;
       state.reviews = action.payload;
     },
-    [__getReview.rejected]: (state, action) => {
+    [__getAllReviews.rejected]: (state, action) => {
       state.isLoading = false;
       state.error = action.payload;
     },
+    [__addReview.pending]: (state) => {
+      state.isLoading = true;
+    },
+
     [__addReview.fulfilled]: (state, action) => {
+      state.isLoading = false;
       state.posts = action.payload;
     },
     [__addReview.rejected]: (state, action) => {
-      return;
+      state.isLoading = false;
+      state.error = action.payload;
     },
   },
 });

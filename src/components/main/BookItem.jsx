@@ -2,9 +2,8 @@ import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
 
 const BookItem = ({ id, title, height, isLeft }) => {
-  // console.log(height);
   const bookHeight = parseInt(height / 80);
-  console.log(bookHeight);
+
   const navigate = useNavigate();
   const goDetail = () => {
     navigate(`/detail/${id}`);
@@ -16,12 +15,13 @@ const BookItem = ({ id, title, height, isLeft }) => {
       style={{
         height: `${bookHeight}rem`,
         border: "1px solid gray",
-        minHeight: "1rem",
+        maxWidth: "85%",
+        minHeight: "1.2rem",
         width: "30rem",
         marginLeft: "2rem",
       }}
     >
-      <p>{title}</p>
+      <h2 className="p-4">{title}</h2>
     </BookContainer>
   ) : (
     <BookContainer
@@ -29,12 +29,13 @@ const BookItem = ({ id, title, height, isLeft }) => {
       style={{
         height: `${bookHeight}rem`,
         border: "1px solid gray",
-        minHeight: "1rem",
+        maxWidth: "85%",
+        minHeight: "1.2rem",
         width: "30rem",
         marginRight: "2rem",
       }}
     >
-      <h2>{title}</h2>
+      <h2 className="p-4">{title}</h2>
     </BookContainer>
   );
 };

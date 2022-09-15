@@ -5,8 +5,21 @@ import Layout from "../components/common/Layout";
 
 import harry from "../image/harry.jpg";
 
+import { useParams } from "react-router-dom";
+
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 const Detail = () => {
-  //더미 데이터
+  const dispatch = useDispatch();
+
+  const { id } = useParams();
+
+  useEffect(() => {
+    return () => {};
+  }, []);
+
+  console.log(id);
+
   const navigate = useNavigate();
   let testTitle = "해리포터와 마법사의 돌";
   let readingPeriod = "2022-09-08 ~ 2022-09-12";
