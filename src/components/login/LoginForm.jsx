@@ -1,28 +1,24 @@
 import { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
 
 import tw from "tailwind-styled-components";
-
-import { __loginUser } from "../../redux/modules/usersSlice";
 import { checkEmail, checkPassword } from "../../utils/validation";
 
 import Button from "../../elem/Button";
 import Logo from "../common/Logo";
+import instance from "../../shared/api";
 
 const LoginForm = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
-  const [loginError, setLoginError] = useState("");
 
-  const [isError, setError] = useState(false);
+  const [loginError, setLoginError] = useState("");
 
   const onChangeEmailHandler = (e) => {
     setEmail(e.target.value);
@@ -36,26 +32,35 @@ const LoginForm = () => {
     setPasswordError(checkPassword(e.target.value));
   };
 
-  const signIn = async (e) => {
+  const loginHandler = (e) => {
     e.preventDefault();
 
-    const user = { email, password };
-    console.log(user);
-    const signInResponse = dispatch(__loginUser(user));
+    login(email, password);
+  };
 
-    console.log(signInResponse);
-    if (signInResponse.error) {
-      setError(true);
-      const errorCode = signInResponse.payload;
-      console.log(errorCode);
-      setLoginError(errorCode);
-    } else {
-      navigate("/main");
+  const login = async (email, password) => {
+    try {
+      const user = { email, password };
+
+      const res = await instance.post(`/api/member/login`, user);
+      console.log(res);
+      if (res.status === 200) {
+        const accessToken = res.headers.authorization;
+        const refreshToken = res.headers["refresh-token"];
+        sessionStorage.setItem("Access_token", accessToken);
+        sessionStorage.setItem("Refresh_token", refreshToken);
+        navigate("/main");
+      } else {
+        setLoginError(res.data.error);
+      }
+    } catch (error) {
+      console.log(error);
+      setLoginError(error);
     }
   };
 
   return (
-    <Form onSubmit={signIn}>
+    <Form onSubmit={loginHandler}>
       <FormContainer>
         <LogBox>
           <Logo />
@@ -90,6 +95,7 @@ const LoginForm = () => {
             <ErrorMessage> {passwordError}</ErrorMessage>
           )}
         </div>
+        {/* <p>{loginError}</p> */}
 
         <Button type="button">이메일로 로그인</Button>
       </FormContainer>

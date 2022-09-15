@@ -1,12 +1,10 @@
 import Router from "./shared/Router";
-// import tw from 'tailwind-styled-components';
-// import Post from "./components/post/Post";
 
 function App() {
-  return (
-    // <Post />
-    <Router />
-  );
+  if (process.env.NODE_ENV === "production") {
+    console.log = function no_console() {};
+  }
+  return <Router />;
 }
 
 export default App;

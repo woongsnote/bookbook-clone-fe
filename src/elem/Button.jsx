@@ -7,7 +7,6 @@ const Button = ({ props, children }) => {
 const TwButton = tw.button`
 block
 bg-Bblue
-hover:bg-gray-700
 active:bg-gray-600
 focus-visible:ring
 ring-gray-300

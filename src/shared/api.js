@@ -1,27 +1,41 @@
 import axios from "axios";
 
 // let api;
-const BASE_URL =
-  process.env.NODE_ENV === "production"
-    ? process.env.REACT_APP_API_URL
-    : "http://43.200.178.141:8080";
 
-const api = axios.create({
-  baseURL: BASE_URL,
-  headers: { "Content-Type": "application/json" },
+const instance = axios.create({
+  baseURL: process.env.REACT_APP_API_URL,
+  headers: {
+    "Content-Type": "application/json",
+    withCredentials: true,
+  },
 });
 
-export const userAPI = {
-  emailCheck: (email) => api.post("/api/member/email", email),
+instance.interceptors.request.use(
+  function (config) {
+    const accessToken = sessionStorage.getItem("Access_token");
+    const refreshToken = sessionStorage.getItem("Refresh_token");
+    if (accessToken !== null && refreshToken !== null) {
+      config.headers.common["authorization"] = `${accessToken}`;
+      config.headers.common["Refresh-token"] = `${refreshToken}`;
+    }
+    return config;
+  },
+  function (error) {
+    return Promise.reject(error);
+  }
+);
 
-  nicknameCheck: (nickname) => api.post("/api/member/nickname", nickname),
+// export const userAPI = {
+//   emailCheck: (email) => instance.post("/api/member/email", email),
 
-  register: (email, nickname, password) =>
-    api.post("/api/member/register", { email, nickname, password }),
+//   nicknameCheck: (nickname) => instance.post("/api/member/nickname", nickname),
 
-  login: (email, password) =>
-    api.post("/api/member/login", { email, password }),
-};
+//   register: (email, nickname, password) =>
+//     instance.post("/api/member/register", { email, nickname, password }),
+
+//   login: (email, password) =>
+//     instance.post("/api/member/login", { email, password }),
+// };
 
 // Todo
 export const bookAPI = {
@@ -32,8 +46,8 @@ export const bookAPI = {
     ),
 };
 
-export const reviewAPI = {
-  getAllReviews: () => api.get(""),
-};
+// export const reviewAPI = {
+//   getAllReviews: () => instance.get(""),
+// };
 
-export default api;
+export default instance;

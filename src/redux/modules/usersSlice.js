@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import api, { userAPI } from "../../shared/api";
+import instance from "../../shared/api";
 
 const initialState = {
   isLoading: false,
@@ -14,7 +14,7 @@ export const __checkEmail = createAsyncThunk(
   "users/checkEmail",
   async (email, thunk) => {
     try {
-      const { data } = await api.post("/api/member/email", { email });
+      const { data } = await instance.post("/api/member/email", { email });
       console.log(data);
       return thunk.fulfillWithValue(data);
     } catch (error) {
@@ -28,7 +28,7 @@ export const __checkNickName = createAsyncThunk(
   "users/checkNickName",
   async (nickname, thunk) => {
     try {
-      const { data } = await api.post("/member/nickname", { nickname });
+      const { data } = await instance.post("/member/nickname", { nickname });
       console.log(data);
       return thunk.fulfillWithValue(data);
     } catch (error) {
@@ -42,7 +42,7 @@ export const __registerUser = createAsyncThunk(
   "users/register",
   async (user, thunk) => {
     try {
-      const { data } = await api.post("/member/signup", user);
+      const { data } = await instance.post("/member/signup", user);
       console.log(data);
       return thunk.fulfillWithValue(data);
     } catch (error) {
@@ -56,7 +56,7 @@ export const __loginUser = createAsyncThunk(
   "users/login",
   async (args, thunk) => {
     try {
-      const { data } = await api.post("/api/member/login", args);
+      const { data } = await instance.post("/api/member/login", args);
 
       console.log(data);
       return thunk.fulfillWithValue(data);
@@ -81,7 +81,7 @@ export const __getUserInfo = createAsyncThunk(
   "users/getUserInfo",
   async (user, thunk) => {
     try {
-      const response = await api.get(`http://locahost:3001/api/mypage`);
+      const response = await instance.get(`http://locahost:3001/api/mypage`);
       return thunk.fulfillWithValue(response.data);
     } catch (error) {
       return thunk.rejectWithValue(error);

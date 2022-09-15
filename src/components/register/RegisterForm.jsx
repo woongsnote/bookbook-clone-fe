@@ -5,27 +5,29 @@ import Button from "../../elem/Button";
 import Logo from "../common/Logo";
 import {
   checkEmail,
-  checkNickName,
+  checkUserName,
   checkPassword,
 } from "../../utils/validation";
-import { useDispatch } from "react-redux";
-import { __checkEmail, __checkNickName } from "../../redux/modules/usersSlice";
+import instance from "../../shared/api";
 
 /** 회원가입 폼 */
 const RegisterForm = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const [email, setUserEmail] = useState("");
-  const [nickName, setNickName] = useState("");
+  const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirm, setNewPassword] = useState("");
 
+  const [emailHelp, setEmailHelp] = useState("");
+  const [usernameHelp, setUsernameHelp] = useState("");
+
   const [emailError, setEmailError] = useState("");
-  const [nickNameError, setNickNameError] = useState("");
+  const [usernameError, setUsernameError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [passwordConfirmError, setPasswordConfirmError] = useState("");
-  const [isError, setError] = useState(true);
+  const [isEmailError, setIsEmailError] = useState(false);
+  const [isUsernameError, setIsUsernameError] = useState(false);
 
   const passwordDoubleCheck = (password, newPassword) => {
     if (password !== newPassword) {
@@ -43,11 +45,11 @@ const RegisterForm = () => {
       : setEmailError("이메일 형식이 아닙니다");
   };
 
-  const onChangeNickNameHandler = (e) => {
-    setNickName(e.target.value);
-    checkNickName(e.target.value)
-      ? setNickNameError("")
-      : setNickNameError("닉네임 형식이 아닙니다");
+  const onChangeUsernameHandler = (e) => {
+    setUsername(e.target.value);
+    checkUserName(e.target.value)
+      ? setUsernameError("")
+      : setUsernameError("닉네임 형식이 아닙니다");
   };
 
   const onChangePasswordHandler = (e) => {
@@ -61,90 +63,133 @@ const RegisterForm = () => {
     passwordDoubleCheck(password, e.target.value);
   };
 
-  const onEmailCheck = () => {
+  const onEmailCheck = async () => {
     if (email === "") {
       setEmailError("이메일을 입력해주세요!");
       return;
     } else {
       if (checkEmail(email)) {
-        dispatch(__checkEmail(email));
-        // console.log(checkResponse);
+        // dispatch(__checkEmail(email));
+        const response = await instance.post("/api/member/email", { email });
+        console.log(response);
 
-        // if (checkResponse) {
-        //   setEmailError("이미 존재하는 이메일입니다.");
-        // } else {
-        //   setEmailError("사용 가능한 이메일입니다.");
-        // }
+        if (response.status === 200) {
+          setIsEmailError(false);
+          setEmailHelp("사용 가능한 이메일입니다.");
+          return;
+        } else {
+          setIsEmailError(true);
+          setEmailError("이미 존재하는 이메일입니다.");
+          return;
+        }
+
+        const checked = response.data.check;
+        console.log(checked);
+
+        if (checked) {
+          setEmailHelp("사용 가능한 이메일입니다.");
+        } else {
+          setIsEmailError(true);
+          setEmailError("이미 존재하는 이메일입니다.");
+        }
       }
     }
-    // console.log(email);
-    //db로 전송해서, db에 있는지 확인
-    //=> return true: db에 존재하므로 사용 불가
-    //=> return false: db에 존재하므로 사용 불가
   };
 
-  const onNicknameCheck = () => {
-    console.log("닉네임 중복확인");
-    if (nickName === "") {
-      setNickNameError("닉네임을 입력해주세요!");
+  const onUsernameCheck = async () => {
+    if (username === "") {
+      setUsernameError("닉네임을 입력해주세요!");
       return;
     } else {
-      if (checkNickName(nickName)) {
-        const checkResponse = dispatch(__checkNickName(email));
-        console.log(checkResponse);
+      if (checkUserName(username)) {
+        const response = await instance.post("/api/member/nickname", {
+          username,
+        });
+        console.log(response);
 
-        // if (checkResponse) {
-        //   setNickNameError("이미 존재하는 닉네임입니다.");
-        // } else {
-        //   setNickNameError("사용 가능한 닉네임입니다.");
-        // }
+        const checked = response.data.check;
+        if (checked) {
+          setUsernameHelp("사용 가능한 닉네임입니다.");
+        } else {
+          setIsUsernameError(true);
+          setUsernameError("이미 존재하는 닉네임입니다.");
+        }
       }
     }
   };
 
   //TODO 회원가입 성공하면 메인 페이지로 이동 실패시 사용자에게 알려주기
-  const onClickRegister = (e) => {
+  const onRegister = (e) => {
     console.log("click Register");
     e.preventDefault();
-    //API 요청
-    navigate("/main");
+
+    join(email, username, password);
+  };
+
+  const join = async (email, username, password) => {
+    try {
+      const res = await instance.post(`/api/member/signup`, {
+        email,
+        username,
+        password,
+      });
+      console.log(res);
+      if (res.data.statusCode === 200) {
+        navigate("/");
+      } else {
+        alert("회원가입을 실패했습니다. 다시 시도해 주세요");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
-    <Form>
+    <Form onSubmit={onRegister}>
       <FormContainer>
         <LogBox>
           <Logo />
         </LogBox>
-        <div>
+        <InputContainer>
           <InputBox>
             <Input
               type="email"
               placeholder="이메일"
               value={email || ""}
               onChange={onChangeEmailHandler}
+              required
             />
             <CheckButton type="button" onClick={onEmailCheck}>
               중복확인
             </CheckButton>
           </InputBox>
-          <p className="text-rose-500">{emailError}</p>
-        </div>
-        <div>
+          {emailError === "" ? "" : ""}
+          {isEmailError ? (
+            <ErrorMessage>{emailError}</ErrorMessage>
+          ) : (
+            <HelpMessage>{emailHelp}</HelpMessage>
+          )}
+        </InputContainer>
+        <InputContainer>
           <InputBox>
             <Input
               type="text"
               placeholder="닉네임"
-              value={nickName || ""}
-              onChange={onChangeNickNameHandler}
+              value={username || ""}
+              required
+              onChange={onChangeUsernameHandler}
             />
-            <CheckButton className="" type="button" onClick={onNicknameCheck}>
+            <CheckButton className="" type="button" onClick={onUsernameCheck}>
               중복확인
             </CheckButton>
           </InputBox>
-          <p className="text-rose-500">{nickNameError}</p>
-        </div>
-        <div>
+          {isUsernameError ? (
+            <ErrorMessage>{usernameError}</ErrorMessage>
+          ) : (
+            <HelpMessage>{usernameHelp}</HelpMessage>
+          )}
+        </InputContainer>
+        <InputContainer>
           <InputBox>
             <Input
               type="password"
@@ -152,11 +197,12 @@ const RegisterForm = () => {
               value={password || ""}
               onChange={onChangePasswordHandler}
               autoComplete="off"
+              required
             />
           </InputBox>
-          <p className="text-rose-500">{passwordError}</p>
-        </div>
-        <div>
+          <ErrorMessage>{passwordError}</ErrorMessage>
+        </InputContainer>
+        <InputContainer>
           <InputBox>
             <Input
               type="password"
@@ -164,14 +210,13 @@ const RegisterForm = () => {
               value={passwordConfirm || ""}
               onChange={onChangeNewPasswordHandler}
               autoComplete="off"
+              required
             />
           </InputBox>
-          <p className="text-rose-500">{passwordConfirmError}</p>
-        </div>
+          <ErrorMessage>{passwordConfirmError}</ErrorMessage>
+        </InputContainer>
 
-        <Button type="button" onClick={onClickRegister} disabled={isError}>
-          책 읽으러가기
-        </Button>
+        <Button>책 읽으러가기</Button>
       </FormContainer>
     </Form>
   );
@@ -218,6 +263,8 @@ py-2
 mt-4
 `;
 
+const InputContainer = tw.div``;
+
 const CheckButton = tw.button`
   flex-shrink-0
   bg-teal-500
@@ -230,4 +277,14 @@ const CheckButton = tw.button`
   py-1 
   px-2 
   rounded
+`;
+
+const ErrorMessage = tw.p`
+text-rose-500
+text-sm
+`;
+
+const HelpMessage = tw.p`
+text-green-500
+text-sm
 `;
