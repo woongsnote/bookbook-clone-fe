@@ -11,7 +11,7 @@
 ## ⛑ 팀원
 
 [FE] : [문지웅](https://github.com/woongsnote) | [신정민](https://github.com/MIINII)  
-[BE] : [이혜진](https://github.com/Hiluxy)
+[BE] : [이혜진](https://github.com/Hiluxy) | [홍성희](https://github.com/sungheeHong)
 
 ## 🎛 **FE 구현 기능**
 
