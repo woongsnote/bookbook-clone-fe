@@ -83,15 +83,15 @@ const RegisterForm = () => {
           return;
         }
 
-        const checked = response.data.check;
-        console.log(checked);
+        // const checked = response.data.check;
+        // console.log(checked);
 
-        if (checked) {
-          setEmailHelp("사용 가능한 이메일입니다.");
-        } else {
-          setIsEmailError(true);
-          setEmailError("이미 존재하는 이메일입니다.");
-        }
+        // if (checked) {
+        //   setEmailHelp("사용 가능한 이메일입니다.");
+        // } else {
+        //   setIsEmailError(true);
+        //   setEmailError("이미 존재하는 이메일입니다.");
+        // }
       }
     }
   };
@@ -107,7 +107,7 @@ const RegisterForm = () => {
         });
         if (response.status === 200) {
           setUsernameHelp("사용 가능한 닉네임입니다.");
-        } else if (response.status > 400) {
+        } else {
           setIsUsernameError(true);
           setUsernameError("이미 존재하는 닉네임입니다.");
         }

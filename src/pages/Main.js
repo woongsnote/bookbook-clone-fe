@@ -16,7 +16,7 @@ const Main = () => {
   // TODO My character 설정(option)
   // const [myCharacter, setMyCharacter] = useState({});
 
-  const { reviews } = useSelector((state) => state.postSlice);
+  const { posts: reviews } = useSelector((state) => state.postSlice);
 
   useEffect(() => {
     dispatch(__getAllReviews());

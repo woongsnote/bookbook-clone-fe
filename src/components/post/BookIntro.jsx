@@ -1,7 +1,9 @@
 import tw from "tailwind-styled-components";
 import styled from "styled-components";
+import { useSelector } from "react-redux";
 
-const BookIntro = ({ setComment }) => {
+const BookIntro = ({ comment, setComment }) => {
+  const review = useSelector((state) => state.postSlice.review);
   return (
     <BookIntroBox>
       <BookIntroTitle>📖 책 소개 📖</BookIntroTitle>
@@ -10,7 +12,7 @@ const BookIntro = ({ setComment }) => {
         onChange={(e) => {
           setComment(e.target.value);
         }}
-        placeholder="책 소개를 입력해주세요"
+        placeholder={review.comment}
       />
     </BookIntroBox>
   );

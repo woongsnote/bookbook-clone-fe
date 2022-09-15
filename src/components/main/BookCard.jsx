@@ -12,14 +12,6 @@ const BookCard = ({ id, title, imageUrl, rating }) => {
       <CardImage className="w-full" src={imageUrl} alt="책 표지" />
       <CardContent>
         <CardTitle>{title}</CardTitle>
-        {/* rating 만큼 별 표시 */}
-        <CardRating>
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaStar />
-          <FaRegStar />
-        </CardRating>
       </CardContent>
     </CardContainer>
     // FaRegStar
@@ -42,11 +34,11 @@ const CardImage = tw.img`
 
 const CardContent = tw.div`
     px-6 
-    py-4
+    py-3
 `;
 
 const CardTitle = tw.div`
-    font-bold text-xl mb-2
+    font-bold text-md 
 `;
 
 const CardRating = tw.div`

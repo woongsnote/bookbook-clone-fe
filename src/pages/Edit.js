@@ -27,34 +27,28 @@ const Edit = () => {
 
   // 불러오기!
   const review = useSelector((state) => state.postSlice.review);
-  console.log(review);
+  console.log("🚀 ~ Edit ~ review", review);
   const location = useLocation();
-
-  //   let title = "";
-  //   title = location.state?.title;
-
-  //   let imageUrl = "";
-  //   imageUrl = location.state?.imageUrl;
 
   // ANCHOR 이니셜 스테이트
   const [newReadStart, setNewReadStart] = useState(review.readStart);
   const [newReadEnd, setNewReadEnd] = useState(review.readEnd);
   const [newStar, setNewStar] = useState(review.star);
   const [newComment, setNewComment] = useState(review.comment);
-  const [newPage, setNewPage] = useState(review.page);
+  const [newPage, setNewPage] = useInput(review.page);
 
   const newReview = {
     title: review.title,
     readStart: newReadStart,
     readEnd: newReadEnd,
     star: newStar,
-    comment: setNewComment,
+    comment: newComment,
     page: newPage,
   };
 
   const onClick = () => {
     dispatch(__editReview(newReview));
-    navigate(`/detail/${id}`);
+    navigate(`/main`);
   };
 
   return (
@@ -80,8 +74,6 @@ const Edit = () => {
                 <input
                   type="date"
                   id="readEnd"
-                  min="1999-01-01"
-                  max="2999-12-31"
                   value={newReadEnd}
                   onChange={(e) => {
                     setNewReadEnd(e.target.value);
@@ -90,19 +82,19 @@ const Edit = () => {
               </DateInput>
 
               <div className="flex flex-row">
-                <Star star={newStar} />
-                <PublisherPage page={setNewPage} />
+                <Star star={newStar} onChange={setNewStar} />
+                <PublisherPage page={newPage} onChange={setNewPage} />
               </div>
             </BookInfo>
           </InfoBox>
 
-          <BookIntro />
+          <BookIntro setComment={setNewComment} />
           <Button
             className="button transition delay-100 duration-300 ease-in-out"
             type="button"
             onClick={onClick}
           >
-            등록
+            수정
           </Button>
         </PostCon>
       </PostWrap>

@@ -5,18 +5,19 @@ import api from "../../shared/api";
 // WHAT 초기값
 const initialState = {
   isLoading: false,
-  review: {},
-  reviews: [],
+  posts: [],
   success: false,
-  data: {
-    imageUrl: "",
-    nickname: "",
-    title: "",
-    readStart: "2000-01-01",
-    readEnd: "2999-12-31",
-    comment: "",
-    publisher: "",
-  },
+  // data: [
+  //   {
+  //     imageUrl: "",
+  //     nickname: "",
+  //     title: "",
+  //     readStart: "2000-01-01",
+  //     readEnd: "2999-12-31",
+  //     comment: "",
+  //     publisher: "",
+  //   },
+  // ],
   error: null,
 };
 
@@ -88,7 +89,7 @@ export const postSlice = createSlice({
     },
     [__getAllReviews.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.reviews = action.payload;
+      state.posts = action.payload;
     },
     [__getAllReviews.rejected]: (state, action) => {
       state.isLoading = false;
@@ -100,7 +101,7 @@ export const postSlice = createSlice({
     },
     [__getReview.fulfilled]: (state, action) => {
       state.isLoading = false;
-      state.review = action.payload;
+      state.post = action.payload;
     },
     [__getReview.rejected]: (state, action) => {
       state.isLoading = false;
@@ -137,6 +138,8 @@ export const postSlice = createSlice({
           };
         }
       });
+      state.post = newState;
+      return state;
     },
     [__editReview.rejected]: (state, action) => {
       state.isLoading = false;

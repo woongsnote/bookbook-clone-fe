@@ -21,5 +21,5 @@ const BookList = ({ reviews }) => {
 export default BookList;
 
 const BookListContainer = tw.div`
-grid grid-cols-3 gap-3
+grid grid-cols-4 gap-4
 `;
