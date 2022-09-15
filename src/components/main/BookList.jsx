@@ -5,7 +5,14 @@ const BookList = ({ reviews }) => {
   return (
     <BookListContainer>
       {reviews.map((review) => {
-        return <BookCard key={review.id} title={review.title} id={review.id} />;
+        return (
+          <BookCard
+            key={review.id}
+            title={review.title}
+            id={review.id}
+            imageUrl={review.imageUrl}
+          />
+        );
       })}
     </BookListContainer>
   );
@@ -14,5 +21,5 @@ const BookList = ({ reviews }) => {
 export default BookList;
 
 const BookListContainer = tw.div`
-grid grid-cols-4 gap-4
+grid grid-cols-3 gap-3
 `;

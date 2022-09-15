@@ -6,6 +6,7 @@ import Post from "../pages/Post";
 import Mypage from "../pages/Mypage";
 import Search from "../pages/Search";
 import Detail from "../pages/Detail";
+import Edit from "../pages/Edit";
 
 const Router = () => {
   return (
@@ -18,6 +19,7 @@ const Router = () => {
         <Route path="/mypage" element={<Mypage />} />
         <Route path="/search" element={<Search />} />
         <Route path="/detail/:id" element={<Detail />} />
+        <Route path="/edit/:id" element={<Edit />} />
       </Routes>
     </BrowserRouter>
   );

@@ -9,11 +9,7 @@ const BookCard = ({ id, title, imageUrl, rating }) => {
   };
   return (
     <CardContainer onClick={goDetail}>
-      <CardImage
-        className="w-full"
-        src="https://images.unsplash.com/photo-1589829085413-56de8ae18c73?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=912&q=80"
-        alt="Sunset in the mountains"
-      />
+      <CardImage className="w-full" src={imageUrl} alt="책 표지" />
       <CardContent>
         <CardTitle>{title}</CardTitle>
         {/* rating 만큼 별 표시 */}

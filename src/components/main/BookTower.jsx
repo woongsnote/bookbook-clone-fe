@@ -10,7 +10,7 @@ const BookTower = ({ reviews }) => {
             key={review.id}
             id={review.id}
             title={review.title}
-            height={review.bookPage}
+            height={review.page}
             isLeft={true}
           />
         ) : (
@@ -18,7 +18,7 @@ const BookTower = ({ reviews }) => {
             key={review.id}
             id={review.id}
             title={review.title}
-            height={review.bookPage}
+            height={review.page}
             isLeft={false}
           />
         );

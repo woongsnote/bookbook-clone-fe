@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import useInput from "../hooks/useInput";
 import { useEffect } from "react";
 import tw from "tailwind-styled-components";
 import { useNavigate } from "react-router-dom";
-import { __addReview } from "../redux/modules/postSlice";
+import { __editReview } from "../redux/modules/postSlice";
 import { __getReview } from "../redux/modules/postSlice";
 
 // 각각 요소 컴포넌트
@@ -14,40 +14,47 @@ import BookIntro from "../components/post/BookIntro";
 import PublisherPage from "../components/post/MaxPage";
 import Layout from "../components/common/Layout";
 
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-const Post = () => {
+const Edit = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { id } = useParams();
   useEffect(() => {
-    // dispatch(__getReview()); // 그냥 책제목 가져와야하는데 이것도 카카오에서 불러오나여? ㅎㅎ
+    dispatch(__getReview(id));
   }, []);
 
+  // 불러오기!
+  const review = useSelector((state) => state.postSlice.review);
+  console.log(review);
   const location = useLocation();
 
-  let title = "";
-  title = location.state?.title;
+  //   let title = "";
+  //   title = location.state?.title;
 
-  let imageUrl = "";
-  imageUrl = location.state?.imageUrl;
+  //   let imageUrl = "";
+  //   imageUrl = location.state?.imageUrl;
 
   // ANCHOR 이니셜 스테이트
-  // const [title, setTitle] = useState("");
-  const [readStart, setReadStart] = useState(new Date());
-  const [readEnd, setReadEnd] = useState(new Date());
-  const [star, setStar] = useState();
-  const [comment, setComment] = useState("");
-  const [page, setPage] = useState(0);
-  // const bookcover = useSelector((state)=> state.post)
+  const [newReadStart, setNewReadStart] = useState(review.readStart);
+  const [newReadEnd, setNewReadEnd] = useState(review.readEnd);
+  const [newStar, setNewStar] = useState(review.star);
+  const [newComment, setNewComment] = useState(review.comment);
+  const [newPage, setNewPage] = useState(review.page);
+
+  const newReview = {
+    title: review.title,
+    readStart: newReadStart,
+    readEnd: newReadEnd,
+    star: newStar,
+    comment: setNewComment,
+    page: newPage,
+  };
 
   const onClick = () => {
-    const post = { title, readStart, readEnd, star, comment, page, imageUrl };
-    console.log(post);
-
-    dispatch(
-      __addReview({ imageUrl, title, readStart, readEnd, star, comment, page })
-    );
-    navigate("/main");
+    dispatch(__editReview(newReview));
+    navigate(`/detail/${id}`);
   };
 
   return (
@@ -55,21 +62,19 @@ const Post = () => {
       <PostWrap>
         <PostCon>
           <InfoBox className="flex">
-            <BookImg imageUrl={imageUrl} />
+            <BookImg imageUrl={review.imageUrl} />
 
             <BookInfo>
-              <PostTitle>{title}</PostTitle>
+              <PostTitle>{review.title}</PostTitle>
 
               <h2>독서 기간</h2>
               <DateInput>
                 <input
                   type="date"
                   id="readStart"
-                  min="2000-01-01"
-                  max="2999-12-31"
-                  value={readStart}
+                  value={newReadStart}
                   onChange={(e) => {
-                    setReadStart(e.target.value);
+                    setNewReadStart(e.target.value);
                   }}
                 ></input>
                 <input
@@ -77,21 +82,21 @@ const Post = () => {
                   id="readEnd"
                   min="1999-01-01"
                   max="2999-12-31"
-                  value={readEnd}
+                  value={newReadEnd}
                   onChange={(e) => {
-                    setReadEnd(e.target.value);
+                    setNewReadEnd(e.target.value);
                   }}
                 ></input>
               </DateInput>
 
               <div className="flex flex-row">
-                <Star star={star} setStar={setStar} />
-                <PublisherPage page={page} setPage={setPage} />
+                <Star star={newStar} />
+                <PublisherPage page={setNewPage} />
               </div>
             </BookInfo>
           </InfoBox>
 
-          <BookIntro comment={comment} setComment={setComment} />
+          <BookIntro />
           <Button
             className="button transition delay-100 duration-300 ease-in-out"
             type="button"
@@ -149,4 +154,4 @@ const Button = tw.button`
   hover:bg-BDeepblue
 `;
 
-export default Post;
+export default Edit;

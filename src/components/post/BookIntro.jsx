@@ -1,11 +1,17 @@
 import tw from "tailwind-styled-components";
 import styled from "styled-components";
 
-const BookIntro = () => {
+const BookIntro = ({ setComment }) => {
   return (
     <BookIntroBox>
       <BookIntroTitle>📖 책 소개 📖</BookIntroTitle>
-      <textarea name="booktintro" placeholder="책 소개를 입력해주세요" />
+      <textarea
+        name="booktintro"
+        onChange={(e) => {
+          setComment(e.target.value);
+        }}
+        placeholder="책 소개를 입력해주세요"
+      />
     </BookIntroBox>
   );
 };

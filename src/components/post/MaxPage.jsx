@@ -1,22 +1,32 @@
-import tw from 'tailwind-styled-components';
-import styled from 'styled-components';
+import tw from "tailwind-styled-components";
+import styled from "styled-components";
+import { useSelector } from "react-redux";
 
 const PublisherPage = ({ page, setPage }) => {
-  const onChangePage = e => {
-    console.log('🚀 ~ onChangePage ~ setPage', page);
+  const review = useSelector((state) => state.postSlice.review);
+
+  const onChangePage = (e) => {
+    console.log("🚀 ~ onChangePage ~ setPage", page);
     setPage(e.target.value);
   };
 
   return (
     <BookIntroBox>
-      <PageTitle>페이지</PageTitle>
-      <input type='text' name='publisher' onChange={onChangePage} />
+      <PageTitle> 📖페이지</PageTitle>
+      <input
+        type="number"
+        name="publisher"
+        onChange={onChangePage}
+        placeholder={review.page}
+      />
     </BookIntroBox>
   );
 };
 
 const BookIntroBox = styled.div`
   display: flex;
+  flex-direction: column;
+  align-items: flex-start;
   /* justify-content: space-between; */
   margin-top: 10%;
   & input {
@@ -28,16 +38,6 @@ const BookIntroBox = styled.div`
   }
 `;
 
-const APage = tw.div`
-  ml-12
-`;
-
-const BookIntroTitle = tw.div`
-  flex
-  text-black
-  text-xl
-  font-bold
-`;
 const PageTitle = tw.div`
   text-black
   text-xl

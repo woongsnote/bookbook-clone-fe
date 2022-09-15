@@ -1,66 +1,76 @@
 import { useNavigate } from "react-router-dom";
 import tw from "tailwind-styled-components";
-
 import Layout from "../components/common/Layout";
-
-import harry from "../image/harry.jpg";
-
 import { useParams } from "react-router-dom";
-
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { __getReview } from "../redux/modules/postSlice";
+
 const Detail = () => {
   const dispatch = useDispatch();
-
   const { id } = useParams();
 
   useEffect(() => {
-    return () => {};
-  }, []);
+    dispatch(__getReview(id));
+  }, [dispatch, id]);
 
-  console.log(id);
+  const review = useSelector((state) => state.postSlice.review);
 
   const navigate = useNavigate();
-  let testTitle = "해리포터와 마법사의 돌";
-  let readingPeriod = "2022-09-08 ~ 2022-09-12";
-  let publisher = "test";
-  let maxPages = 240;
 
   const goBack = () => {
     navigate("/main");
   };
 
   const goEdit = () => {
-    navigate("/post");
+    navigate(`/edit/${id}`);
   };
 
   return (
     <Layout>
       <DetailContainer>
-        <InfoBox>
-          <BookImage>
-            <BookCover src={harry} alt="BookCover" />
-          </BookImage>
+        <DetailCard>
+          <TitleBox>
+            <BookTitle>{review.title}</BookTitle>
+          </TitleBox>
 
-          <BookInfo>
-            <h2>{testTitle}</h2>
-            <p>독서 기간</p>
-            <p>{readingPeriod}</p>
-            <p>별점 4</p>
-            <p>책 소개.. 블라블라브라</p>
-            <p>출판사: {publisher}</p>
-            <p>총 분량: {maxPages} 페이지</p>
-          </BookInfo>
-        </InfoBox>
+          <InfoBox>
+            <BookImage>
+              <BookCover src={review.imageUrl} alt="BookCover" />
+            </BookImage>
+
+            <BookInfo>
+              <ReadingPeriod>
+                <p>독서 기간</p>
+
+                <p>시작일: {review.readStart}</p>
+                <p>종료일: {review.readEnd}</p>
+              </ReadingPeriod>
+
+              <StarBox>
+                <p>별점:⭐{review.star} </p>
+              </StarBox>
+
+              <ReviewBox>
+                <p>책 소개</p>
+                <p>{review.comment}</p>
+              </ReviewBox>
+
+              <PageBox>
+                <p>총 페이지: {review.page} 페이지</p>
+              </PageBox>
+            </BookInfo>
+          </InfoBox>
+          <DetailButtons>
+            <DetailButton type="button" onClick={goBack}>
+              취소
+            </DetailButton>
+            <DetailButton type="button" onClick={goEdit}>
+              수정
+            </DetailButton>
+          </DetailButtons>
+        </DetailCard>
       </DetailContainer>
-      <DetailButtons>
-        <DetailButton type="button" onClick={goBack}>
-          취소
-        </DetailButton>
-        <DetailButton type="button" onClick={goEdit}>
-          수정
-        </DetailButton>
-      </DetailButtons>
     </Layout>
   );
 };
@@ -71,7 +81,20 @@ max-w-2xl
 border 
 pt-28
 h-full
+
   `;
+
+const DetailCard = tw.div`
+mt-8 shadow-xl p-8 rounded-xl
+`;
+
+const TitleBox = tw.div`
+flex items-center justify-center my-2
+`;
+
+const BookTitle = tw.h2`
+font-bold text-xl my-4
+`;
 
 const InfoBox = tw.div`
 flex
@@ -82,7 +105,7 @@ sm:flex-row
   `;
 
 const BookImage = tw.div`
-w-1/2
+w-2/5
 h-1/2
 flex
 items-center
@@ -95,8 +118,29 @@ self-center
 `;
 
 const BookInfo = tw.div`
-    w-1/2
+    w-3/5
     h-1/2
+`;
+
+const ReadingPeriod = tw.div`
+flex
+flex-col
+gap-4
+my-4
+rounded
+border-b
+`;
+
+const StarBox = tw.div`
+my-2
+`;
+
+const ReviewBox = tw.div`
+my-4
+`;
+
+const PageBox = tw.div`
+my-2
 `;
 
 const DetailButtons = tw.div`
@@ -104,6 +148,7 @@ flex
 items-center
 justify-center
 m-4
+mt-10
 `;
 
 const DetailButton = tw.button`

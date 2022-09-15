@@ -105,15 +105,21 @@ const RegisterForm = () => {
         const response = await instance.post("/api/member/nickname", {
           username,
         });
-        console.log(response);
-
-        const checked = response.data.check;
-        if (checked) {
+        if (response.status === 200) {
           setUsernameHelp("사용 가능한 닉네임입니다.");
-        } else {
+        } else if (response.status > 400) {
           setIsUsernameError(true);
           setUsernameError("이미 존재하는 닉네임입니다.");
         }
+
+        console.log(response);
+
+        // const checked = response.data.check;
+        // if (checked) {
+
+        // } else {
+
+        // }
       }
     }
   };

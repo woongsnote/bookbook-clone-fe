@@ -6,7 +6,7 @@ const BookItem = ({ id, title, height, isLeft }) => {
 
   const navigate = useNavigate();
   const goDetail = () => {
-    navigate(`/detail/${id}`);
+    navigate(`/detail/${id}`, { state: { title } });
   };
 
   return isLeft ? (

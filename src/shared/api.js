@@ -3,7 +3,10 @@ import axios from "axios";
 // let api;
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  // 서버용
+  // baseURL: process.env.REACT_APP_API_URL,
+  // 로컬용
+  baseURL: "http://localhost:3001",
   headers: {
     "Content-Type": "application/json",
     withCredentials: true,
@@ -25,18 +28,6 @@ instance.interceptors.request.use(
   }
 );
 
-// export const userAPI = {
-//   emailCheck: (email) => instance.post("/api/member/email", email),
-
-//   nicknameCheck: (nickname) => instance.post("/api/member/nickname", nickname),
-
-//   register: (email, nickname, password) =>
-//     instance.post("/api/member/register", { email, nickname, password }),
-
-//   login: (email, password) =>
-//     instance.post("/api/member/login", { email, password }),
-// };
-
 // Todo
 export const bookAPI = {
   searchBooks: (title) =>
@@ -45,9 +36,5 @@ export const bookAPI = {
       { headers: { Authorization: process.env.REACT_APP_KaKaoKEY } }
     ),
 };
-
-// export const reviewAPI = {
-//   getAllReviews: () => instance.get(""),
-// };
 
 export default instance;
