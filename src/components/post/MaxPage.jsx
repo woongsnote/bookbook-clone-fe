@@ -2,8 +2,8 @@ import tw from "tailwind-styled-components";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 
-const PublisherPage = ({ page, setPage }) => {
-  const review = useSelector((state) => state.postSlice.review);
+const MaxPage = ({ page, setPage }) => {
+  const review = useSelector((state) => state.postSlice.post);
 
   const onChangePage = (e) => {
     console.log("🚀 ~ onChangePage ~ setPage", page);
@@ -44,4 +44,4 @@ const PageTitle = tw.div`
   font-bold
 `;
 
-export default PublisherPage;
+export default MaxPage;

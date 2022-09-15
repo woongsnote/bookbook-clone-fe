@@ -11,7 +11,7 @@ import { __getReview } from "../redux/modules/postSlice";
 import BookImg from "../components/post/BookImg";
 import Star from "../components/post/Star";
 import BookIntro from "../components/post/BookIntro";
-import PublisherPage from "../components/post/MaxPage";
+import MaxPage from "../components/post/MaxPage";
 import Layout from "../components/common/Layout";
 
 import { useLocation, useParams } from "react-router-dom";
@@ -26,7 +26,7 @@ const Edit = () => {
   }, []);
 
   // 불러오기!
-  const review = useSelector((state) => state.postSlice.review);
+  const review = useSelector((state) => state.postSlice.post);
   console.log("🚀 ~ Edit ~ review", review);
   const location = useLocation();
 
@@ -83,7 +83,7 @@ const Edit = () => {
 
               <div className="flex flex-row">
                 <Star star={newStar} onChange={setNewStar} />
-                <PublisherPage page={newPage} onChange={setNewPage} />
+                <MaxPage page={newPage} onChange={setNewPage} />
               </div>
             </BookInfo>
           </InfoBox>

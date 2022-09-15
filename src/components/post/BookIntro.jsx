@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { useSelector } from "react-redux";
 
 const BookIntro = ({ comment, setComment }) => {
-  const review = useSelector((state) => state.postSlice.review);
+  const review = useSelector((state) => state.postSlice.post);
   return (
     <BookIntroBox>
       <BookIntroTitle>📖 책 소개 📖</BookIntroTitle>

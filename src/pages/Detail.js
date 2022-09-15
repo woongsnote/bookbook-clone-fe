@@ -14,7 +14,7 @@ const Detail = () => {
     dispatch(__getReview(id));
   }, [dispatch, id]);
 
-  const review = useSelector((state) => state.postSlice.review);
+  const review = useSelector((state) => state.postSlice.post);
 
   const navigate = useNavigate();
 

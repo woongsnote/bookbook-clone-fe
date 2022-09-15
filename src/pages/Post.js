@@ -11,7 +11,7 @@ import { __getReview } from "../redux/modules/postSlice";
 import BookImg from "../components/post/BookImg";
 import Star from "../components/post/Star";
 import BookIntro from "../components/post/BookIntro";
-import PublisherPage from "../components/post/MaxPage";
+import MaxPage from "../components/post/MaxPage";
 import Layout from "../components/common/Layout";
 
 import { useLocation } from "react-router-dom";
@@ -86,7 +86,7 @@ const Post = () => {
 
               <div className="flex flex-row">
                 <Star star={star} setStar={setStar} />
-                <PublisherPage page={page} setPage={setPage} />
+                <MaxPage page={page} setPage={setPage} />
               </div>
             </BookInfo>
           </InfoBox>
