@@ -4,10 +4,6 @@
   "private": true,
   "dependencies": {
     "@reduxjs/toolkit": "^1.8.5",
-    "@testing-library/jest-dom": "^5.14.1",
-    "@testing-library/react": "^13.0.0",
-    "@testing-library/user-event": "^13.2.1",
-    "aws-sdk": "^2.1214.0",
     "axios": "^0.27.2",
     "framer-motion": "^7.3.2",
     "json-server": "^0.17.0",
@@ -19,13 +15,9 @@
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "redux": "^4.2.0",
-    "styled-components": "^5.3.5",
-    "styled-reset": "^4.4.2",
     "web-vitals": "^2.1.0"
   },
   "scripts": {
-    "build:css": "postcss src/assets/tailwind.css -o src/assets/styles.css",
-    "watch:css": "postcss src/assets/tailwind.css -o src/assets/styles.css",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -51,12 +43,16 @@
     ]
   },
   "devDependencies": {
+    "@types/node": "^18.15.11",
+    "@types/react": "^18.0.34",
+    "@types/react-dom": "^18.0.11",
+    "@types/react-redux": "^7.1.25",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/styled-components": "^5.1.26",
     "autoprefixer": "^10.4.8",
-    "babel-plugin-macros": "^3.1.0",
     "postcss": "^8.4.16",
-    "postcss-cli": "^10.0.0",
-    "tailwind-styled-components": "^2.2.0",
     "tailwindcss": "^3.1.8",
-    "twin.macro": "^2.8.2"
+    "typescript": "^5.0.4",
+    "typescript-plugin-styled-components": "^2.0.0"
   }
 }
