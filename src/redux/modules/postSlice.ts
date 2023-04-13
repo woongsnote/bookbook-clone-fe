@@ -1,25 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import instance from "../../shared/api";
 import api from "../../shared/api";
 
+type Post = {
+  id: number,
+  title: string,
+  body: string,
+  author: string,
+  createdAt: string,
+  updatedAt: string,
+}
+
+type InitialState = {
+  isLoading: boolean,
+  posts: Post[],
+  error: string,
+}
 // WHAT 초기값
-const initialState = {
+const initialState: InitialState = {
   isLoading: false,
   posts: [],
-  post: {},
-  success: false,
-  // data: [
-  //   {
-  //     imageUrl: "",
-  //     nickname: "",
-  //     title: "",
-  //     readStart: "2000-01-01",
-  //     readEnd: "2999-12-31",
-  //     comment: "",
-  //     publisher: "",
-  //   },
-  // ],
-  error: null,
+  error: '',
 };
 
 export const __getAllReviews = createAsyncThunk(
@@ -85,67 +86,67 @@ export const postSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [__getAllReviews.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__getAllReviews.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.posts = action.payload;
-    },
-    [__getAllReviews.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [__getAllReviews.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__getAllReviews.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.posts = action.payload;
+    // },
+    // [__getAllReviews.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
 
-    [__getReview.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__getReview.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.post = action.payload;
-    },
-    [__getReview.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [__getReview.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__getReview.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.post = action.payload;
+    // },
+    // [__getReview.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
 
-    [__addReview.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__addReview.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      state.posts = action.payload;
-    },
-    [__addReview.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
-    [__editReview.pending]: (state) => {
-      state.isLoading = true;
-    },
-    [__editReview.fulfilled]: (state, action) => {
-      state.isLoading = false;
-      console.log("데이터", action.payload.data);
-      const newState = state.posts.map((post) => {
-        if (post.id === action.payload.data.id) {
-          post = {
-            ...post,
-            title: action.payload.data.title,
-            comment: action.payload.data.comment,
-            readStart: action.payload.data.readStart,
-            readEnd: action.payload.data.readEnd,
-            star: action.payload.data.star,
-            page: action.payload.data.page,
-          };
-        }
-      });
-      state.post = newState;
-      return state;
-    },
-    [__editReview.rejected]: (state, action) => {
-      state.isLoading = false;
-      state.error = action.payload;
-    },
+    // [__addReview.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__addReview.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.posts = action.payload;
+    // },
+    // [__addReview.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
+    // [__editReview.pending]: (state) => {
+    //   state.isLoading = true;
+    // },
+    // [__editReview.fulfilled]: (state, action) => {
+    //   state.isLoading = false;
+    //   console.log("데이터", action.payload.data);
+    //   const newState = state.posts.map((post) => {
+    //     if (post.id === action.payload.data.id) {
+    //       post = {
+    //         ...post,
+    //         title: action.payload.data.title,
+    //         comment: action.payload.data.comment,
+    //         readStart: action.payload.data.readStart,
+    //         readEnd: action.payload.data.readEnd,
+    //         star: action.payload.data.star,
+    //         page: action.payload.data.page,
+    //       };
+    //     }
+    //   });
+    //   state.post = newState;
+    //   return state;
+    // },
+    // [__editReview.rejected]: (state, action) => {
+    //   state.isLoading = false;
+    //   state.error = action.payload;
+    // },
   },
 });
 

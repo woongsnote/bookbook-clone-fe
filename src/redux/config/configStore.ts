@@ -1,11 +1,14 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import postSlice from "../modules/postSlice";
 import bookSlice from "../modules/bookSlice";
-const store = configureStore({
+
+export const store = configureStore({
   reducer: {
     postSlice,
     bookSlice,
   },
 });
 
-export default store;
+export const useAppDispatch: () => typeof store.dispatch = useDispatch;
+export const useAppSelector: TypedUseSelectorHook<ReturnType<typeof store.getState>> = useSelector;

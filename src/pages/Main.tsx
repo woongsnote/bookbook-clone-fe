@@ -5,7 +5,7 @@ import Layout from "../components/common/Layout";
 import BookList from "../components/main/BookList";
 import SearchForm from "../components/search/SearchForm";
 import BookTower from "../components/main/BookTower";
-import ModeSwitchButton from "../components/main/ModeSwitchButton.js";
+import ModeSwitchButton from "../components/main/ModeSwitchButton";
 // import { __getAllReviews } from "../redux/modules/postSlice";
 
 const Main = () => {

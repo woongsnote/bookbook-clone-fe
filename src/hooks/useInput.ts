@@ -3,7 +3,7 @@ import { useState } from "react";
 const useInput = () => {
   const [value, setValue] = useState("");
 
-  const handler = (e) => {
+  const handler = (e:any) => {
     setValue(e.target.value);
   };
 

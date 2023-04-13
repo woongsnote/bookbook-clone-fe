@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TiStarFullOutline } from "react-icons/ti";
-import styled from "styled-components";
+// import styled from "styled-components";
 
 const Star = ({ star, setStar }: any) => {
   const [clicked, setClicked] = useState([false, false, false, false, false]);
@@ -22,7 +22,7 @@ const Star = ({ star, setStar }: any) => {
   return (
     <div className="mt-10">
       <span className="text-black text-xl font-bold">⭐별점⭐</span>
-      <RatingBox>
+      <div>
         {stars.map((el) => (
           <TiStarFullOutline
             key={el}
@@ -31,27 +31,27 @@ const Star = ({ star, setStar }: any) => {
             size="35"
           />
         ))}
-      </RatingBox>
+      </div>
     </div>
   );
 };
 
-const RatingBox = styled.div`
-  display: flex;
-  margin: 0 auto;
+// const RatingBox = styled.div`
+//   display: flex;
+//   margin: 0 auto;
 
-  & svg {
-    color: #c4c4c4;
-    cursor: pointer;
-  }
-  :hover svg {
-    color: #fadb2a;
-  }
-  & svg:hover ~ svg {
-    color: #c4c4c4;
-  }
-  .black {
-    color: #fadb2a;
-  }
-`;
+//   & svg {
+//     color: #c4c4c4;
+//     cursor: pointer;
+//   }
+//   :hover svg {
+//     color: #fadb2a;
+//   }
+//   & svg:hover ~ svg {
+//     color: #c4c4c4;
+//   }
+//   .black {
+//     color: #fadb2a;
+//   }
+// `;
 export default Star;
