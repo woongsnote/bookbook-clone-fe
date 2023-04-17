@@ -1,5 +1,13 @@
+import { useAppSelector } from "../../hooks/storeHooks";
+
 const Wrapper = ({ children }: { children: React.ReactNode }) => {
-  return <div className="w-full h-full mt-24">{children}</div>;
+  const { darkTheme } = useAppSelector((state) => state);
+
+  return (
+    <div className={`${darkTheme ? "dark" : ""} w-full h-full`}>
+      {children}
+    </div>
+  );
 };
 
 export default Wrapper;

@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import useInput from "../hooks/useInput";
-import { __getReview, __addReview } from "../redux/modules/postSlice";
+// import { __getReviewDetail, __addReview } from "../redux/modules/postSlice";
 
 // 각각 요소 컴포넌트
 import BookImg from "../components/post/BookImg";

@@ -1,14 +1,18 @@
 import Wrapper from "../components/common/Wrapper";
-import LoginHeader from "../components/login/LoginHeader";
+import FormContainer from "../components/common/FormContainer";
 import LoginForm from "../components/login/LoginForm";
-import RegisterBox from "../components/login/RegisterBox";
+import FormFooter from "../components/common/FormFooter";
 
 const Login = () => {
   return (
     <Wrapper>
-      <LoginHeader />
-      <LoginForm />
-      <RegisterBox />
+      <FormContainer>
+        <LoginForm />
+        <FormFooter
+          title={"아직 회원이 아니신가요?"}
+          linkTitle={"가입하러가기"}
+        />
+      </FormContainer>
     </Wrapper>
   );
 };

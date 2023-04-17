@@ -3,7 +3,7 @@ import Layout from "../components/common/Layout";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { __getReview } from "../redux/modules/postSlice";
+// import { __getReviewDetail } from "../redux/modules/postSlice";
 
 const Detail = () => {
   const dispatch = useDispatch();

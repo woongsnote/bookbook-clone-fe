@@ -4,21 +4,22 @@ import { useLocation } from "react-router-dom";
 import Layout from "../components/common/Layout";
 import SearchForm from "../components/search/SearchForm";
 import SearchedBook from "../components/search/SearchedBook";
-import { useDispatch, useSelector } from "react-redux";
-import { __getBooks } from "../redux/modules/bookSlice";
+
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import { getBooks } from "../features/book/bookSlice";
 
 const Search = () => {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const location = useLocation();
   let title = "";
   /**다이렉트로 search page 접속 시 오류 방지 */
-  title = location.state?.title;
-
-  const { books: searchList } = useSelector((state: any) => state.bookSlice);
+  // title = location.state?.title;
+ 
 
   useEffect(() => {
     try {
-      // dispatch(__getBooks(title));
+      dispatch(getBooks(title));
     } catch (error) {
       console.log(error);
     }
@@ -32,7 +33,7 @@ const Search = () => {
           <div>책을 검색해주세요</div>
         ) : (
           <>
-            {searchList.map((book: any) => {
+            {/* {searchList.map((book: any) => {
               return (
                 <SearchedBook
                   key={book.isbn}
@@ -42,7 +43,7 @@ const Search = () => {
                   imageUrl={book.thumbnail}
                 />
               );
-            })}
+            })} */}
           </>
         )}
       </div>

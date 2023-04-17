@@ -29,10 +29,15 @@ instance.interceptors.request.use(
 /**도서 검색 API */
 export const bookAPI = {
   searchBooks: (title: string) =>
+
     axios.get(
       `https://dapi.kakao.com/v3/search/book?target=title&query=${title}&size=20`,
-      { headers: { Authorization: process.env.REACT_APP_KaKaoKEY!! } }
-    ),
+      {
+        headers: {
+          Authorization: process.env.REACT_APP_KaKaoKEY!!
+        }
+      })
+
 };
 
 export default instance;

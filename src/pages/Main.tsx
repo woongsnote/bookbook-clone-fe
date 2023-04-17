@@ -1,41 +1,33 @@
-import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-
+import { useEffect } from "react";
 import Layout from "../components/common/Layout";
-import BookList from "../components/main/BookList";
 import SearchForm from "../components/search/SearchForm";
-import BookTower from "../components/main/BookTower";
 import ModeSwitchButton from "../components/main/ModeSwitchButton";
-// import { __getAllReviews } from "../redux/modules/postSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import { getReviews } from "../features/review/reviewSlice";
+import BookTower from "../components/main/BookTower";
+import BookList from "../components/main/BookList";
 
 const Main = () => {
-  // const dispatch = useDispatch();
-
-  const [isTowerMode, setTowerMode] = useState(true);
-
-  // TODO My character 설정(option)
-  // const [myCharacter, setMyCharacter] = useState({});
-
-  const { posts: reviews } = useSelector((state: any) => state.postSlice);
-
+  const { reviews, towerMode } = useAppSelector((state) => state);
+  const dispatch = useAppDispatch();
   useEffect(() => {
-    // dispatch(__getAllReviews());
-  }, []);
+    dispatch(getReviews());
+  }, [dispatch]);
 
   return (
     <Layout>
-      <div className="mx-auto max-w-2xl border pt-28 h-full">
-        <div className="flex">
-          <h2 className="w-1/2 lg:w-2/3">나의 독후감</h2>
+      <div className="mx-auto max-w-4xl pt-28 h-full">
+        <div className="flex justify-between mb-4">
+          <h2 className="w-1/2 lg:w-2/3 font-bold text-2xl">나의 독후감</h2>
 
-          <ModeSwitchButton setTowerMode={setTowerMode} />
+          <ModeSwitchButton towerMode={towerMode}/>
         </div>
         <SearchForm />
 
-        {isTowerMode ? (
-          <BookTower reviews={reviews} />
+        {towerMode ? (
+          <BookTower reviews={reviews.data} />
         ) : (
-          <BookList reviews={reviews} />
+          <BookList reviews={reviews.data} />
         )}
       </div>
     </Layout>
