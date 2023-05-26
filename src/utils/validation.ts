@@ -7,7 +7,7 @@ export const isValidEmail = (email: string) => {
 };
 
 /**닉네임 유효성 검사 */
-export const isvalidUsername = (nickname: string) => {
+export const isValidUsername = (nickname: string) => {
   const nicknameRegEx = /^[ㄱ-ㅎ|가-힣|a-z|A-Z|0-9|]{4,12}$/;
   return nicknameRegEx.test(nickname);
 };

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const SearchForm = () => {
@@ -6,14 +6,13 @@ const SearchForm = () => {
 
   const [title, setTitle] = useState("");
 
-  const onSubmitHandler = (e: any) => {
-    e.preventDefault();
+  const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
     navigate("/search", { state: { title } });
-    // navigate("/searchTest", { state: { title: title } });
   };
 
-  const onChangeHandler = (e: any) => {
-    setTitle(e.target.value);
+  const onChangeHandler = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
   return (

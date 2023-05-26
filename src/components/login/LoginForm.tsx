@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, RefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import instance from "../../shared/api";
+import instance from "../../apis/instatnce";
 import Input from "../common/Input";
 
 interface InputField {
@@ -46,6 +46,7 @@ const LoginForm = () => {
         placeholder="이메일"
         inputRef={emailRef}
         onChange={emailChangeHandler}
+        name="email"
       />
       {emailError && <p className="text-rose-500 text-xs">{emailError}</p>}
 
@@ -54,6 +55,7 @@ const LoginForm = () => {
         placeholder="비밀번호"
         inputRef={passwordRef}
         onChange={passwordChangeHandler}
+        name="password"
       />
       {passwordError && (
         <p className="text-rose-500 text-xs">{passwordError}</p>

@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
 import { getReviews } from "../features/review/reviewSlice";
 import BookTower from "../components/main/BookTower";
 import BookList from "../components/main/BookList";
+import  ToggleButton  from "../components/common/ToggleButton";
 
 const Main = () => {
   const { reviews, towerMode } = useAppSelector((state) => state);
@@ -23,6 +24,12 @@ const Main = () => {
           <ModeSwitchButton towerMode={towerMode}/>
         </div>
         <SearchForm />
+        <div>
+      <div>
+      <ToggleButton  />
+    
+      </div>
+      </div>
 
         {towerMode ? (
           <BookTower reviews={reviews.data} />

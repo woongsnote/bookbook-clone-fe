@@ -1,5 +1,6 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import instance from "../../shared/api";
+import instance from "../../apis/instatnce";
+
 
 //Actions
 export const getReviews = createAsyncThunk("reviews/getReviews", async (data, thunkApi) => {

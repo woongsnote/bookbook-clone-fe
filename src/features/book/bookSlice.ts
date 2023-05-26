@@ -1,10 +1,11 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { bookAPI } from "../../shared/api";
+import bookAPI from "../../apis/bookApi";
+
 
 //Actions
 export const getBooks = createAsyncThunk("books/getBooks", async (title: string, thunkApi) => {
     try {
-        const response = await bookAPI.searchBooks(title);
+        const response = await bookAPI.get('/v3/search/book?target=title', { params: { query: `${title}` } });
         console.log(response.data);
         return thunkApi.fulfillWithValue(response.data);
     } catch (error: any) {
@@ -15,7 +16,7 @@ export const getBooks = createAsyncThunk("books/getBooks", async (title: string,
 interface BookState {
     loading: boolean
     error: null | string
-    data: null | { results: any[] }
+    data: null | { documents: any[] }
     bookDetail: null | any
 }
 
@@ -31,10 +32,10 @@ const bookSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers(builder) {
-        builder.addCase(getBooks.pending, (state) => { 
-            state.loading = true 
+        builder.addCase(getBooks.pending, (state) => {
+            state.loading = true
         })
-        builder.addCase(getBooks.fulfilled, (state, action: PayloadAction<{ results: any[] }>) => {
+        builder.addCase(getBooks.fulfilled, (state, action: PayloadAction<{ documents: any[] }>) => {
             state.loading = false
             state.data = action.payload
         })

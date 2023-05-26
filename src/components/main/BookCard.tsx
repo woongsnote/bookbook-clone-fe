@@ -1,17 +1,14 @@
 import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-const BookCard = ({
-  id,
-  title,
-  imageUrl,
-  rating,
-}: {
+type CardProps = {
   id: number;
   title: string;
   imageUrl: string;
   rating?: number;
-}) => {
+};
+
+const BookCard = ({ id, title, imageUrl, rating }: CardProps) => {
   const navigate = useNavigate();
   const goDetail = () => {
     navigate(`/detail/${id}`);

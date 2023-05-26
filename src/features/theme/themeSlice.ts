@@ -14,7 +14,7 @@ export const themeSlice = createSlice({
             if (state) {
                 localStorage.removeItem('bookbook-theme');
             } else {
-                localStorage.setItem('bookbook-theme', "_");
+                localStorage.setItem('bookbook-theme', "dark");
             }
             return (state = !state);
         }

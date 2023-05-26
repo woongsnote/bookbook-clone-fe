@@ -2,10 +2,10 @@ import { ChangeEvent, FormEvent, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import {
   isValidEmail,
-  isvalidUsername,
+  isValidUsername,
   isValidPassword,
 } from "../../utils/validation";
-import instance from "../../shared/api";
+import instance from "../../apis/instatnce";
 import Input from "../common/Input";
 
 /** 회원가입 폼 */
@@ -17,10 +17,12 @@ const RegisterForm = () => {
   const passwordRef = useRef<HTMLInputElement>(null);
   const passwordConfirmRef = useRef<HTMLInputElement>(null);
 
-  const [emailError, setEmailError] = useState("");
-  const [userNameError, setUserNameError] = useState("");
-  const [passwordError, setPasswordError] = useState("");
-  const [passwordConfirmError, setPasswordConfirmError] = useState("");
+  const [errors, setErrors] = useState({
+    email: "",
+    userName: "",
+    password: "",
+    passwordConfirm: "",
+  });
 
   const registerHandler = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -41,51 +43,43 @@ const RegisterForm = () => {
     }
   };
 
+  const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+    let errorMessage = "";
+
+    switch (name) {
+      case "email":
+        if (!isValidEmail(value)) {
+          errorMessage = "이메일 형식에 맞지 않습니다.";
+        }
+        break;
+      case "userName":
+        if (!isValidUsername(value)) {
+          errorMessage = "닉네임 형식에 맞지 않습니다.";
+        }
+        break;
+      case "password":
+        if (!isValidPassword(value)) {
+          errorMessage = "비밀번호 형식에 맞지 않습니다.";
+        }
+        break;
+      case "passwordConfirm":
+        if (value !== passwordRef.current?.value) {
+          errorMessage = "비밀번호가 일치하지 않습니다.";
+        }
+        break;
+      default:
+        break;
+    }
+
+    setErrors((prevErros)=>({...prevErros, [name]: errorMessage}));
+  };
+
   /** 이메일 유효성 확인 */
-  const emailChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (emailRef.current) {
-      if (!isValidEmail(emailRef.current.value)) {
-        setEmailError("이메일 형식에 맞지 않습니다.");
-      } else {
-        setEmailError("");
-      }
-    }
-  };
-
-  /** 닉네임 유효성 확인 */
-  const usernameChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    if (userNameRef.current) {
-      if (!isvalidUsername(userNameRef.current.value)) {
-        setUserNameError("닉네임 형식에 맞지 않습니다.");
-      } else {
-        setUserNameError("");
-      }
-    }
-  };
-
-  /** 비밀번호 유효성 확인 */
-  const passwordChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (passwordRef.current) {
-    //   if (isValidPassword(passwordRef.current.value) !== "") {
-    //     setPasswordError(isValidPassword(passwordRef.current.value));
-    //   } else {
-    //     setPasswordError("");
-    //   }
-    // }
-  };
-
-  const passwordConfirmChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    // if (passwordConfirmRef.current) {
-    //   if (isValidPassword(passwordConfirmRef.current.value) !== "") {
-    //     setPasswordConfirmError(isValidPassword(passwordConfirmRef.current.value));
-    //   } else {
-    //     setPasswordConfirmError("");
-    //   }
-    // }
-  };
-  /** 버튼 비활성 */
-  const isDisabled = !!emailError || !!passwordError;
   
+  /** 버튼 비활성 */
+  const isDisabled = Object.values(errors).some((error)=>!!error)
+
   return (
     <form className="max-w-lg mx-auto p-2" onSubmit={registerHandler}>
       <div className="flex flex-row items-center">
@@ -93,44 +87,48 @@ const RegisterForm = () => {
           type="email"
           placeholder="이메일"
           inputRef={emailRef}
-          onChange={emailChangeHandler}
+          name="email"
+          onChange={handleInputChange}
         />
         <button className="border m-2 p-2  h-auto rounded-lg w-32">
           중복확인
         </button>
       </div>
-      {emailError && <p className="text-rose-500 text-xs">{emailError}</p>}
+      {errors.email && <p className="text-rose-500 text-xs">{errors.email}</p>}
       <div className="flex flex-row items-center">
         <Input
           type="username"
           placeholder="닉네임"
           inputRef={userNameRef}
-          onChange={usernameChangeHandler}
+          name="userName"
+          onChange={handleInputChange}
         />
         <button className="border m-2 p-2  h-auto rounded-lg w-32">
           중복확인
         </button>
       </div>
-      {userNameError && (
-        <p className="text-rose-500 text-xs">{userNameError}</p>
+      {errors.userName && (
+        <p className="text-rose-500 text-xs">{errors.userName}</p>
       )}
       <Input
         type="password"
         placeholder="비밀번호"
         inputRef={passwordRef}
-        onChange={passwordChangeHandler}
+        name="password"
+        onChange={handleInputChange}
       />
-      {passwordError && (
-        <p className="text-rose-500 text-xs">{passwordError}</p>
+      {errors.password && (
+        <p className="text-rose-500 text-xs">{errors.password}</p>
       )}
       <Input
         type="passwordconfirm"
         placeholder="비밀번호확인"
         inputRef={passwordConfirmRef}
-        onChange={passwordConfirmChangeHandler}
+        name="passwordConfirm"
+        onChange={handleInputChange}
       />
-      {passwordConfirmError && (
-        <p className="text-rose-500 text-xs">{passwordConfirmError}</p>
+      {errors.passwordConfirm && (
+        <p className="text-rose-500 text-xs">{errors.passwordConfirm}</p>
       )}
       <p className="text-xs mt-2">
         비밀번호는 영문 대소문자,숫자를 혼합하여 4-20자로 입력해주세요
@@ -138,11 +136,13 @@ const RegisterForm = () => {
       <button
         type="submit"
         disabled={isDisabled}
-        className="bg-Bblue p-2 rounded-lg text-white self-center mx-auto block mt-4 w-4/5">
+        className="bg-Bblue p-2 rounded-lg text-white self-center mx-auto block mt-4 w-4/5"
+      >
         책 읽으러가기
       </button>
     </form>
   );
+
 };
 
 export default RegisterForm;
