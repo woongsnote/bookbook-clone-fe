@@ -1,22 +1,19 @@
 import { useNavigate } from "react-router-dom";
 
-const BookTile = ({
-  id,
-  title,
-  height,
-  isLeft,
-}: {
+type BookTileProps = {
   id: number;
   title: string;
-  isLeft: boolean;
-  height: string;
-}) => {
-  const bookHeight = Number(height) / 80;
+  page: number;
+};
 
+const BookTile = ({ id, title, page }: BookTileProps) => {
   const navigate = useNavigate();
   const goDetail = () => {
     navigate(`/detail/${id}`, { state: { title } });
   };
+
+  const bookHeight = Number(page) / 80;
+  const isLeft = id % 2 === 0;
 
   return isLeft ? (
     <div
