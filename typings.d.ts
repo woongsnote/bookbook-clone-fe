@@ -1,4 +1,4 @@
-type Book = {
+interface Book {
     id: number,
     title: string,
 }
