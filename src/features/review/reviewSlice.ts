@@ -1,12 +1,11 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import instance from "../../apis/instatnce";
+import instance from "../../apis/instance";
 
 
 //Actions
 export const getReviews = createAsyncThunk("reviews/getReviews", async (data, thunkApi) => {
     try {
         const response = await instance.get('/reviews');
-        console.log(response.data);
         return thunkApi.fulfillWithValue(response.data);
     } catch (error: any) {
         return thunkApi.rejectWithValue(error.message);
@@ -16,7 +15,6 @@ export const getReviews = createAsyncThunk("reviews/getReviews", async (data, th
 export const getReviewDetail = createAsyncThunk("reviews/getReviewDetail", async (id: number, thunkApi) => {
     try {
         const response = await instance.post(`/reviews/${id}`);
-        console.log(response.data);
         return thunkApi.fulfillWithValue(response.data);
     } catch (error: any) {
         return thunkApi.rejectWithValue(error.message);
@@ -36,7 +34,7 @@ const initialState: ReviewState = {
     data: null,
     reviewDetail: null
 }
-
+//TODO any 제거
 const reviewSlice = createSlice({
     name: "reviews",
     initialState,

@@ -1,12 +1,9 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import bookAPI from "../../apis/bookApi";
 
-
-//Actions
 export const getBooks = createAsyncThunk("books/getBooks", async (title: string, thunkApi) => {
     try {
         const response = await bookAPI.get('/v3/search/book?target=title', { params: { query: `${title}` } });
-        console.log(response.data);
         return thunkApi.fulfillWithValue(response.data);
     } catch (error: any) {
         return thunkApi.rejectWithValue(error.message);
