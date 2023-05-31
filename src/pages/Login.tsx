@@ -11,6 +11,7 @@ const Login = () => {
         <FormFooter
           title={"아직 회원이 아니신가요?"}
           linkTitle={"가입하러가기"}
+          href={"/register"}
         />
       </FormContainer>
     </Wrapper>
