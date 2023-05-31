@@ -5,6 +5,7 @@ import { getBooks } from "../features/book/bookSlice";
 import Layout from "../components/common/Layout";
 import SearchForm from "../components/search/SearchForm";
 import SearchedList from "../components/search/SearchedList";
+import PageContainer from "../components/common/PageContainer";
 
 const Search = () => {
   const { books } = useAppSelector((state) => state);
@@ -26,14 +27,14 @@ const Search = () => {
 
   return (
     <Layout>
-      <div className="mx-auto max-w-2xl pt-28 h-full">
+      <PageContainer>
         <SearchForm />
         {title === undefined ? (
           <div>책을 검색해주세요</div>
         ) : (
           <>{searchList && <SearchedList searchList={searchList} />}</>
         )}
-      </div>
+      </PageContainer>
     </Layout>
   );
 };
