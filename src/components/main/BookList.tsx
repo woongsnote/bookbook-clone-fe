@@ -1,20 +1,22 @@
+import { Review, Reviews } from "../../types/types";
+import EmptyList from "../common/EmptyList";
 import BookCard from "./BookCard";
 
-const BookList = ({ reviews }: { reviews: any[] | null }) => {
+const BookList = ({ reviews }: Reviews) => {
+  if (reviews === null) return <EmptyList />;
   return (
-    <section className="grid grid-cols-4 gap-4">
-      {reviews &&
-        reviews.map((review: any) => {
-          return (
-            <BookCard
-              key={review.id}
-              title={review.title}
-              id={review.id}
-              imageUrl={review.imageUrl}
-            />
-          );
-        })}
-    </section>
+    <div className="grid grid-cols-4 gap-5 place-items-center">
+      {reviews.map((review: Review) => {
+        return (
+          <BookCard
+            key={review.id}
+            id={review.id!!}
+            title={review.title}
+            imageUrl={review.imageUrl}
+          />
+        );
+      })}
+    </div>
   );
 };
 
