@@ -1,26 +1,24 @@
-import { FaStar } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-type CardProps = {
+type BookCardProps = {
   id: number;
   title: string;
   imageUrl: string;
-  rating?: number;
 };
 
-const BookCard = ({ id, title, imageUrl, rating }: CardProps) => {
+const BookCard = ({ id, title, imageUrl }: BookCardProps) => {
   const navigate = useNavigate();
   const goDetail = () => {
     navigate(`/detail/${id}`);
   };
+
   return (
     <div
       onClick={goDetail}
-      className="max-w-sm rounded overflow-hidden shadow-lg cursor-pointer">
-      <img className="w-full" src={imageUrl} alt="책 표지" />
-      <span className="px-6 py-3 font-bold text-md">{title}</span>
-      <span className="px-6 py-3 font-bold text-md">
-        <FaStar /> {rating}
+      className=" rounded overflow-hidden shadow-lg cursor-pointer w-[120px] flex flex-col">
+      <img className="" src={imageUrl} alt="책 표지" />
+      <span className="w-full text-center">
+        {title.length < 8 ? title : title.slice(0, 8) + "..."}
       </span>
     </div>
   );
