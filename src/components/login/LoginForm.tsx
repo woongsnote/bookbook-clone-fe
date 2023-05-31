@@ -1,6 +1,6 @@
 import { Dispatch, FormEvent, RefObject, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import instance from "../../apis/instatnce";
+import instance from "../../apis/instance";
 import Input from "../common/Input";
 
 interface InputField {
