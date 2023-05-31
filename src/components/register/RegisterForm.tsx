@@ -5,7 +5,7 @@ import {
   isValidUsername,
   isValidPassword,
 } from "../../utils/validation";
-import instance from "../../apis/instatnce";
+import instance from "../../apis/instance";
 import Input from "../common/Input";
 
 /** 회원가입 폼 */
