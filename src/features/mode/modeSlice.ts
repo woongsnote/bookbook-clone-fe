@@ -2,19 +2,22 @@ import { createSlice } from "@reduxjs/toolkit";
 
 type ModeState = boolean;
 
-const initialState: ModeState = true;
+const initialState: ModeState = true
 
 export const modeSlice = createSlice({
-    name: "mode",
-    initialState,
-    reducers: {
-        toggleMode: (state) => {
-            
-            return (state = !state);
-        }
-    }
-})
+  name: "mode",
+  initialState,
+  reducers: {
 
-export const { toggleMode } = modeSlice.actions;
+    toggleStackView: () => {
+      return true;
+    },
+    toggleListView: () => {
+      return false;
+    },
+  },
+});
+
+export const { toggleStackView, toggleListView } = modeSlice.actions;
 
 export default modeSlice.reducer;
