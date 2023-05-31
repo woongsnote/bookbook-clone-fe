@@ -1,42 +1,20 @@
-import { useEffect } from "react";
+import { useAppSelector } from "../hooks/storeHooks";
 import Layout from "../components/common/Layout";
+import PageContainer from "../components/common/PageContainer";
+import MainHeader from "../components/main/MainHeader";
 import SearchForm from "../components/search/SearchForm";
-import ModeSwitchButton from "../components/main/ModeSwitchButton";
-import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
-import { getReviews } from "../features/review/reviewSlice";
-import BookTower from "../components/main/BookTower";
-import BookList from "../components/main/BookList";
-import  ToggleButton  from "../components/common/ToggleButton";
+import ReviewSection from "../components/main/ReviewSection";
 
 const Main = () => {
-  const { reviews, towerMode } = useAppSelector((state) => state);
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    dispatch(getReviews());
-  }, [dispatch]);
+  const { towerMode } = useAppSelector((state) => state);
 
   return (
     <Layout>
-      <div className="mx-auto max-w-4xl pt-28 h-full">
-        <div className="flex justify-between mb-4">
-          <h2 className="w-1/2 lg:w-2/3 font-bold text-2xl">나의 독후감</h2>
-
-          <ModeSwitchButton towerMode={towerMode}/>
-        </div>
+      <PageContainer>
+        <MainHeader towerMode={towerMode} />
         <SearchForm />
-        <div>
-      <div>
-      <ToggleButton  />
-    
-      </div>
-      </div>
-
-        {towerMode ? (
-          <BookTower reviews={reviews.data} />
-        ) : (
-          <BookList reviews={reviews.data} />
-        )}
-      </div>
+        <ReviewSection towerMode={towerMode} />
+      </PageContainer>
     </Layout>
   );
 };
