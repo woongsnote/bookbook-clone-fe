@@ -6,16 +6,17 @@ import Layout from "../components/common/Layout";
 import SearchForm from "../components/search/SearchForm";
 import SearchedList from "../components/search/SearchedList";
 import PageContainer from "../components/common/PageContainer";
+import { NoTitle } from "../components/search/NoTitle";
 
 const Search = () => {
-  const { books } = useAppSelector((state) => state);
+  const { books } = useAppSelector((state) => state.books);
   const dispatch = useAppDispatch();
   const location = useLocation();
   let title = "";
   /**다이렉트로 search page 접속 시 오류 방지 */
   title = location.state?.title;
 
-  let searchList = books.data?.documents;
+  let searchList = books;
 
   useEffect(() => {
     try {
@@ -30,9 +31,9 @@ const Search = () => {
       <PageContainer>
         <SearchForm />
         {title === undefined ? (
-          <div>책을 검색해주세요</div>
+          <NoTitle />
         ) : (
-          <>{searchList && <SearchedList searchList={searchList} />}</>
+          <SearchedList searchList={searchList} />
         )}
       </PageContainer>
     </Layout>
