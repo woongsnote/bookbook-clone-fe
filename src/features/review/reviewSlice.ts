@@ -1,68 +1,140 @@
-import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import instance from "../../apis/instance";
-
-
-//Actions
-export const getReviews = createAsyncThunk("reviews/getReviews", async (data, thunkApi) => {
-    try {
-        const response = await instance.get('/reviews');
-        return thunkApi.fulfillWithValue(response.data);
-    } catch (error: any) {
-        return thunkApi.rejectWithValue(error.message);
-    }
-});
-
-export const getReviewDetail = createAsyncThunk("reviews/getReviewDetail", async (id: number, thunkApi) => {
-    try {
-        const response = await instance.post(`/reviews/${id}`);
-        return thunkApi.fulfillWithValue(response.data);
-    } catch (error: any) {
-        return thunkApi.rejectWithValue(error.message);
-    }
-});
+import { Review } from "../../types/types";
 
 interface ReviewState {
-    loading: boolean
-    error: null | string
-    data: null | any[]
-    reviewDetail: null | any
+  isLoading: boolean;
+  reviews: Review[];
+  review: Review | undefined;
+  success: boolean;
+  error: string | null;
 }
 
 const initialState: ReviewState = {
-    loading: false,
-    error: null,
-    data: null,
-    reviewDetail: null
-}
-//TODO any 제거
-const reviewSlice = createSlice({
-    name: "reviews",
-    initialState,
-    reducers: {},
-    extraReducers(builder) {
-        builder.addCase(getReviews.pending, (state) => {
-            state.loading = true
-        });
-        builder.addCase(getReviews.fulfilled, (state, action: PayloadAction<any[]>) => {
-            state.loading = false
-            state.data = action.payload
-        });
-        builder.addCase(getReviews.rejected, (state, action: PayloadAction<any>) => {
-            state.loading = false
-            state.error = action.payload
-        });
-        builder.addCase(getReviewDetail.pending, (state) => {
-            state.loading = true
-        });
-        builder.addCase(getReviewDetail.fulfilled, (state, action: PayloadAction<any>) => {
-            state.loading = false
-            state.data = action.payload
-        });
-        builder.addCase(getReviewDetail.rejected, (state, action: PayloadAction<any>) => {
-            state.loading = false
-            state.error = action.payload
-        });
+  isLoading: false,
+  reviews: [],
+  review: undefined,
+  success: false,
+  error: null,
+};
+
+export const getReviews = createAsyncThunk<Review[]>(
+  "reviews/getReviews",
+  async (_, thunkApi) => {
+    try {
+      const { data } = await instance.get("/reviews");
+      return thunkApi.fulfillWithValue(data);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
     }
-})
+  }
+);
+
+export const getReviewDetail = createAsyncThunk<Review, number>(
+  "reviews/getReviewDetail",
+  async (id, thunkApi) => {
+    try {
+      const { data } = await instance.get(`/reviews/${id}`);
+      console.log(data);
+      return thunkApi.fulfillWithValue(data);
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const addReview = createAsyncThunk<Review, any>(
+  "reviews/addReview",
+  async (args, thunkApi) => {
+    try {
+      const { data } = await instance.post("/reviews", args);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+export const editReview = createAsyncThunk<Review>(
+  "reviews/editReview",
+  async (payload, thunkApi) => {
+    try {
+      const { data } = await instance.put("/reviews", payload);
+      return data;
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
+
+const reviewSlice = createSlice({
+  name: "reviews",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(getReviews.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getReviews.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.reviews = action.payload;
+    });
+    builder.addCase(getReviews.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(getReviewDetail.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(getReviewDetail.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.review = action.payload;
+    });
+    builder.addCase(getReviewDetail.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(addReview.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(addReview.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.review = action.payload;
+    });
+    builder.addCase(addReview.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string;
+    });
+
+    builder.addCase(editReview.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(editReview.fulfilled, (state, action) => {
+      state.isLoading = false;
+      const newState = state.reviews.map((review) => {
+        if (review.id === action.payload.id) {
+          return {
+            ...review,
+            title: action.payload.title,
+            comment: action.payload.comment,
+            readStart: action.payload.readStart,
+            readEnd: action.payload.readEnd,
+            star: action.payload.star,
+            page: action.payload.page,
+          };
+        }
+        return review;
+      });
+      state.reviews = newState;
+      state.review = newState.find((review) => review.id === action.payload.id);
+    });
+    builder.addCase(editReview.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.payload as string;
+    });
+  },
+});
 
 export default reviewSlice.reducer;
