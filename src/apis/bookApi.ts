@@ -1,12 +1,24 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosResponse } from "axios";
+import { Book } from "../types/types";
 
-const BASE_URL = "https://dapi.kakao.com";
+const BASE_URL = "https://dapi.kakao.com/v3/search/book";
 
-const bookAPI: AxiosInstance = axios.create({
-    baseURL: BASE_URL,
-    headers: {
-        Authorization: process.env.REACT_APP_KaKaoKEY!!
-    }
-})
+interface BookData {
+  documents: Book[];
+}
 
-export default bookAPI
+interface BookAPI {
+  searchBooks: (title: string) => Promise<AxiosResponse<BookData>>;
+}
+
+export const bookAPI: BookAPI = {
+  searchBooks: (title) =>
+    axios.get(BASE_URL, {
+      headers: { Authorization: process.env.REACT_APP_KaKaoKEY as string },
+      params: {
+        target: title,
+        query: title,
+        size: 20,
+      },
+    }),
+};

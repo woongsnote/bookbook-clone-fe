@@ -1,46 +1,51 @@
 import { PayloadAction, createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import bookAPI from "../../apis/bookApi";
-
-export const getBooks = createAsyncThunk("books/getBooks", async (title: string, thunkApi) => {
-    try {
-        const response = await bookAPI.get('/v3/search/book?target=title', { params: { query: `${title}` } });
-        return thunkApi.fulfillWithValue(response.data);
-    } catch (error: any) {
-        return thunkApi.rejectWithValue(error.message);
-    }
-});
+import { bookAPI } from "../../apis/bookApi";
+import { Book } from "../../types/types";
 
 interface BookState {
-    loading: boolean
-    error: null | string
-    data: null | { documents: any[] }
-    bookDetail: null | any
+  isLoading: boolean;
+  books: Book[];
+  error: null | string;
 }
 
 const initialState: BookState = {
-    loading: false,
-    error: null,
-    data: null,
-    bookDetail: null
-}
+  isLoading: false,
+  books: [],
+  error: null,
+};
+
+export const getBooks = createAsyncThunk(
+  "books/getBooks",
+  async (title: string, thunkApi) => {
+    try {
+      const { data } = await bookAPI.searchBooks(title);
+      return data.documents as Book[];
+    } catch (error) {
+      return thunkApi.rejectWithValue(error);
+    }
+  }
+);
 
 const bookSlice = createSlice({
-    name: "books",
-    initialState,
-    reducers: {},
-    extraReducers(builder) {
-        builder.addCase(getBooks.pending, (state) => {
-            state.loading = true
-        })
-        builder.addCase(getBooks.fulfilled, (state, action: PayloadAction<{ documents: any[] }>) => {
-            state.loading = false
-            state.data = action.payload
-        })
-        builder.addCase(getBooks.rejected, (state, action: PayloadAction<any>) => {
-            state.loading = false
-            state.error = action.payload
-        })
-    }
-})
+  name: "books",
+  initialState,
+  reducers: {},
+  extraReducers(builder) {
+    builder.addCase(getBooks.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(
+      getBooks.fulfilled,
+      (state, action: PayloadAction<Book[]>) => {
+        state.isLoading = false;
+        state.books = action.payload;
+      }
+    );
+    builder.addCase(getBooks.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message as string;
+    });
+  },
+});
 
 export default bookSlice.reducer;
