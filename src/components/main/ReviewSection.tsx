@@ -11,7 +11,7 @@ const ReviewSection = ({ towerMode }: { towerMode: boolean }) => {
     dispatch(getReviews());
   }, [dispatch]);
   return (
-    <section className="my-8">
+    <section className="my-4">
       {towerMode ? (
         <BookTower reviews={reviews.data} />
       ) : (
