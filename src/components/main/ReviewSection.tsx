@@ -5,17 +5,17 @@ import BookList from "./BookList";
 import BookTower from "./BookTower";
 
 const ReviewSection = ({ towerMode }: { towerMode: boolean }) => {
-  const { reviews } = useAppSelector((state) => state);
   const dispatch = useAppDispatch();
+  const { reviews } = useAppSelector((state) => state.reviews);
   useEffect(() => {
     dispatch(getReviews());
   }, [dispatch]);
   return (
     <section className="my-4">
       {towerMode ? (
-        <BookTower reviews={reviews.data} />
+        <BookTower reviews={reviews} />
       ) : (
-        <BookList reviews={reviews.data} />
+        <BookList reviews={reviews} />
       )}
     </section>
   );
