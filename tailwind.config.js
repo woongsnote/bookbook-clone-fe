@@ -5,11 +5,11 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        Bwhite: "#ffffff",
         Bred: "#D34242",
         Bblue: "#567F9E",
         BDeepblue: "#375160",
         Bblack: "#3A3A3A",
+        BYellow: "#FADB2A"
       },
       width: {
         c: "45rem",
