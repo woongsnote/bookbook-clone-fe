@@ -1,79 +1,55 @@
-import { useNavigate } from "react-router-dom";
-import Layout from "../components/common/Layout";
-import { useParams } from "react-router-dom";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-// import { __getReviewDetail } from "../redux/modules/postSlice";
+import { useNavigate, useParams } from "react-router-dom";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import { getReviewDetail } from "../features/review/reviewSlice";
+import Layout from "../components/common/Layout";
+import PageContainer from "../components/common/PageContainer";
+import DetailButton from "../components/detail/DetailButton";
+import DetailButtonContainer from "../components/detail/DetailButtonContainer";
+import DetailCardContainer from "../components/detail/DetailCardContainer";
+import TitleBox from "../components/detail/TitleBox";
+import InfoBox from "../components/detail/InfoBox";
 
 const Detail = () => {
-  const dispatch = useDispatch();
-  const { id } = useParams();
-
-  useEffect(() => {
-    // dispatch(__getReview(id));
-  }, [dispatch, id]);
-
-  const review = useSelector((state:any) => state.postSlice.post);
-
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
+  const { id } = useParams();
+  const reviewDetail = useAppSelector((state) => state.reviews.review);
+  console.log(reviewDetail);
+  useEffect(() => {
+    dispatch(getReviewDetail(+id!!));
+  }, [dispatch, id]);
+
   const goBack = () => {
-    navigate("/main");
+    navigate("/");
   };
 
   const goEdit = () => {
     navigate(`/edit/${id}`);
   };
-
+  if (reviewDetail === undefined) return null;
   return (
     <Layout>
-      <div>
-        <div>
-          <div>
-            <span>{review.title}</span>
-          </div>
-
-          <div>
-            <div>
-              <img src={review.imageUrl} alt="BookCover" />
-            </div>
-
-            <div>
-              <div>
-                <p>독서 기간</p>
-
-                <p>시작일: {review.readStart}</p>
-                <p>종료일: {review.readEnd}</p>
-              </div>
-
-              <div>
-                <p>별점:⭐{review.star} </p>
-              </div>
-
-              <div>
-                <p>책 소개</p>
-                <p>{review.comment}</p>
-              </div>
-
-              <div>
-                <p>총 페이지: {review.page} 페이지</p>
-              </div>
-            </div>
-          </div>
-
-          <div>
-            <button type="button" onClick={goBack}>
-              취소
-            </button>
-            <button type="button" onClick={goEdit}>
-              수정
-            </button>
-          </div>
-        </div>
-      </div>
+      <PageContainer>
+        <DetailCardContainer>
+          <TitleBox title={reviewDetail.title} />
+          <InfoBox
+            imageUrl={reviewDetail.imageUrl}
+            pages={reviewDetail.page}
+            readStart={reviewDetail.readStart}
+            readEnd={reviewDetail.readEnd}
+            star={reviewDetail.star}
+            comment={reviewDetail.comment}
+          />
+          <DetailButtonContainer>
+            <DetailButton title={"취소"} onClickHandler={goBack} />
+            <DetailButton title={"수정"} onClickHandler={goEdit} />
+          </DetailButtonContainer>
+        </DetailCardContainer>
+      </PageContainer>
     </Layout>
   );
 };
-
 
 export default Detail;
