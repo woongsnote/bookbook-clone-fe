@@ -1,98 +1,84 @@
 import { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import useInput from "../hooks/useInput";
-// import { __editReview } from "../redux/modules/postSlice";
-// import { __getReviewDetail } from "../redux/modules/postSlice";
-
-// 각각 요소 컴포넌트
-import BookImg from "../components/post/BookImg";
+import { useNavigate, useParams } from "react-router-dom";
+import { getReviewDetail } from "../features/review/reviewSlice";
+import { useAppDispatch, useAppSelector } from "../hooks/storeHooks";
+import Layout from "../components/common/Layout";
+import PageContainer from "../components/common/PageContainer";
+import BookImage from "../components/post/BookImage";
 import Star from "../components/post/Star";
 import BookIntro from "../components/post/BookIntro";
 import MaxPage from "../components/post/MaxPage";
-import Layout from "../components/common/Layout";
-
-import { useLocation, useParams } from "react-router-dom";
+import BookTitle from "../components/post/BookTitle";
+import ReadingPeriod from "../components/post/ReadingPeriod";
+import { Review } from "../types/types";
 
 const Edit = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
   const { id } = useParams();
   useEffect(() => {
-    // dispatch(__getReview(id));
-  }, []);
+    dispatch(getReviewDetail(+id!!));
+  }, [dispatch, id]);
+  const review = useAppSelector((state) => state.reviews.review)!!;
 
-  // 불러오기!
-  const review = useSelector((state: any) => state.postSlice.post);
-  console.log("🚀 ~ Edit ~ review", review);
-  const location = useLocation();
+  const [newReadStart, setNewReadStart] = useState<Date | string>(
+    review.readStart
+  );
+  const [newReadEnd, setNewReadEnd] = useState<Date | string>(review.readEnd);
+  const [newStar, setNewStar] = useState<number>(review.star);
+  const [newComment, setNewComment] = useState<string>(review.comment);
+  const [newPage, setNewPage] = useState(review.page);
 
-  // ANCHOR 이니셜 스테이트
-  const [newReadStart, setNewReadStart] = useState(review.readStart);
-  const [newReadEnd, setNewReadEnd] = useState(review.readEnd);
-  const [newStar, setNewStar] = useState(review.star);
-  const [newComment, setNewComment] = useState(review.comment);
-  // const [newPage, setNewPage] = useInput(review.page);
+  const editReview = () => {
+    const newReview: Review = {
+      title: review.title,
+      readStart: newReadStart.toString(),
+      readEnd: newReadEnd.toString(),
+      star: newStar,
+      comment: newComment,
+      page: newPage,
+      imageUrl: review.imageUrl,
+    };
+    console.log(newReview);
 
-  // const newReview = {
-  //   title: review.title,
-  //   readStart: newReadStart,
-  //   readEnd: newReadEnd,
-  //   star: newStar,
-  //   comment: newComment,
-  //   page: newPage,
-  // };
-
-  const onClick = () => {
     // dispatch(__editReview(newReview));
-    navigate(`/main`);
+    navigate(`/`);
   };
+
+  const goBack = () => {
+    navigate("/");
+  };
+
+  if (review === undefined) return null;
 
   return (
     <Layout>
-      <div>
-        <div>
-          <div className="flex">
-            <BookImg imageUrl={review.imageUrl} />
-
-            <div>
-              <span>{review.title}</span>
-
-              <h2>독서 기간</h2>
-              <div>
-                <input
-                  type="date"
-                  id="readStart"
-                  value={newReadStart}
-                  onChange={(e) => {
-                    setNewReadStart(e.target.value);
-                  }}></input>
-                <input
-                  type="date"
-                  id="readEnd"
-                  value={newReadEnd}
-                  onChange={(e) => {
-                    setNewReadEnd(e.target.value);
-                  }}></input>
-              </div>
-
-              <div className="flex flex-row">
-                <Star star={newStar} onChange={setNewStar} />
-                {/* <MaxPage page={newPage} onChange={setNewPage} /> */}
-              </div>
+      <PageContainer>
+        <div className="flex">
+          <BookImage imageUrl={review.imageUrl} />
+          <div className="w-full">
+            <BookTitle title={review.title} />
+            <ReadingPeriod
+              readStart={newReadStart}
+              readEnd={newReadEnd}
+              setReadStart={setNewReadStart}
+              setReadEnd={setNewReadEnd}
+            />
+            <div className="flex flex-row w-full">
+              <Star star={review.star} setStar={setNewStar} />
+              <MaxPage page={review.page} setPage={setNewPage} />
             </div>
           </div>
-
-          <BookIntro setComment={setNewComment} />
-          <button
-            className="button transition delay-100 duration-300 ease-in-out"
-            type="button"
-            onClick={onClick}>
-            수정
-          </button>
         </div>
-      </div>
+        <BookIntro comment={review.comment} setComment={setNewComment} />
+        <button onClick={editReview}>
+          수정
+        </button>
+        <button onClick={goBack}>
+          취소
+        </button>
+      </PageContainer>
     </Layout>
   );
 };
