@@ -1,57 +1,55 @@
 import { useState } from "react";
 import { TiStarFullOutline } from "react-icons/ti";
-// import styled from "styled-components";
 
-const Star = ({ star, setStar }: any) => {
-  const [clicked, setClicked] = useState([false, false, false, false, false]);
-  const stars = [0, 1, 2, 3, 4];
+type StarProps = {
+  star: number;
+  setStar: (rating: number) => void;
+};
+const MAX_RATING = 5;
+const INITIAL_RATING = 0;
 
-  const handleStarClick = (index: any) => {
-    let clickStates = [...clicked];
-    let trueStars = 0;
+const Star = ({ star, setStar }: StarProps) => {
+  
+  const [hoverRating, setHoverRating] = useState(INITIAL_RATING);
+  const [selectedRating, setSelectedRating] = useState(star);
 
-    for (let i = 0; i < stars.length; i++) {
-      clickStates[i] = i <= index ? true : false;
-    }
-    setClicked(clickStates);
-    trueStars = clickStates.filter((star) => star === true).length;
-    setStar(trueStars);
+  const handleMouseEnter = (rating: number) => {
+    setHoverRating(rating);
   };
-  let score = clicked.filter(Boolean).length;
+
+  const handleMouseLeave = () => {
+    setHoverRating(INITIAL_RATING);
+  };
+
+  const handleClick = (rating: number) => {
+    setSelectedRating(rating);
+    setStar(rating);
+  };
 
   return (
     <div className="mt-10">
       <span className="text-black text-xl font-bold">⭐별점⭐</span>
-      <div>
-        {stars.map((el) => (
-          <TiStarFullOutline
-            key={el}
-            onClick={() => handleStarClick(el)}
-            // className={clicked[el] && "black"}
-            size="35"
-          />
-        ))}
+
+      <div className="flex">
+        {[...Array(MAX_RATING)].map((_, index) => {
+          const ratingValue = index + 1;
+          const isHighlighted = ratingValue <= (hoverRating || selectedRating);
+          return (
+            <TiStarFullOutline
+              key={index}
+              size={35}
+              className={`cursor-pointer text-2xl ${
+                isHighlighted ? "text-BYellow" : "text-gray-500"
+              }`}
+              onMouseEnter={() => handleMouseEnter(ratingValue)}
+              onMouseLeave={handleMouseLeave}
+              onClick={() => handleClick(ratingValue)}
+            />
+          );
+        })}
       </div>
     </div>
   );
 };
 
-// const RatingBox = styled.div`
-//   display: flex;
-//   margin: 0 auto;
-
-//   & svg {
-//     color: #c4c4c4;
-//     cursor: pointer;
-//   }
-//   :hover svg {
-//     color: #fadb2a;
-//   }
-//   & svg:hover ~ svg {
-//     color: #c4c4c4;
-//   }
-//   .black {
-//     color: #fadb2a;
-//   }
-// `;
 export default Star;
